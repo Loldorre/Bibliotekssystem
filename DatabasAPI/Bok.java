@@ -1,18 +1,29 @@
 package DatabasAPI;
 
 public class Bok {
+
+    private int bibID;
     private int ISBN;
     private String titel;
     private String forfattare;
     private int antal;
     private int utgivningsar;
 
-    public Bok (int ISBN, String titel, String forfattare, int antal, int utgivningsar) {
+    public Bok (int bibID, int ISBN, String titel, String forfattare, int antal, int utgivningsar) {
+        this.bibID = bibID;
         this.ISBN = ISBN;
         this.titel = titel;
         this.forfattare = forfattare;
         this.antal = antal;
         this.utgivningsar = utgivningsar;
+    }
+
+    public int getBibID() {
+        return bibID;
+    }
+
+    public void setBibID(int bibID) {
+        this.bibID = bibID;
     }
 
     public int getISBN() {
