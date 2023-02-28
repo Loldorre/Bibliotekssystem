@@ -1,4 +1,4 @@
-package UserAPI;
+package userAPI;
 
 public class UI {
 }

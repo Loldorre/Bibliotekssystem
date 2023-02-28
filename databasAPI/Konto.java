@@ -1,4 +1,4 @@
-package DatabasAPI;
+package databasAPI;
 
 import java.math.BigInteger;
 

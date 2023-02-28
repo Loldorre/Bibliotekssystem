@@ -1,4 +1,4 @@
-package DatabasAPI;
+package databasAPI;
 
 public class Bok {
 
@@ -11,6 +11,16 @@ public class Bok {
 
     public Bok (int bibID, int ISBN, String titel, String forfattare, int antal, int utgivningsar) {
         this.bibID = bibID;
+        this.ISBN = ISBN;
+        this.titel = titel;
+        this.forfattare = forfattare;
+        this.antal = antal;
+        this.utgivningsar = utgivningsar;
+    }
+    /*Lade till denna för att kunna hantera böcker i listan med böcker som inte finns i samling. Dessa har inget bibID
+    eftersom de bara finns utan att existera i samlingen. Dessa identifieras ju av ISBN.*/
+
+    public Bok (int ISBN, String titel, String forfattare, int antal, int utgivningsar) {
         this.ISBN = ISBN;
         this.titel = titel;
         this.forfattare = forfattare;
