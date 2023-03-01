@@ -33,6 +33,9 @@ public class Process implements IProcess {
     public Bok[] kollaTillgänglighetForfattare(String forfattare) {
         return new Bok[0];
     }
+    //hej
+    //sanja
+    //iyiyiiyy
 
     @Override
     public boolean kollaMedlemsstatus(BigInteger personNr) {

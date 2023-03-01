@@ -1,7 +1,8 @@
 package userAPI;
 
 public class UI {
-    public class jag{
+    public class jag
+    {
 
     }
 
