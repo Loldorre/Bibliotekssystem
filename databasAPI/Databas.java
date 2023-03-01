@@ -35,7 +35,7 @@ public class Databas implements IDatabas {
     }
     @Override
     public Bok[] hämtaTillgängligheten(int bibID) {
-        return new Bok[0];
+        return new Bok[0];//Dorian gjorde en ändring
     }
 
     @Override
