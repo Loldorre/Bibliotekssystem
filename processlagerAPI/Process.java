@@ -6,8 +6,8 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class Process implements IProcess {
-    Databas DatabasAPI = new Databas("jdbc:mysql://192.168.50.101/1ik173-server?","user=Viktor&password=Viktor1234");
-
+    Databas DatabasAPI = new Databas("jdbc:mysql://192.168.50.101/1ik173-server?",
+            "user=Viktor&password=Viktor1234");
     Process(){}
     @Override
     public boolean kollaTillgänglighetBibID(int bibID) {
