@@ -28,23 +28,23 @@ public class Databas implements IDatabas {
             System.out.println("VendorError: " + ex.getErrorCode());
         }
     }
+
     @Override
     public Bok[] hämtaTillgängligheten(String titel, String författare, int ISBN) {
         return new Bok[0];
     }
-
     @Override
     public Bok[] hämtaTillgängligheten(int bibID) {
         return new Bok[0];
     }
 
     @Override
-    public String skapaLån(Date startDatum, BigInteger personNr, int ISBN) {
+    public String skapaLån(Date startDatum, int kontoID, int ISBN) {
         return null;
     }
 
     @Override
-    public String taBortLån(BigInteger personNr, int ISBN) {
+    public String taBortLån(int kontoID, int ISBN) {
         return null;
     }
 
@@ -59,7 +59,7 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public String avslutaKonto(BigInteger personNr) {
+    public String avslutaKonto(int kontoID) {
         return null;
     }
 
