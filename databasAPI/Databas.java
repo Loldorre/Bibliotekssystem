@@ -30,11 +30,7 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public Bok[] hämtaTillgängligheten(String titel, String författare, int ISBN) {
-        return new Bok[0];
-    }
-    @Override
-    public Bok[] hämtaTillgängligheten(int bibID) {
+    public Bok[] hämtaTillgängligheten(String titel) {
         return new Bok[0];
     }
 
@@ -66,5 +62,9 @@ public class Databas implements IDatabas {
     @Override
     public Konto[] hämtaKonton() {
         return new Konto[0];
+    }
+    @Override
+    public String registreraTempAvstänging(int kontoID) {
+        return null;
     }
 }
