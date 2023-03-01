@@ -16,6 +16,8 @@ public class Process implements IProcess {
 
     @Override
     public Bok[] kollaTillgänglighetTitel(String titel) {
+
+        /*Detta är jag som skriver i denna... Viktor heter jag.*/
         return new Bok[0];
     }
 
