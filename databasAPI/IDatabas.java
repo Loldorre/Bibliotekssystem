@@ -9,8 +9,6 @@ retunera tillgängligheten av en viss Bok, tillgänglig eller ej
 *utifrån Bokens titel, Boken ISBN (identification number), Bokens titel och författare,  Bokens *författare
 */
 //hämta alla böcker med riktig titel
- Bok[] hämtaTillgängligheten (String titel);
-
 
     /*skapa en Lån och returnera en String*/
     String skapaLån (Date startDatum, int kontoID, int ISBN);
