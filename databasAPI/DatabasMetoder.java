@@ -58,19 +58,63 @@ public class DatabasMetoder implements IDatabas{
     }
 
     @Override
-    public String läggTillSvartlista(BigInteger personNr) {
+    // INTE FÄRDIG, Får felmeddelande när jag i mainmetoden sätter in för stort värde
+    public String läggTillSvartlista(long personNr) {
+        try {
+            Statement stmt = connection.createStatement();
+            String addBlacklist = "insert into svartlista values (" + personNr + ")";
+            int rS = stmt.executeUpdate(addBlacklist);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return null;
     }
 
+
+
     @Override
-    public String skapaKonto(String fnamn, String enamn, BigInteger personNr, String roll) {
+    public String skapaKonto(String fnamn, String enamn, long personNr, String roll) {
+        try {
+            Statement stmt = connection.createStatement();
+            String addAccount = "insert into konto values ("+fnamn+","+enamn+","+personNr+","+roll+")";
+            int rS = stmt.executeUpdate(addAccount);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return null;
     }
 
     @Override
     public String avslutaKonto(int kontoID) {
-        return null;
+        try {
+            Statement stmt = connection.createStatement();
+            String deleteAccount = "delete from konto where kontoID =" + kontoID;
+            int rS = stmt.executeUpdate(deleteAccount);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return "Kontot har tagits bort";
     }
+
 
     @Override
     public Konto[] hämtaKonton() {
