@@ -12,7 +12,14 @@ public class Process implements IProcess {
 
     @Override
     public int kollaTillgänglighet(String titel) {
-        return 0;
+        int tillgänglighetsCase = 0;
+        Bok [] listaAvBöcker = DatabasAPI.hämtaTillgänglighet(titel);
+
+        if (listaAvBöcker == null) {
+            return tillgänglighetsCase;
+        } else {
+            return 1;
+        }
     }
 
     @Override
