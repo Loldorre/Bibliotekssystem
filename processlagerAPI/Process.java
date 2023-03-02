@@ -9,35 +9,14 @@ public class Process implements IProcess {
     Databas DatabasAPI = new Databas("jdbc:mysql://192.168.50.101/1ik173-server?",
             "user=Viktor&password=Viktor1234");
     Process(){}
+
     @Override
-    public boolean kollaTillgänglighetBibID(int bibID) {
-        return false;
+    public int kollaTillgänglighet(String titel) {
+        return 0;
     }
 
     @Override
-    public Bok[] kollaTillgänglighetTitel(String titel) {
-
-        /*Detta är jag som skriver i denna... Viktor heter jag.*/
-        return new Bok[0];
-    }
-
-    @Override
-    public Bok[] kollaTillgänglighetISBN(int ISBN) {
-        return new Bok[0];
-    }
-
-    @Override
-    public Bok[] kollaTillgänglighetTitelForfattare(String titel, String forfattare) {
-        return new Bok[0];
-    }
-
-    @Override
-    public Bok[] kollaTillgänglighetForfattare(String forfattare) {
-        return new Bok[0];
-    }
-
-    @Override
-    public boolean kollaMedlemsstatus(BigInteger personNr) {
+    public boolean kollaMedlemsStatus(BigInteger personNr) {
         return false;
     }
 
@@ -46,10 +25,6 @@ public class Process implements IProcess {
         return null;
     }
 
-    @Override
-    public String tempAvstängning(BigInteger personNr) {
-        return null;
-    }
 
     @Override
     public boolean svartlistaMedlem(BigInteger personNr) {

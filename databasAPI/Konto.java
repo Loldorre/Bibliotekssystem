@@ -5,21 +5,34 @@ import java.math.BigInteger;
 public class Konto {
     private String fNamn;
     private String eNamn;
+    /* -- undergraduate,postgraduate,candidate,teacher (måste vara definierat så man vet vad man ska sätta in vid registrering... borde egentligen vara en int tycker jag)
+    Max lån:
+    undergraduate = 3
+    postgraduate = 5
+    candidate = 7
+    teacher = 10
+    * */
     private String roll;
     private BigInteger personNr;
-    private String behorighetsniva;
+
+    //private String behorighetsniva;(redundant)
+
+    //4 siffror
     private int kontoID;
     private boolean avstangd;
+    //int[] med alla bid för lånade böcker
     private int[] lanadeBocker;
     private int antalAvstangningar;
     private int antalForseningar;
 
-    public Konto (String fNamn, String eNamn, String roll, BigInteger personNr, String behorighetsniva, int kontoID, boolean avstangd, int[] lanadeBocker, int antalAvstangningar, int antalForseningar) {
+    public Konto (String fNamn, String eNamn, BigInteger personNr, String roll, int kontoID, boolean avstangd, int[] lanadeBocker, int antalAvstangningar, int antalForseningar) {
         this.fNamn = fNamn;
         this.eNamn = eNamn;
         this.roll = roll;
         this.personNr = personNr;
-        this.behorighetsniva = behorighetsniva;
+
+        //this.behorighetsniva = behorighetsniva;(redundant pga roll)
+
         this.kontoID = kontoID;
         this.lanadeBocker = lanadeBocker;
         this.avstangd = avstangd;
@@ -59,6 +72,7 @@ public class Konto {
         this.personNr = personNr;
     }
 
+/*
     public String getBehorighetsniva() {
         return behorighetsniva;
     }
@@ -66,6 +80,7 @@ public class Konto {
     public void setBehorighetsniva(String behorighetsniva) {
         this.behorighetsniva = behorighetsniva;
     }
+*/
 
     public int getKontoID() {
         return kontoID;
