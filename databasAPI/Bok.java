@@ -6,15 +6,13 @@ public class Bok {
     private int ISBN;
     private String titel;
     private String forfattare;
-    private int antal;
     private int utgivningsar;
 
-    public Bok (int bibID, int ISBN, String titel, String forfattare, int antal, int utgivningsar) {
+    public Bok (int bibID, int ISBN, String titel, String forfattare, int utgivningsar) {
         this.bibID = bibID;
         this.ISBN = ISBN;
         this.titel = titel;
         this.forfattare = forfattare;
-        this.antal = antal;
         this.utgivningsar = utgivningsar;
     }
     /*Lade till denna för att kunna hantera böcker i listan med böcker som inte finns i samling. Dessa har inget bibID
@@ -24,7 +22,6 @@ public class Bok {
         this.ISBN = ISBN;
         this.titel = titel;
         this.forfattare = forfattare;
-        this.antal = antal;
         this.utgivningsar = utgivningsar;
     }
 
@@ -58,14 +55,6 @@ public class Bok {
 
     public void setForfattare(String forfattare) {
         this.forfattare = forfattare;
-    }
-
-    public int getAntal() {
-        return antal;
-    }
-
-    public void setAntal(int antal) {
-        this.antal = antal;
     }
 
     public int getUtgivningsar() {

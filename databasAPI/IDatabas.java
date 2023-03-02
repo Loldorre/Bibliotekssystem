@@ -4,36 +4,52 @@ import java.math.BigInteger;
 import java.util.Date;
 public interface IDatabas {
 
-/*
-retunera tillgängligheten av en viss Bok, tillgänglig eller ej
-*utifrån Bokens titel, Boken ISBN (identification number), Bokens titel och författare,  Bokens *författare
-*/
-//hämta alla böcker med riktig titel
- Bok[] hämtaTillgängligheten (String titel);
+    /* Hämta alla böcker med riktig titel som inte är utlånade (alltså i samling men inte i lån).*/
+ Bok[] hämtaTillgänglighet (String titel);
 
-
-    /*skapa en Lån och returnera en String*/
+    /*skapa en Lån och returnera en String
+    *
+    * behöver definiera vad databasen kan tänkas svara... för tester
+    *
+    */
     String skapaLån (Date startDatum, int kontoID, int ISBN);
 
 
-    /*ta bort lån enligt medlems personnummer eller Bokens ISBN*/
+    /*ta bort lån enligt medlems personnummer eller Bokens ISBN
+     *
+     * behöver definiera vad databasen kan tänkas svara... för tester
+     *
+     */
     String taBortLån(int kontoID, int ISBN);
 
 /*lägga till en medlem på svartlista*/
-    /*svartlista medlem genom medlems kontoID */
+    /*svartlista medlem genom medlems personnummer
+     *
+     * behöver definiera vad databasen kan tänkas svara... för tester
+     *
+     * */
     String läggTillSvartlista(BigInteger personNr);
 
 
     /*returnera String att Konto är skapad*/
-    /*skapa Konto med medlemens namn, efternamn, personnummer och roll*/
-
+    /*skapa Konto med medlemens namn, efternamn, personnummer och roll
+    *
+    * behöver definiera vad databasen kan tänkas svara... för tester
+    *
+    * */
     String skapaKonto(String fnamn, String  enamn, BigInteger personNr, String roll);
 
 
-    //returnera en String efter att Konto är avslutad.
+    /* returnera en String efter att Konto är avslutad.
+    *
+    * behöver definiera vad databasen kan tänkas svara... för tester
+    *
+    */
     String avslutaKonto(int kontoID);
 
-    //returnera ett Konto[] objekt med alla konton på servern.
+    /*  returnera en Konto[] objekt med alla konton på servern.
+    *
+    * */
     Konto[] hämtaKonton();
 
     public String registreraTempAvstänging(int kontoID);

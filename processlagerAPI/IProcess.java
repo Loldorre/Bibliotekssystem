@@ -8,34 +8,23 @@ import java.util.Date;
 
 public interface IProcess {
     /*
-     *kolla om boken är tillgängligt med olika parameter
+     *kolla om boken är tillgängligt
      *returnera en multi array med alla möjliga böcker och deras information
-     *return specifica boken
      */
-    public boolean kollaTillgänglighetBibID(int bibID);
 
-    //return alla böcker med liknande namn
-    public Bok[] kollaTillgänglighetTitel(String titel);
-
-    //return lista med alla böcker med samma ISBN
-    public Bok[] kollaTillgänglighetISBN(int ISBN);
-
-    //return alla böcker med samma titel och författare
-    public Bok[] kollaTillgänglighetTitelForfattare(String titel, String forfattare);
-
-    //return alla böcker av författaren
-    public Bok[] kollaTillgänglighetForfattare(String forfattare);
+    //return en int om boken är tillgänglig eller ej.
+    // 0 om finns inte
+    // 1 om finns.
+    // 2 om finns men alla utlånade.(stödjs inte i databaslagret i nuvarande lösning då hämtarmetoden där endast hämtar de böcker som inte är utlånade)
+    public int kollaTillgänglighet(String titel);
 
     /*return true or false om Personen är medlem eller inte*/
-    public boolean kollaMedlemsstatus(BigInteger personNr);
+    public boolean kollaMedlemsStatus(BigInteger personNr);
 
     /*
      *Returnera ett datum hur hur länge personen är temporärt avstängd.
-     *Eller String hur länge och varför?
      */
     public String tempAvstängning(BigInteger personNr, Date datum);
-
-    String tempAvstängning(BigInteger personNr);
 
     /*Returnera true om personen är svartlistad*/
     public boolean svartlistaMedlem(BigInteger personNr);

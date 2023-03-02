@@ -30,7 +30,7 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public Bok[] hämtaTillgängligheten(String titel) {
+    public Bok[] hämtaTillgänglighet(String titel) {
         return new Bok[0];
     }
 
