@@ -22,15 +22,15 @@ public interface IProcess {
     public boolean kollaMedlemsStatus(BigInteger personNr);
 
     /*
-     *Returnera ett datum hur hur länge personen är temporärt avstängd.
+     *Returnera ett datum hur länge personen är temporärt avstängd.
      */
-    public String tempAvstängning(BigInteger personNr, Date datum);
+    public String tempAvstängning(BigInteger personNr, Date datum) throws Exception ;
 
     /*Returnera true om personen är svartlistad*/
     public boolean svartlistaMedlem(BigInteger personNr);
 
     /*return Konto efter det registerades*/
-    public Konto regKonto(String fnamn, String enamn, BigInteger personNr, String roll);
+    public Konto regKonto(String fnamn, String enamn, BigInteger personNr, String roll) throws Exception;
 
     /*return true if konto är avslutad*/
     public boolean avslutaKonto(BigInteger personNr);

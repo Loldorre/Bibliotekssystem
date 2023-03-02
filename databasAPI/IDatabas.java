@@ -52,6 +52,11 @@ public interface IDatabas {
     * */
     Konto[] hämtaKonton();
 
+    /* returnera en String efter att Konto är avslutad.
+     *
+     * behöver definiera vad databasen kan tänkas svara... för tester
+     *
+     */
     public String registreraTempAvstänging(int kontoID);
 
 }
