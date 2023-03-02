@@ -47,11 +47,6 @@ public class DatabasMetoder implements IDatabas{
         return returBookArray;
     }
 
-
-    public void databaseConnection(){
-
-    }
-
     @Override
     public String skapaLån(Date startDatum, int kontoID, int ISBN) {
         return null;
@@ -79,8 +74,30 @@ public class DatabasMetoder implements IDatabas{
 
     @Override
     public Konto[] hämtaKonton() {
-        return new Konto[0];
+        ArrayList<Konto> arrayOfAccounts = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            String getAccount = "select * from konto";
+            ResultSet rS = stmt.executeQuery(getAccount);
+            while(rS.next()){
+                arrayOfAccounts.add(new Konto(rS.getString("fnamn"),rS.getString("enamn"), rS.getLong("personNr"), rS.getString("roll"), rS.getInt("kontoID"), rS.getDate("avstängd"), rS.getInt("antalAvstängningar"),  rS.getInt("antalFörseningar")));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Konto[] returKontoArray = new Konto[arrayOfAccounts.size()];
+        arrayOfAccounts.toArray(returKontoArray);
+
+        return returKontoArray;
     }
+
 
     @Override
     public String registreraTempAvstänging(int kontoID) {

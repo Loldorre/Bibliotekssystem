@@ -1,6 +1,6 @@
 package databasAPI;
 
-import java.math.BigInteger;
+import java.util.Date;
 
 public class Konto {
     private String fNamn;
@@ -13,19 +13,18 @@ public class Konto {
     teacher = 10
     * */
     private String roll;
-    private BigInteger personNr;
+    private long personNr;
 
     //private String behorighetsniva;(redundant)
 
     //4 siffror
     private int kontoID;
-    private boolean avstangd;
+    private Date avstangd;
     //int[] med alla bid för lånade böcker
-    private int[] lanadeBocker;
     private int antalAvstangningar;
     private int antalForseningar;
 
-    public Konto (String fNamn, String eNamn, BigInteger personNr, String roll, int kontoID, boolean avstangd, int[] lanadeBocker, int antalAvstangningar, int antalForseningar) {
+    public Konto (String fNamn, String eNamn, long personNr, String roll, int kontoID, Date avstangd, int antalAvstangningar, int antalForseningar) {
         this.fNamn = fNamn;
         this.eNamn = eNamn;
         this.roll = roll;
@@ -34,7 +33,6 @@ public class Konto {
         //this.behorighetsniva = behorighetsniva;(redundant pga roll)
 
         this.kontoID = kontoID;
-        this.lanadeBocker = lanadeBocker;
         this.avstangd = avstangd;
         this.antalAvstangningar = antalAvstangningar;
         this.antalForseningar = antalForseningar;
@@ -64,11 +62,11 @@ public class Konto {
         this.roll = roll;
     }
 
-    public BigInteger getPersonNr() {
+    public long getPersonNr() {
         return personNr;
     }
 
-    public void setPersonNr(BigInteger personNr) {
+    public void setPersonNr(long personNr) {
         this.personNr = personNr;
     }
 
@@ -90,20 +88,12 @@ public class Konto {
         this.kontoID = kontoID;
     }
 
-    public boolean isAvstangd() {
+    public Date isAvstangd() {
         return avstangd;
     }
 
-    public void setAvstangd(boolean avstangd) {
+    public void setAvstangd(Date avstangd) {
         this.avstangd = avstangd;
-    }
-
-    public int[] getLanadeBocker() {
-        return lanadeBocker;
-    }
-
-    public void setLanadeBocker(int[] lanadeBocker) {
-        this.lanadeBocker = lanadeBocker;
     }
 
     public int getAntalAvstangningar() {
