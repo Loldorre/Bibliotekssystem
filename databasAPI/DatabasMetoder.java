@@ -58,12 +58,11 @@ public class DatabasMetoder implements IDatabas{
     }
 
     @Override
-    // INTE FÄRDIG, Får felmeddelande när jag i mainmetoden sätter in för stort värde
     public String läggTillSvartlista(long personNr) {
         try {
             Statement stmt = connection.createStatement();
             String addBlacklist = "insert into svartlista values (" + personNr + ")";
-            int rS = stmt.executeUpdate(addBlacklist);
+            long rS = stmt.executeUpdate(addBlacklist);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -73,8 +72,9 @@ public class DatabasMetoder implements IDatabas{
                 throw new RuntimeException(e);
             }
         }
-        return null;
+        return personNr + " tillagt i svartlista";
     }
+
 
 
 
