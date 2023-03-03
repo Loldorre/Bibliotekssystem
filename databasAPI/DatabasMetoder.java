@@ -2,6 +2,7 @@ package databasAPI;
 import com.mysql.cj.protocol.Resultset;
 
 import javax.swing.plaf.nimbus.State;
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DatabasMetoder implements IDatabas{
+    int kontoIdDecider = 0;
     Connection connection;
     DatabasMetoder(){
         try{
@@ -82,8 +84,9 @@ public class DatabasMetoder implements IDatabas{
     public String skapaKonto(String fnamn, String enamn, long personNr, String roll) {
         try {
             Statement stmt = connection.createStatement();
-            String addAccount = "insert into konto values ("+fnamn+","+enamn+","+personNr+","+roll+")";
+            String addAccount = "insert into konto values (\"" +fnamn+"\",\""+enamn+"\","+personNr+",\""+roll+ "\"," + kontoIdDecider + "," + null + "," + 0+"," + 0 +")";
             int rS = stmt.executeUpdate(addAccount);
+            kontoIdDecider++;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -93,8 +96,9 @@ public class DatabasMetoder implements IDatabas{
                 throw new RuntimeException(e);
             }
         }
-        return null;
+        return "Konto för " + fnamn + " " + enamn + " har skapats";
     }
+
 
     @Override
     public String avslutaKonto(int kontoID) {
