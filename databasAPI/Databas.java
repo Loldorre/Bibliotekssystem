@@ -1,16 +1,13 @@
 package databasAPI;
 
-import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Date;
 
 public class Databas implements IDatabas {
     Connection conn = null;
 
     //konstruktor som ger databasens adress och inlogg till användare+lösenord för inloggning.
-    public Databas(String adress, String användarnamnOchLösenord){
+    public Databas(String adress, String användarnamnOchLösenord) throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         } catch (Exception ex) {
@@ -30,10 +27,7 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public Bok[] hämtaTillgänglighet(String titel) {
-        return new Bok[0];
-    }
-
+    public Bok[] hämtaTillgänglighet(String titel) throws SQLException { return new Bok[0];}
     @Override
     public String skapaLån(Date startDatum, int kontoID, int ISBN) {
         return null;
@@ -45,12 +39,12 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public String läggTillSvartlista(BigInteger personNr) {
+    public String läggTillSvartlista(long personNr) {
         return null;
     }
 
     @Override
-    public String skapaKonto(String fnamn, String enamn, BigInteger personNr, String roll) {
+    public String skapaKonto(String fnamn, String enamn, long personNr, String roll) {
         return null;
     }
 

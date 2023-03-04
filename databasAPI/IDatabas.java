@@ -1,11 +1,11 @@
 package databasAPI;
 
-import java.math.BigInteger;
+import java.sql.SQLException;
 import java.util.Date;
 public interface IDatabas {
 
     /* Hämta alla böcker med riktig titel som inte är utlånade (alltså i samling men inte i lån).*/
- Bok[] hämtaTillgänglighet (String titel);
+ Bok[] hämtaTillgänglighet (String titel) throws SQLException;
 
     /*skapa en Lån och returnera en String
     *
@@ -28,7 +28,7 @@ public interface IDatabas {
      * behöver definiera vad databasen kan tänkas svara... för tester
      *
      * */
-    String läggTillSvartlista(BigInteger personNr);
+    String läggTillSvartlista(long personNr);
 
 
     /*returnera String att Konto är skapad*/
@@ -37,7 +37,7 @@ public interface IDatabas {
     * behöver definiera vad databasen kan tänkas svara... för tester
     *
     * */
-    String skapaKonto(String fnamn, String  enamn, BigInteger personNr, String roll);
+    String skapaKonto(String fnamn, String  enamn, long personNr, String roll);
 
 
     /* returnera en String efter att Konto är avslutad.
