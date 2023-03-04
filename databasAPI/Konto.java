@@ -17,7 +17,7 @@ public class Konto {
     private int kontoID;
     private boolean avstangd;
     //int[] med alla bid för lånade böcker
-    private int[] lanadeBocker;
+    private int [] lanadeBocker;
     private int antalAvstangningar;
     private int antalForseningar;
 

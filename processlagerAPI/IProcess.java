@@ -4,6 +4,7 @@ import databasAPI.Bok;
 import databasAPI.Konto;
 
 
+import java.sql.SQLException;
 import java.util.Date;
 
 public interface IProcess{
@@ -16,7 +17,7 @@ public interface IProcess{
     // 0 om finns inte
     // 1 om finns.
     // 2 om finns men alla utlånade.(stödjs inte i databaslagret i nuvarande lösning då hämtarmetoden där endast hämtar de böcker som inte är utlånade)
-    public int kollaTillgänglighet(String titel);
+    public int kollaTillgänglighet(String titel) throws SQLException;
 
     /*return true or false om Personen är medlem eller inte*/
     public boolean kollaMedlemsStatus(long personNr);
@@ -37,6 +38,8 @@ public interface IProcess{
 
     /*return true om lån är registrera*/
     public boolean registreraLån(long personNr, int bibID);
+
+    public boolean återlämnaBok(long personNr, int bibID);
 
 }
 
