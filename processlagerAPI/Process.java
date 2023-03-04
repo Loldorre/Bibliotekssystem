@@ -29,12 +29,28 @@ public class Process implements IProcess  {
 
     @Override
     public boolean svartlistaMedlem(long personNr) {
+Konto[] konton = DatabasAPI.hämtaKonton();
+long[] svartlistade = DatabasAPI.hämtaSvartlistade();
+String dbresultat = "";
+
+for(long l:svartlistade) {
+    if (personNr == l)
         return false;
+}
+    for(Konto k:konton) {
+        if (k.getPersonNr() == personNr) {
+            dbresultat = DatabasAPI.läggTillSvartlista(personNr);
+            dbresultat = DatabasAPI.avslutaKonto(k.getKontoID());
+            return true;
+        }
+    }
+    return false;
     }
 
     @Override
     public Konto regKonto(String fnamn, String enamn, long personNr, String roll) throws Exception {
         Konto[] konton = DatabasAPI.hämtaKonton();
+
         //kollar om personnummret redan är upptaget.
         for (Konto k : konton)
             if (k.getPersonNr() == personNr)
@@ -46,13 +62,14 @@ public class Process implements IProcess  {
             if (l == personNr) {
                 throw new Exception("personnummer svartlistat!");
             }
-//allt ok så skapar konto och reggar i databasen.
+        //allt ok så skapar konto och reggar i databasen.
         String dbresultat = DatabasAPI.skapaKonto(fnamn, enamn, personNr, roll);
         konton = DatabasAPI.hämtaKonton();
         for (Konto k : konton) {
             if (k.getPersonNr() == personNr)
                 return k;
             }
+        //Om kontot här trotts allt inte finns med i databasen kastar den en exception.
         throw new Exception("Konto ej i databas efter registrering. mycket konstigt");
     }
 
