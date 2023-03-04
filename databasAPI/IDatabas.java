@@ -59,5 +59,8 @@ public interface IDatabas {
      */
     public String registreraTempAvstänging(int kontoID, int numofdays);
 
+    //hämtar alla personnummer som är svartlistade och returnerar dem i en array.
+    public long[] hämtaSvartlistade();
+
 }
 
