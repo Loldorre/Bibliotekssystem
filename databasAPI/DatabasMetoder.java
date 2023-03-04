@@ -30,7 +30,11 @@ public class DatabasMetoder implements IDatabas {
     @Override
     //Hämtar en array av böcker som finns i Bok-tabellen och inte inte lån-tabellen
     public Bok[] hämtaTillgänglighet(String titel) {
+
+        //arrayOfBooks used with .toArray to create the return array
         ArrayList<Bok> arrayOfBooks = new ArrayList<>();
+
+        //Getting an array of book with titel which is then returned
         try {
             Statement stmt = connection.createStatement();
             String getTitel = "select * from bok where titel=\"" + titel + "\"";
@@ -53,13 +57,61 @@ public class DatabasMetoder implements IDatabas {
     }
 
     @Override
-    public String skapaLån(Date startDatum, int kontoID, int ISBN) {
+    public String skapaLån(int kontoID, int bid /*bid från samling*/) {
+
+        //Getting todays date, converting it to Date object, converting to MySQL Date format
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        LocalDate dateNow = java.time.LocalDate.now();
+        Date dateToday = Date.from(dateNow.atStartOfDay(defaultZoneId).toInstant());
+        String datePattern = "yyyy-MM-dd";
+        SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+        String dateOfLoan = formatter.format(dateToday);
+
+        //Create MySQL query and try to execute it in order to create a loan in database table "lån"
+        try {
+            Statement stmt = connection.createStatement();
+            String getTitel = "insert into lån values(" + bid + "," + kontoID + ",\"" + dateOfLoan+"\")";
+            int rS = stmt.executeUpdate(getTitel);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return "Lån registrerat";
+    }
+
+
+
+    @Override
+    public String taBortLån(int kontoID, int bid) {
+
+        //Create MySQL query and try to execute it in order to remove loan från databas table "lån"
+        try {
+            Statement stmt = connection.createStatement();
+            String getTitel = "delete from lån where kontoID="+kontoID+" and bid="+bid;
+            int rS = stmt.executeUpdate(getTitel);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return null;
     }
 
-    @Override
-    public String taBortLån(int kontoID, int ISBN) {
-        return null;
+    public static void main(String[] args) {
+        DatabasMetoder x = new DatabasMetoder();
+        x.taBortLån(1111, 4);
     }
 
     @Override
@@ -187,10 +239,8 @@ public class DatabasMetoder implements IDatabas {
 
         return "Temporär avstängning registrerad";
     }
+}
 
-    public static void main(String[] args) {
-        DatabasMetoder x = new DatabasMetoder();
-        x.registreraTempAvstänging(1111);
-    }}
+
 
 

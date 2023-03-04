@@ -12,7 +12,7 @@ public interface IDatabas {
     * behöver definiera vad databasen kan tänkas svara... för tester
     *
     */
-    String skapaLån (Date startDatum, int kontoID, int ISBN);
+    String skapaLån (int kontoID, int ISBN);
 
 
     /*ta bort lån enligt medlems personnummer eller Bokens ISBN
