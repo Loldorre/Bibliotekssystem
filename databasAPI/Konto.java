@@ -1,7 +1,5 @@
 package databasAPI;
 
-import java.math.BigInteger;
-
 public class Konto {
     private String fNamn;
     private String eNamn;
@@ -13,9 +11,7 @@ public class Konto {
     teacher = 10
     * */
     private String roll;
-    private BigInteger personNr;
-
-    //private String behorighetsniva;(redundant)
+    private long personNr;
 
     //4 siffror
     private int kontoID;
@@ -25,7 +21,7 @@ public class Konto {
     private int antalAvstangningar;
     private int antalForseningar;
 
-    public Konto (String fNamn, String eNamn, BigInteger personNr, String roll, int kontoID, boolean avstangd, int[] lanadeBocker, int antalAvstangningar, int antalForseningar) {
+    public Konto (String fNamn, String eNamn, long personNr, String roll, int kontoID, boolean avstangd, int[] lanadeBocker, int antalAvstangningar, int antalForseningar) {
         this.fNamn = fNamn;
         this.eNamn = eNamn;
         this.roll = roll;
@@ -64,11 +60,11 @@ public class Konto {
         this.roll = roll;
     }
 
-    public BigInteger getPersonNr() {
+    public long getPersonNr() {
         return personNr;
     }
 
-    public void setPersonNr(BigInteger personNr) {
+    public void setPersonNr(long personNr) {
         this.personNr = personNr;
     }
 
