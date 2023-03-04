@@ -14,16 +14,16 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class TestProcess extends Process {
+public class TestProcess{
 
     //Sätter upp mockobjektet för databasapi inför alla test
     private static Logger logger = LogManager.getLogger(TestProcess.class.getName());
 
     //Skapar mockobjektet
     Databas dbapi = mock(Databas.class);
+    Process PL = new Process(dbapi);
 
-    TestProcess() throws SQLException {
-    }
+
 
     //Återställer mockobjektet inför varje test
     @BeforeEach
@@ -41,13 +41,13 @@ when(dbapi.hämtaTillgänglighet("Atomic Habits")).thenReturn(new Bok[]{
         new Bok(4,124494,"Atomic Habits","James Clear",2018),
         new Bok(5,124494,"Atomic Habits","James Clear",2018),
         new Bok(6,124494,"Atomic Habits","James Clear",2018),});
-assertEquals(1, kollaTillgänglighet("Atomic Habits"));
+assertEquals(1, PL.kollaTillgänglighet("Atomic Habits"));
     }
     @Test
     @DisplayName("kollaTillgänglighet: Bok finns inte för utlån")
     public void kollaTillgänglighetTest2() throws SQLException {
         when(dbapi.hämtaTillgänglighet("Atomic Habits")).thenReturn(new Bok[]{});
-        assertEquals(0, kollaTillgänglighet("Atomic Habits"));
+        assertEquals(0, PL.kollaTillgänglighet("Atomic Habits"));
     }
     }
     @Nested
@@ -61,7 +61,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
                     new Konto("Dorian","Jones",9712201234L,"undergraduate",6969,false,new int[]{1,2,3},0,0),
                     new Konto("Elvis","Presley",3111010129L,"candidate",1234,false,new int[]{7,8,9,10,11,12,13},0,0),
             });
-            assertTrue(kollaMedlemsStatus(1111));
+            assertTrue(PL.kollaMedlemsStatus(1111));
         }
         @Test
         @DisplayName("kollaMedelmsstatus: Dorian får inte låna pga av för många lånade böcker")
@@ -71,7 +71,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
                     new Konto("Dorian","Jones",9712201234L,"undergraduate",6969,false,new int[]{1,2,3},0,0),
                     new Konto("Elvis","Presley",3111010129L,"candidate",1234,true,new int[]{7,8,9,10,11,12,13},0,0),
             });
-            assertFalse(kollaMedlemsStatus(6969));
+            assertFalse(PL.kollaMedlemsStatus(6969));
         }
         @Test
         @DisplayName("kollaMedelmsstatus: Elvis får inte låna pga av avstängning")
@@ -81,7 +81,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
                     new Konto("Dorian","Jones",9712201234L,"undergraduate",6969,false,new int[]{1,2,3},0,0),
                     new Konto("Elvis","Presley",3111010129L,"candidate",1234,true,new int[]{7,8,9,10,11,12,13},0,0),
             });
-            assertFalse(kollaMedlemsStatus(1234));
+            assertFalse(PL.kollaMedlemsStatus(1234));
         }
     }
     @Nested
@@ -96,7 +96,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
             });
             when(dbapi.registreraTempAvstänging(1234,15)).thenReturn("1 row(s) affected Rows matched: 1  Changed: 1  Warnings: 0");
 
-            assertEquals(new Date(2025,5,1),tempAvstängning(1234,new Date(2025,5,1)));
+            assertEquals(new Date(2025,5,1),PL.tempAvstängning(1234,new Date(2025,5,1)));
         }
 
         @Test
@@ -111,7 +111,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
             when(dbapi.registreraTempAvstänging(6969,15)).thenReturn("0 row(s) affected Rows matched: 0  Changed: 0  Warnings: 0");
 
             //Ser till att tempAvstängning() kastar en Exception...
-            assertThrows(Exception.class, ()-> tempAvstängning(6969,new Date(2025,5,1)));
+            assertThrows(Exception.class, ()-> PL.tempAvstängning(6969,new Date(2025,5,1)));
         }
     }
     @Nested
@@ -123,11 +123,12 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
             when(dbapi.hämtaKonton()).thenReturn(new Konto[]{
                     new Konto("Dorian","Jones",9712201234L,"undergraduate",6969,false,new int[]{1,2,3},2,0),
             },new Konto[]{});
+            when(dbapi.hämtaSvartlistade()).thenReturn(new long[]{});
             when(dbapi.läggTillSvartlista(9712201234L)).thenReturn("1 row(s) affected");
             when(dbapi.avslutaKonto(6969)).thenReturn("1 row(s) affected)");
 
             //Ser till att Dorian inte finns med på kontolistan andra gången hämtaKonton körs och inte längre är tillgänglig...
-            assertTrue(svartlistaMedlem(9712201234L));
+            assertTrue(PL.svartlistaMedlem(9712201234L));
         }
     }
     @Nested
@@ -145,8 +146,9 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
                     });
             when(dbapi.hämtaSvartlistade()).thenReturn(new long[0]);
             when(dbapi.skapaKonto("Viktor","Sjögren",8701032990L,"candidate")).thenReturn("1 row(s) returned");
+
             //Kontot finns nu i databasen och personnummer i objektet som returneras stämmer med det i databasen.
-            assertEquals(regKonto("Viktor","Sjögren",8701032990L,"candidate").getPersonNr(),8701032990L);
+            assertEquals(PL.regKonto("Viktor","Sjögren",8701032990L,"candidate").getPersonNr(),8701032990L);
         }
         @Test
         @DisplayName("regKonto: registrerar nytt konto för Viktor men det funkar inte för han är svartlistad)")
@@ -157,7 +159,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
             when(dbapi.hämtaSvartlistade()).thenReturn(new long[]{8701032990L});
 
             //Kontot kan inte skapas och metoden kastar en Exception.
-    assertThrows(Exception.class, ()->regKonto("Viktor","Sjögren",8701032990L,"candidate"));
+    assertThrows(Exception.class, ()->PL.regKonto("Viktor","Sjögren",8701032990L,"candidate"));
         }
         @Test
         @DisplayName("regKonto: registrerar nytt konto för Dorian men det funkar inte för han är redan registrerad)")
@@ -167,7 +169,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
             });
 
             //Kontot kan inte skapas och metoden kastar en Exception.
-            assertThrows(Exception.class, ()->regKonto("Dorian","Jones",9712201234L,"undergraduate"));
+            assertThrows(Exception.class, ()->PL.regKonto("Dorian","Jones",9712201234L,"undergraduate"));
         }
     }
     @Nested
@@ -178,11 +180,10 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
         public void avslutaKontoTest1() throws Exception{
             when(dbapi.hämtaKonton()).thenReturn(new Konto[]{
                             new Konto("Dorian","Jones",9712201234L,"undergraduate",6969,false,new int[]{1,2,3},2,0),
-                    }
-                    ,new Konto[]{});
+            });
             //Kontot finns nu inte databasen och metoden svarar med true efter hämtning.
-            assertTrue(avslutaKonto(6969));
-        }
+            assertTrue(PL.avslutaKonto(6969));
+    }
     }
     @Nested
     @DisplayName("Test för registreraLån")
@@ -195,7 +196,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
                     },new Konto[]{new Konto("Dorian","Jones",9712201234L,"undergraduate",6969,false,new int[]{1,2,3},2,0),});
 
             //Registrerar bok 3 till dorian och returnerar true efter att ha kollat databasen.
-            assertTrue(registreraLån(6969,3));
+            assertTrue(PL.registreraLån(6969,3));
         }
     }
 }

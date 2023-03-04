@@ -7,7 +7,7 @@ public class Databas implements IDatabas {
     Connection conn = null;
 
     //konstruktor som ger databasens adress och inlogg till användare+lösenord för inloggning.
-    public Databas(String adress, String användarnamnOchLösenord) throws SQLException {
+    public Databas(String adress, String användarnamnOchLösenord) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         } catch (Exception ex) {
