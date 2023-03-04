@@ -37,7 +37,7 @@ public interface IDatabas {
     * behöver definiera vad databasen kan tänkas svara... för tester
     *
     * */
-    String skapaKonto(String fnamn, String  enamn, long personNr, String roll);
+    String skapaKonto(String fnamn, String enamn, long personNr, String roll);
 
 
     /* returnera en String efter att Konto är avslutad.
@@ -57,7 +57,7 @@ public interface IDatabas {
      * behöver definiera vad databasen kan tänkas svara... för tester
      *
      */
-    public String registreraTempAvstänging(int kontoID);
+    public String registreraTempAvstänging(int kontoID, int numofdays);
 
 }
 

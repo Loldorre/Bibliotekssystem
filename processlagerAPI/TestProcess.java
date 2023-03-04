@@ -61,7 +61,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
                     new Konto("Dorian","Jones",9712201234L,"undergraduate",6969,false,new int[]{1,2,3},0,0),
                     new Konto("Elvis","Presley",3111010129L,"candidate",1234,false,new int[]{7,8,9,10,11,12,13},0,0),
             });
-            assertTrue(kollaMedlemsStatus(1001012980L));
+            assertTrue(kollaMedlemsStatus(1111));
         }
         @Test
         @DisplayName("kollaMedelmsstatus: Dorian får inte låna pga av för många lånade böcker")
@@ -71,7 +71,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
                     new Konto("Dorian","Jones",9712201234L,"undergraduate",6969,false,new int[]{1,2,3},0,0),
                     new Konto("Elvis","Presley",3111010129L,"candidate",1234,true,new int[]{7,8,9,10,11,12,13},0,0),
             });
-            assertFalse(kollaMedlemsStatus(9712201234L));
+            assertFalse(kollaMedlemsStatus(6969));
         }
         @Test
         @DisplayName("kollaMedelmsstatus: Elvis får inte låna pga av avstängning")
@@ -81,7 +81,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
                     new Konto("Dorian","Jones",9712201234L,"undergraduate",6969,false,new int[]{1,2,3},0,0),
                     new Konto("Elvis","Presley",3111010129L,"candidate",1234,true,new int[]{7,8,9,10,11,12,13},0,0),
             });
-            assertFalse(kollaMedlemsStatus(3111010129L));
+            assertFalse(kollaMedlemsStatus(1234));
         }
     }
     @Nested
@@ -94,9 +94,9 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
             when(dbapi.hämtaKonton()).thenReturn(new Konto[]{
                     new Konto("Elvis","Presley",3111010129L,"candidate",1234,true,new int[]{7,8,9,10,11,12,13},0,0),
             });
-            when(dbapi.registreraTempAvstänging(1234)).thenReturn("1 row(s) affected Rows matched: 1  Changed: 1  Warnings: 0");
+            when(dbapi.registreraTempAvstänging(1234,15)).thenReturn("1 row(s) affected Rows matched: 1  Changed: 1  Warnings: 0");
 
-            assertEquals(new Date(2025,5,1),tempAvstängning(3111010129L,new Date(2025,5,1)));
+            assertEquals(new Date(2025,5,1),tempAvstängning(1234,new Date(2025,5,1)));
         }
 
         @Test
@@ -108,10 +108,10 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
 
             when(dbapi.läggTillSvartlista(9712201234L)).thenReturn("1 row(s) affected");
             when(dbapi.avslutaKonto(6969)).thenReturn("1 row(s) affected)");
-            when(dbapi.registreraTempAvstänging(6969)).thenReturn("0 row(s) affected Rows matched: 0  Changed: 0  Warnings: 0");
+            when(dbapi.registreraTempAvstänging(6969,15)).thenReturn("0 row(s) affected Rows matched: 0  Changed: 0  Warnings: 0");
 
             //Ser till att tempAvstängning() kastar en Exception...
-            assertThrows(Exception.class, ()-> tempAvstängning(3111010129L,new Date(2025,5,1)));
+            assertThrows(Exception.class, ()-> tempAvstängning(6969,new Date(2025,5,1)));
         }
     }
     @Nested
@@ -169,7 +169,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
                     }
                     ,new Konto[]{});
             //Kontot finns nu inte databasen och metoden svarar med true efter hämtning.
-            assertTrue(avslutaKonto(9712201234L));
+            assertTrue(avslutaKonto(6969));
         }
     }
     @Nested
@@ -183,7 +183,7 @@ assertEquals(1, kollaTillgänglighet("Atomic Habits"));
                     },new Konto[]{new Konto("Dorian","Jones",9712201234L,"undergraduate",6969,false,new int[]{1,2,3},2,0),});
 
             //Registrerar bok 3 till dorian och returnerar true efter att ha kollat databasen.
-            assertTrue(registreraLån(9712201234L,3));
+            assertTrue(registreraLån(6969,3));
         }
     }
 }
