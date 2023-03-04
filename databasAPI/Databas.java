@@ -58,7 +58,11 @@ public class Databas implements IDatabas {
         return new Konto[0];
     }
     @Override
-    public String registreraTempAvstänging(int kontoID) {
+    public String registreraTempAvstänging(int kontoID, int numofdays) {
         return null;
+    }
+    @Override
+    public long[] hämtaSvartlistade(){
+        return new long[0];
     }
 }

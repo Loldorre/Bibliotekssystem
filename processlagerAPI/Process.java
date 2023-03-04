@@ -75,6 +75,15 @@ for(long l:svartlistade) {
 
     @Override
     public boolean avslutaKonto(int kontoId) {
+        Konto[] konton = DatabasAPI.hämtaKonton();
+        String dbresultat = "";
+        //kollar om kontoId finns i databasen och avslutar kontot om så är fallet.
+        for (Konto k : konton){
+            if (k.getKontoID() == kontoId) {
+               dbresultat = DatabasAPI.avslutaKonto(k.getKontoID());
+               return true;
+            }
+        }
         return false;
     }
 

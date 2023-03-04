@@ -61,7 +61,7 @@ public class Konto {
     }
 
     public long getPersonNr() {
-        return personNr;
+        return this.personNr;
     }
 
     public void setPersonNr(long personNr) {
