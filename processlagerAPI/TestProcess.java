@@ -19,7 +19,6 @@ public class TestProcess extends Process{
 
     //Skapar mockobjektet
     Databas dbapi = mock(Databas.class);
-    Process processlager = new Process();
 
     //Återställer mockobjektet inför varje test
     @BeforeEach
