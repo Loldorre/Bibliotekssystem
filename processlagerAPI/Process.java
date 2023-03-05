@@ -9,7 +9,9 @@ import java.util.Date;
 public class Process implements IProcess  {
     Databas DatabasAPI = new Databas("jdbc:mysql://192.168.50.101/1ik173-server?",
             "user=Viktor&password=Viktor1234");
-    Process() throws SQLException {}
+   public Process(Databas db) throws SQLException {
+       DatabasAPI = db;
+   }
 
     @Override
     public int kollaTillgänglighet(String titel) throws SQLException {
@@ -19,7 +21,8 @@ public class Process implements IProcess  {
             if (listaAvBöcker.length == 0) {
                 return tillgänglighetsCase;
             } else {
-                return 1;
+                tillgänglighetsCase = 1;
+                return tillgänglighetsCase;
             }
         }
 
@@ -75,7 +78,7 @@ public class Process implements IProcess  {
             }
             return message;
         } else {
-            DatabasAPI.registreraTempAvstänging(kontoId, nummerAvAvstängdaDagar);
+            //DatabasAPI.registreraTempAvstänging(kontoId, nummerAvAvstängdaDagar);
             return DatabasAPI.registreraTempAvstänging(kontoId);
         }
     }
@@ -111,14 +114,14 @@ public class Process implements IProcess  {
         boolean återlämning = false;
         Konto [] listAvKonto = DatabasAPI.hämtaKonton();
 
-        for (int i = 0; i < listaLanadeBöcker.length; i++) {
+        /*for (int i = 0; i < listaLanadeBöcker.length; i++) {
             listaLanadeBöcker[i] //hämta lan att jämföra date som den skulle ha varit tillbaka
             if (listaLanadeBöcker[i].date.compareTo(currentDate < 0)) {
                 listaAvKonto[i].getAntalForseningar();
                 if (antalFörseningar > 2) {
                 }
             }
-        }
+        }*/
 
         return återlämning;
     }
