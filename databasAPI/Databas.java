@@ -1,8 +1,5 @@
 package databasAPI;
-import com.mysql.cj.protocol.Resultset;
 
-import javax.swing.plaf.nimbus.State;
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.time.ZoneId;
 
-public class DatabasMetoder implements IDatabas {
+public class Databas implements IDatabas {
     int kontoIdDecider = 0;
     Connection connection;
 
-    DatabasMetoder() {
+    Databas() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://192.168.50.101:3306/1ik173-server", "Dorian", "Dorian1234");
@@ -110,7 +107,7 @@ public class DatabasMetoder implements IDatabas {
     }
 
     public static void main(String[] args) {
-        DatabasMetoder x = new DatabasMetoder();
+        Databas x = new Databas();
         x.taBortLån(1111, 4);
     }
 
@@ -213,7 +210,7 @@ public class DatabasMetoder implements IDatabas {
         String sqlInputDate = formatter.format(inputDate);
 
         //Ökar antalet avstängningar med 1
-        DatabasMetoder x = new DatabasMetoder();
+        Databas x = new Databas();
         x.updateAntalAvstängningar(kontoID);
 
         //Uppdaterar kontots kolumn "avstängd" med date-objektet sqlInputDate
@@ -260,7 +257,7 @@ public class DatabasMetoder implements IDatabas {
 
     public String updateAntalAvstängningar(int kontoID) {
         int amountOfBan = 0;
-        DatabasMetoder accessKonto = new DatabasMetoder();
+        Databas accessKonto = new Databas();
         for (Konto kon : accessKonto.hämtaKonton()) {
             if (kon.getKontoID() == kontoID) {
                 amountOfBan = kon.getAntalAvstangningar();
@@ -289,7 +286,7 @@ public class DatabasMetoder implements IDatabas {
 
     public String updateAntalFörseningar(int kontoID) {
         int amountOfLateReturns = 0;
-        DatabasMetoder accessKonto = new DatabasMetoder();
+        Databas accessKonto = new Databas();
         for (Konto kon : accessKonto.hämtaKonton()) {
             if (kon.getKontoID() == kontoID) {
                 amountOfLateReturns = kon.getAntalForseningar();
