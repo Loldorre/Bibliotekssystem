@@ -315,5 +315,10 @@ public class Databas implements IDatabas {
         return "antal förseningar uppdaterat";
     }
 
+    @Override
+    public long[] hämtaSvartlistade(){
+        return new long[]{};
+    }
+
 
 }

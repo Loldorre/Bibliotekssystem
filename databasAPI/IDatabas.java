@@ -58,4 +58,6 @@ public interface IDatabas {
     public String updateAntalFörseningar(int kontoID);
     public String updateAntalAvstängningar(int kontoID);
 
+    public long[] hämtaSvartlistade();
+
 }

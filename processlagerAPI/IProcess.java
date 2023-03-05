@@ -20,12 +20,12 @@ public interface IProcess{
     public int kollaTillgänglighet(String titel) throws SQLException;
 
     /*return true or false om Personen är medlem eller inte*/
-    public boolean kollaMedlemsStatus(int kontoId);
+    public int kollaMedlemsStatus(int kontoId) throws Exception;
 
     /*
      *Returnera ett datum hur länge personen är temporärt avstängd.
      */
-    public String tempAvstängning(long personNr, Date datum) throws Exception ;
+    public int tempAvstängning(int kontoId, Date datum) throws Exception ;
 
     /*Returnera true om personen är svartlistad*/
     public boolean svartlistaMedlem(long personNr);
@@ -39,7 +39,7 @@ public interface IProcess{
     /*return true om lån är registrera*/
     public boolean registreraLån(long personNr, int bibID);
 
-    public boolean återlämnaBok(long personNr, int bibID);
+    public int återlämnaBok(long personNr, int bibID);
 
 }
 
