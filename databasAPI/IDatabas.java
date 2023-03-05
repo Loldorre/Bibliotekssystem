@@ -52,7 +52,11 @@ public interface IDatabas {
     * */
     Konto[] hämtaKonton();
 
-    public String registreraTempAvstänging(int kontoID);
+    public String registreraTempAvstänging(int kontoID, int numOfDays);
+
+    public String returnBook(int isbn);
+    public String updateAntalFörseningar(int kontoID);
+    public String updateAntalAvstängningar(int kontoID);
 
 }
 

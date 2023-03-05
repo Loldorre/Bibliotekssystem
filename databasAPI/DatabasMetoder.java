@@ -201,31 +201,26 @@ public class DatabasMetoder implements IDatabas {
 
 
     @Override
-    public String registreraTempAvstänging(int kontoID) {
+    public String registreraTempAvstänging(int kontoID, int numOfDays) {
+
+        //Hämtar dagens daturm, lägger på numOfDays och gör om till ett MySQL-vänligt Date objekt
         ZoneId defaultZoneId = ZoneId.systemDefault();
         LocalDate todaysDate = java.time.LocalDate.now();
-        LocalDate endOfBan = todaysDate.plusDays(14);
+        LocalDate endOfBan = todaysDate.plusDays(numOfDays);
         Date inputDate = Date.from(endOfBan.atStartOfDay(defaultZoneId).toInstant());
         String datePattern = "yyyy-MM-dd";
         SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-        String sqlInput = formatter.format(inputDate);
+        String sqlInputDate = formatter.format(inputDate);
 
-        //Hämtar tidigare antalAvstängningar och sparar det i amountOfBan som sen blir en större
-        int amountOfBan = 0;
-        DatabasMetoder accessKonto = new DatabasMetoder();
-        for (Konto kon : accessKonto.hämtaKonton()) {
-            if (kon.getKontoID() == kontoID) {
-                amountOfBan = kon.getAntalAvstangningar();
-                amountOfBan++;
-            }
-        }
+        //Ökar antalet avstängningar med 1
+        DatabasMetoder x = new DatabasMetoder();
+        x.updateAntalAvstängningar(kontoID);
 
-
+        //Uppdaterar kontots kolumn "avstängd" med date-objektet sqlInputDate
         try {
             Statement stmt = connection.createStatement();
-            String getAccount = "update konto set antalAvstängningar=" + amountOfBan + ", avstängd=\"" + sqlInput + "\" where kontoID=" + kontoID;
+            String getAccount = "update konto set avstängd=\"" + sqlInputDate + "\" where kontoID=" + kontoID;
             int rS = stmt.executeUpdate(getAccount);
-
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -239,6 +234,88 @@ public class DatabasMetoder implements IDatabas {
 
         return "Temporär avstängning registrerad";
     }
+
+
+    @Override
+    public String returnBook(int bid){
+
+        try {
+            Statement stmt = connection.createStatement();
+            String getAccount = "delete from lån where bid="+bid;
+            int rS = stmt.executeUpdate(getAccount);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        return "Bok är återlämnad";
+    }
+
+    public String updateAntalAvstängningar(int kontoID) {
+        int amountOfBan = 0;
+        DatabasMetoder accessKonto = new DatabasMetoder();
+        for (Konto kon : accessKonto.hämtaKonton()) {
+            if (kon.getKontoID() == kontoID) {
+                amountOfBan = kon.getAntalAvstangningar();
+                amountOfBan++;
+            }
+        }
+
+        try {
+            Statement stmt = connection.createStatement();
+            String getAccount = "update konto set antalAvstängningar="+amountOfBan + " where kontoID="+kontoID;
+            int rS = stmt.executeUpdate(getAccount);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return "antal avstägningar uppdaterat";
+    }
+
+
+    public String updateAntalFörseningar(int kontoID) {
+        int amountOfLateReturns = 0;
+        DatabasMetoder accessKonto = new DatabasMetoder();
+        for (Konto kon : accessKonto.hämtaKonton()) {
+            if (kon.getKontoID() == kontoID) {
+                amountOfLateReturns = kon.getAntalForseningar();
+                amountOfLateReturns++;
+            }
+        }
+
+        try {
+            Statement stmt = connection.createStatement();
+            String getAccount = "update konto set antalFörseningar="+amountOfLateReturns+" where kontoID="+kontoID;
+            int rS = stmt.executeUpdate(getAccount);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return "antal förseningar uppdaterat";
+    }
+
+
 }
 
 
