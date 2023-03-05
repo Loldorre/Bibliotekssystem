@@ -64,10 +64,8 @@ public class Process implements IProcess  {
             }
         }
 
-
-        int [] listaLanadeBöcker = listaAvKonto[index].getLanadeBocker();
-        Date currentDate = new Date();
-
+        //int [] listaLanadeBöcker = listaAvKonto[index].getLanadeBocker();
+        //Date currentDate = new Date();
 
         if (listaAvKonto[index].getAntalAvstangningar() > 2) {
             DatabasAPI.läggTillSvartlista(personNr);
@@ -78,7 +76,7 @@ public class Process implements IProcess  {
             }
             return message;
         } else {
-            //DatabasAPI.registreraTempAvstänging(kontoId, nummerAvAvstängdaDagar);
+            DatabasAPI.registreraTempAvstänging(kontoId, nummerAvAvstängdaDagar);
             return DatabasAPI.registreraTempAvstänging(kontoId);
         }
     }
