@@ -1,5 +1,6 @@
 package databasAPI;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.time.ZoneId;
 
@@ -106,10 +108,6 @@ public class Databas implements IDatabas {
         return null;
     }
 
-    public static void main(String[] args) {
-        Databas x = new Databas();
-        x.taBortLån(1111, 4);
-    }
 
     @Override
     public String läggTillSvartlista(long personNr) {
@@ -255,6 +253,8 @@ public class Databas implements IDatabas {
         return "Bok är återlämnad";
     }
 
+
+    @Override
     public String updateAntalAvstängningar(int kontoID) {
         int amountOfBan = 0;
         Databas accessKonto = new Databas();
@@ -283,7 +283,7 @@ public class Databas implements IDatabas {
         return "antal avstägningar uppdaterat";
     }
 
-
+    @Override
     public String updateAntalFörseningar(int kontoID) {
         int amountOfLateReturns = 0;
         Databas accessKonto = new Databas();
@@ -311,6 +311,49 @@ public class Databas implements IDatabas {
 
         return "antal förseningar uppdaterat";
     }
+
+    @Override
+    //Hämtar en array av böcker som finns i Bok-tabellen och inte inte lån-tabellen
+    public long[] hämtaSvarlista() {
+
+        //arrayOfBooks used with .toArray to create the return array
+        ArrayList<Long> arrayOfBlacklist = new ArrayList<>();
+        long[] returnBlacklist = null;
+
+        //Getting an array of book with titel which is then returned
+        try {
+            Statement stmt = connection.createStatement();
+            String getPersonNr = "select personNr from svartlista";
+            ResultSet rS = stmt.executeQuery(getPersonNr);
+            while (rS.next()) {
+                arrayOfBlacklist.add(rS.getLong("personNr"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        for (long:
+             ) {
+
+        }
+
+        connection.close();
+        return arrayOfBlacklist;
+    }
+
+    public static void main(String[] args) {
+        Databas o = new Databas();
+        for (int i = 0; i < o.hämtaSvarlista().length; i++) {
+            System.out.println(o.hämtaSvarlista()[i]);
+
+        }
+    }
+
 
 
 }

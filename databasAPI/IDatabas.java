@@ -57,6 +57,7 @@ public interface IDatabas {
     public String returnBook(int isbn);
     public String updateAntalFörseningar(int kontoID);
     public String updateAntalAvstängningar(int kontoID);
+    public long[] hämtaSvarlista();
 
 }
 
