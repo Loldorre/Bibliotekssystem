@@ -1,5 +1,8 @@
 package databasAPI;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class Konto {
@@ -15,12 +18,10 @@ public class Konto {
     private String roll;
     private long personNr;
 
-    //private String behorighetsniva;(redundant)
 
-    //4 siffror
     private int kontoID;
     private Date avstangd;
-    //int[] med alla bid för lånade böcker
+    Lån[]  lånadeBöcker;
     private int antalAvstangningar;
     private int antalForseningar;
 
@@ -29,13 +30,29 @@ public class Konto {
         this.eNamn = eNamn;
         this.roll = roll;
         this.personNr = personNr;
-
-        //this.behorighetsniva = behorighetsniva;(redundant pga roll)
-
         this.kontoID = kontoID;
         this.avstangd = avstangd;
+        if (roll=="undergraduate"){ lånadeBöcker=new Lån[3];}
+        else if (roll=="postgraduate"){ lånadeBöcker=new Lån[5];}
+        else if (roll=="candidate"){ lånadeBöcker=new Lån[7];}
+        else if (roll=="teacher"){ lånadeBöcker=new Lån[10];}
         this.antalAvstangningar = antalAvstangningar;
         this.antalForseningar = antalForseningar;
+    }
+
+    public boolean kollaFörsening(int kontoID){
+        boolean förseningsStatus = true;
+
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        LocalDate todaysDate = java.time.LocalDate.now();
+        Date inputDate = Date.from(todaysDate.atStartOfDay(defaultZoneId).toInstant());
+        String datePattern = "yyyy-MM-dd";
+        SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+        String sqlInputDate = formatter.format(inputDate);
+
+
+
+        return förseningsStatus;
     }
 
     public String getfNamn() {

@@ -1,6 +1,7 @@
 package databasAPI;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 public interface IDatabas {
 
@@ -28,7 +29,7 @@ public interface IDatabas {
      * behöver definiera vad databasen kan tänkas svara... för tester
      *
      * */
-    String läggTillSvartlista(long personNr);
+    String läggTillSvartlistade(long personNr);
 
 
     /*returnera String att Konto är skapad*/
@@ -57,7 +58,7 @@ public interface IDatabas {
     public String returnBook(int isbn);
     public String updateAntalFörseningar(int kontoID);
     public String updateAntalAvstängningar(int kontoID);
-    public long[] hämtaSvarlista();
+    public long[] hämtaSvarlistade();
 
 }
 
