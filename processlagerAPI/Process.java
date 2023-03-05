@@ -3,6 +3,7 @@ package processlagerAPI;
 import databasAPI.*;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Process implements IProcess  {
@@ -41,7 +42,17 @@ public class Process implements IProcess  {
         String message = "";
         int kontoId = -1;
         int index = 0;
+        int nummerAvAvstängdaDagar = 0;
         Konto [] listaAvKonto = DatabasAPI.hämtaKonton();
+
+        Date date = new Date();
+        int day = date.getDay();
+
+        while (!date.equals(datum)) {
+            date = new Date(date.getYear(), date.getMonth(), day);
+            nummerAvAvstängdaDagar++;
+            day++;
+        }
 
         for (int i = 0; i < listaAvKonto.length; i++) {
             if (listaAvKonto[i].getPersonNr() == personNr) {
@@ -49,6 +60,11 @@ public class Process implements IProcess  {
                 index = i;
             }
         }
+
+
+        int [] listaLanadeBöcker = listaAvKonto[index].getLanadeBocker();
+        Date currentDate = new Date();
+
 
         if (listaAvKonto[index].getAntalAvstangningar() > 2) {
             DatabasAPI.läggTillSvartlista(personNr);
@@ -59,7 +75,7 @@ public class Process implements IProcess  {
             }
             return message;
         } else {
-            DatabasAPI.registreraTempAvstänging(kontoId);
+            DatabasAPI.registreraTempAvstänging(kontoId, nummerAvAvstängdaDagar);
             return DatabasAPI.registreraTempAvstänging(kontoId);
         }
     }
@@ -95,6 +111,14 @@ public class Process implements IProcess  {
         boolean återlämning = false;
         Konto [] listAvKonto = DatabasAPI.hämtaKonton();
 
+        for (int i = 0; i < listaLanadeBöcker.length; i++) {
+            listaLanadeBöcker[i] //hämta lan att jämföra date som den skulle ha varit tillbaka
+            if (listaLanadeBöcker[i].date.compareTo(currentDate < 0)) {
+                listaAvKonto[i].getAntalForseningar();
+                if (antalFörseningar > 2) {
+                }
+            }
+        }
 
         return återlämning;
     }
