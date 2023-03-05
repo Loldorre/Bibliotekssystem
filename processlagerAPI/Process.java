@@ -7,8 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Process implements IProcess  {
-    Databas DatabasAPI = new Databas("jdbc:mysql://192.168.50.101/1ik173-server?",
-            "user=Viktor&password=Viktor1234");
+    Databas DatabasAPI = new Databas();
    public Process(Databas db) throws SQLException {
        DatabasAPI = db;
    }
@@ -27,12 +26,12 @@ public class Process implements IProcess  {
         }
 
     @Override
-    public boolean kollaMedlemsStatus(long personNr)  {
+    public boolean kollaMedlemsStatus(int kontoID)  {
         boolean medlemsstatus = false;
         Konto [] listAvKonto = DatabasAPI.hämtaKonton();
 
         for (int i = 0; i < listAvKonto.length; i++) {
-            if (listAvKonto[i].getPersonNr() == personNr) {
+            if (listAvKonto[i].getKontoID() == kontoID ) {
                 medlemsstatus = true;
             }
         }
@@ -77,7 +76,7 @@ public class Process implements IProcess  {
             return message;
         } else {
             DatabasAPI.registreraTempAvstänging(kontoId, nummerAvAvstängdaDagar);
-            return DatabasAPI.registreraTempAvstänging(kontoId);
+            return DatabasAPI.registreraTempAvstänging(kontoId, nummerAvAvstängdaDagar);
         }
     }
 

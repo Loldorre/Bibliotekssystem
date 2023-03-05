@@ -20,7 +20,7 @@ public interface IProcess{
     public int kollaTillgänglighet(String titel) throws SQLException;
 
     /*return true or false om Personen är medlem eller inte*/
-    public boolean kollaMedlemsStatus(long personNr);
+    public boolean kollaMedlemsStatus(int kontoId);
 
     /*
      *Returnera ett datum hur länge personen är temporärt avstängd.
