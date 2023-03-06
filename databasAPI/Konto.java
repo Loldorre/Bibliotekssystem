@@ -1,8 +1,10 @@
 package databasAPI;
 
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Konto {
@@ -17,6 +19,7 @@ public class Konto {
     * */
     private String roll;
     private long personNr;
+    private Connection connection;
 
 
     private int kontoID;
@@ -26,6 +29,16 @@ public class Konto {
     private int antalForseningar;
 
     public Konto (String fNamn, String eNamn, long personNr, String roll, int kontoID, Date avstangd, int antalAvstangningar, int antalForseningar) {
+
+        //Kolla anslutning till databasen
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://192.168.50.101:3306/1ik173-server", "Dorian", "Dorian1234");
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         this.fNamn = fNamn;
         this.eNamn = eNamn;
         this.roll = roll;
@@ -38,22 +51,39 @@ public class Konto {
         else if (roll=="teacher"){ lånadeBöcker=new Lån[10];}
         this.antalAvstangningar = antalAvstangningar;
         this.antalForseningar = antalForseningar;
+
+        lånadeBöcker = hämtaLånFörKonto(kontoID);
     }
 
-    public boolean kollaFörsening(int kontoID){
-        boolean förseningsStatus = true;
+    public Lån[] hämtaLånFörKonto(int kontoID){
 
-        ZoneId defaultZoneId = ZoneId.systemDefault();
-        LocalDate todaysDate = java.time.LocalDate.now();
-        Date inputDate = Date.from(todaysDate.atStartOfDay(defaultZoneId).toInstant());
-        String datePattern = "yyyy-MM-dd";
-        SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-        String sqlInputDate = formatter.format(inputDate);
+        //arrayOfLoans used with .toArray to create the return array
+        ArrayList<Lån> arrayOfLoans = new ArrayList<>();
 
+        //Getting an array of Lån with kontoID which is then returned
+        try {
+            Statement stmt = connection.createStatement();
+            String getTitel = "select * from lån where kontoid=" + kontoID;
+            ResultSet rS = stmt.executeQuery(getTitel);
+            while (rS.next()) {
+                arrayOfLoans.add(new Lån(rS.getInt("bid"), rS.getInt("kontoid"), rS.getDate("låndatum")));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Lån[] loanArray = new Lån[arrayOfLoans.size()];
+        arrayOfLoans.toArray(loanArray);
 
-
-        return förseningsStatus;
+        return loanArray;
     }
+
+
 
     public String getfNamn() {
         return fNamn;

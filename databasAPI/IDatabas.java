@@ -13,7 +13,7 @@ public interface IDatabas {
     * behöver definiera vad databasen kan tänkas svara... för tester
     *
     */
-    String skapaLån (int kontoID, int ISBN);
+    int skapaLån (int kontoID, int ISBN);
 
 
     /*ta bort lån enligt medlems personnummer eller Bokens ISBN
@@ -21,7 +21,7 @@ public interface IDatabas {
      * behöver definiera vad databasen kan tänkas svara... för tester
      *
      */
-    String taBortLån(int kontoID, int ISBN);
+
 
 /*lägga till en medlem på svartlista*/
     /*svartlista medlem genom medlems personnummer
@@ -29,7 +29,7 @@ public interface IDatabas {
      * behöver definiera vad databasen kan tänkas svara... för tester
      *
      * */
-    String läggTillSvartlistade(long personNr);
+    int läggTillSvartlistade(long personNr);
 
 
     /*returnera String att Konto är skapad*/
@@ -38,7 +38,7 @@ public interface IDatabas {
     * behöver definiera vad databasen kan tänkas svara... för tester
     *
     * */
-    String skapaKonto(String fnamn, String  enamn, long personNr, String roll);
+    int skapaKonto(String fnamn, String  enamn, long personNr, String roll);
 
 
     /* returnera en String efter att Konto är avslutad.
@@ -46,19 +46,20 @@ public interface IDatabas {
     * behöver definiera vad databasen kan tänkas svara... för tester
     *
     */
-    String avslutaKonto(int kontoID);
+    int avslutaKonto(int kontoID);
 
     /*  returnera en Konto[] objekt med alla konton på servern.
     *
     * */
-    Konto[] hämtaKonton();
+    public Konto[] hämtaKonton();
 
-    public String registreraTempAvstänging(int kontoID, int numOfDays);
+    public int registreraTempAvstänging(int kontoID, int numOfDays);
 
-    public String returnBook(int isbn);
-    public String updateAntalFörseningar(int kontoID);
-    public String updateAntalAvstängningar(int kontoID);
+    public int taBortLån(int bid);
+    public int updateAntalFörseningar(int kontoID);
+    public int updateAntalAvstängningar(int kontoID);
     public long[] hämtaSvarlistade();
+    public Lån[] hämtaLån();
 
 }
 

@@ -1,18 +1,22 @@
 package databasAPI;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Date;
 
 public class Lån {
 
     private int bid;
     private int kontoID;
-    Date lånDatum;
+    private Date lånDatum;
 
-    public Lån(int lån, int kontoID, Date lånDatum){
+    public Lån(int bid, int kontoID, Date lånDatum){
         this.bid = bid;
         this.kontoID = kontoID;
         this.lånDatum = lånDatum;
+
     }
+
 
     public int getBid() {
         return bid;
