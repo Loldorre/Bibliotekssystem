@@ -1,48 +1,54 @@
 package processlagerAPI;
 
-import databasAPI.*;
+import databasAPI.Konto;
+import processlagerAPI.IProcess;
 
-import java.math.BigInteger;
-import java.util.Date;
 
-public class Process implements IProcess {
-    Databas DatabasAPI = new Databas("jdbc:mysql://192.168.50.101/1ik173-server?",
-            "user=Viktor&password=Viktor1234");
-    Process(){}
+public class Process implements IProcess{
 
+    public Process(){}
     @Override
-    public int kollaTillgänglighet(String titel) {
+    public int kollaTillgänglighetBibID(int bibID) {
         return 0;
     }
 
     @Override
-    public boolean kollaMedlemsStatus(BigInteger personNr) {
-        return false;
+    public int kollaMedlemsstatus(int kontoId) {
+        return 0;
     }
 
     @Override
-    public String tempAvstängning(BigInteger personNr, Date datum) {
+    public int tempAvstängning(int kontoId, int antalDagar) {
+        return 0;
+    }
+
+    @Override
+    public int svartlistaMedlem(long personNr) {
+        return 0;
+    }
+
+    @Override
+    public Konto regKonto(String fnamn, String enamn, long personNr, String roll) {
         return null;
     }
 
-
     @Override
-    public boolean svartlistaMedlem(BigInteger personNr) {
-        return false;
+    public int avslutaKonto(int kontoId) {
+        return 0;
     }
 
     @Override
-    public Konto regKonto(String fnamn, String enamn, BigInteger personNr, String roll) {
-        return null;
+    public int registreraLån(int kontoId, int bibID) {
+        return 0;
     }
 
     @Override
-    public boolean avslutaKonto(BigInteger personNr) {
-        return false;
+    public int återlämnaBok(int kontoId, int bibID) {
+        return 0;
     }
 
     @Override
-    public boolean registreraLån(BigInteger personNr, int bibID) {
-        return false;
+    public int kollaMedlemsstatus(int kontoID, int avstängningsDagar) {
+        return 0;
     }
 }
