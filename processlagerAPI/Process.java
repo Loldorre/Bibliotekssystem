@@ -8,7 +8,7 @@ public class Process implements IProcess{
 
     public Process(){}
     @Override
-    public int kollaTillgänglighetBibID(int bibID) {
+    public int kollaTillgänglighet(String titel) {
         return 0;
     }
 

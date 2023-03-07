@@ -11,7 +11,7 @@ public interface IProcess {
      *returnera en multi array med alla möjliga böcker och deras information
      *return specifica boken
      */
-    public int kollaTillgänglighetBibID(int bibID);
+    public int kollaTillgänglighet(String titel);
 
     /*return true or false om Personen är medlem eller inte*/
     public int kollaMedlemsstatus(int kontoId);
