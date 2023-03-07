@@ -275,6 +275,8 @@ public class Databas implements IDatabas {
 
     @Override
     public int updateAntalFörseningar(int kontoID) {
+
+       int failOrSuccess = 0;
         int amountOfLateReturns = 0;
         Databas accessKonto = new Databas();
         for (Konto kon : accessKonto.hämtaKonton()) {
@@ -290,7 +292,7 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(getAccount);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            failOrSuccess = 1;
         } finally {
             try {
                 connection.close();
@@ -299,7 +301,7 @@ public class Databas implements IDatabas {
             }
         }
 
-        return "antal förseningar uppdaterat";
+        return failOrSuccess;
     }
 
 
