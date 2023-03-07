@@ -3,41 +3,38 @@ package processlagerAPI;
 import databasAPI.Bok;
 import databasAPI.Konto;
 
-
-import java.util.Date;
-
-public interface IProcess{
+public interface IProcess {
     /*
-     *kolla om boken är tillgängligt
+     *kolla om boken är tillgängligt med olika parameter
      *returnera en multi array med alla möjliga böcker och deras information
+     *return specifica boken
      */
-
-    //return en int om boken är tillgänglig eller ej.
-    // 0 om finns inte
-    // 1 om finns.
-    // 2 om finns men alla utlånade.(stödjs inte i databaslagret i nuvarande lösning då hämtarmetoden där endast hämtar de böcker som inte är utlånade)
     public int kollaTillgänglighet(String titel);
 
     /*return true or false om Personen är medlem eller inte*/
-    public boolean kollaMedlemsStatus(int kontoId);
+    public int kollaMedlemsstatus(int kontoId);
 
     /*
-     *Returnera ett datum hur länge personen är temporärt avstängd.
+     *Returnera ett datum hur hur länge personen är temporärt avstängd.
+     *Eller String hur länge och varför?
      */
-    public String tempAvstängning(int kontoId, Date datum) throws Exception ;
+    public int tempAvstängning(int kontoId,int antalDagar);
+
 
     /*Returnera true om personen är svartlistad*/
-    public boolean svartlistaMedlem(long personNr);
+    public int svartlistaMedlem(long personNr);
 
     /*return Konto efter det registerades*/
-    public Konto regKonto(String fnamn, String enamn, long personNr, String roll) throws Exception;
+    public Konto regKonto(String fnamn, String enamn, long personNr, String roll);
 
     /*return true if konto är avslutad*/
-    public boolean avslutaKonto(int kontoId);
+    public int avslutaKonto(int kontoId);
 
     /*return true om lån är registrera*/
-    public boolean registreraLån(int kontoId, int bibID);
+    public int registreraLån(int kontoId, int bibID);
+
+    public int återlämnaBok(int kontoId, int bibID);
+
+    public int kollaMedlemsstatus (int kontoID, int avstängningsDagar);
 
 }
-
-

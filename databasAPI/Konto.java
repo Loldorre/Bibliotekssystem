@@ -10,25 +10,22 @@ public class Konto {
     candidate = 7
     teacher = 10
     * */
-    private String roll;
+    private int roll;
     private long personNr;
 
     //4 siffror
     private int kontoID;
     private boolean avstangd;
     //int[] med alla bid för lånade böcker
-    private int[] lanadeBocker;
+    private Lån[] lanadeBocker;
     private int antalAvstangningar;
     private int antalForseningar;
 
-    public Konto (String fNamn, String eNamn, long personNr, String roll, int kontoID, boolean avstangd, int[] lanadeBocker, int antalAvstangningar, int antalForseningar) {
+    public Konto (String fNamn, String eNamn, long personNr, int roll, int kontoID, boolean avstangd, Lån[] lanadeBocker, int antalAvstangningar, int antalForseningar) {
         this.fNamn = fNamn;
         this.eNamn = eNamn;
         this.roll = roll;
         this.personNr = personNr;
-
-        //this.behorighetsniva = behorighetsniva;(redundant pga roll)
-
         this.kontoID = kontoID;
         this.lanadeBocker = lanadeBocker;
         this.avstangd = avstangd;
@@ -52,11 +49,11 @@ public class Konto {
         this.eNamn = eNamn;
     }
 
-    public String getRoll() {
+    public int getRoll() {
         return roll;
     }
 
-    public void setRoll(String roll) {
+    public void setRoll(int roll) {
         this.roll = roll;
     }
 
@@ -67,16 +64,6 @@ public class Konto {
     public void setPersonNr(long personNr) {
         this.personNr = personNr;
     }
-
-/*
-    public String getBehorighetsniva() {
-        return behorighetsniva;
-    }
-
-    public void setBehorighetsniva(String behorighetsniva) {
-        this.behorighetsniva = behorighetsniva;
-    }
-*/
 
     public int getKontoID() {
         return kontoID;
@@ -94,11 +81,11 @@ public class Konto {
         this.avstangd = avstangd;
     }
 
-    public int[] getLanadeBocker() {
+    public Lån[] getLanadeBocker() {
         return lanadeBocker;
     }
 
-    public void setLanadeBocker(int[] lanadeBocker) {
+    public void setLanadeBocker(Lån[] lanadeBocker) {
         this.lanadeBocker = lanadeBocker;
     }
 

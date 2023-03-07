@@ -1,68 +1,91 @@
 package databasAPI;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.time.ZoneId;
 
 public class Databas implements IDatabas {
-    Connection conn = null;
+    int kontoIdDecider = 0;
+    Connection connection;
 
-    //konstruktor som ger databasens adress och inlogg till användare+lösenord för inloggning.
-    public Databas(String adress, String användarnamnOchLösenord) {
+   public Databas() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        } catch (Exception ex) {
-            // handle the error
-        }
-        //-- Connect to the server via adress and login via username and password. if any error prints results.
-        // Connection made via variable "conn".
-        try {
-            conn = DriverManager.getConnection(adress + användarnamnOchLösenord);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://192.168.50.101:3306/1ik173-server", "Dorian", "Dorian1234");
 
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Bok[] hämtaTillgänglighet(String titel) throws SQLException { return new Bok[0];}
-    @Override
-    public String skapaLån(Date startDatum, int kontoID, int ISBN) {
-        return null;
+    public int taBortLån(int bid) {
+        return 0;
     }
 
     @Override
-    public String taBortLån(int kontoID, int ISBN) {
-        return null;
+    public Bok[] hämtaTillgängligheten(String titel) {
+        return new Bok[0];
     }
 
     @Override
-    public String läggTillSvartlista(long personNr) {
-        return null;
-    }
-
-    @Override
-    public String skapaKonto(String fnamn, String enamn, long personNr, String roll) {
-        return null;
-    }
-
-    @Override
-    public String avslutaKonto(int kontoID) {
-        return null;
+    public Lån[] hämtaLån() {
+        return new Lån[0];
     }
 
     @Override
     public Konto[] hämtaKonton() {
         return new Konto[0];
     }
+
     @Override
-    public String registreraTempAvstänging(int kontoID, int numofdays) {
-        return null;
+    public int updateAntalFörseningar(int kontoID) {
+        return 0;
     }
+
     @Override
-    public long[] hämtaSvartlistade(){
+    public int registreraTempAvstänging(int kontoID, int numOfDays) {
+        return 0;
+    }
+
+    @Override
+    public int updateAntalAvstängningar(int kontoID) {
+        return 0;
+    }
+
+    @Override
+    public int läggTillSvartlista(long personNr) {
+        return 0;
+    }
+
+    @Override
+    public int avslutaKonto(int kontoID) {
+        return 0;
+    }
+
+    @Override
+    public int skapaLån(int kontoID, int ISBN) {
+        return 0;
+    }
+
+    @Override
+    public int skapaKonto(String fnamn, String enman, Long personNr, int roll) {
+        return 0;
+    }
+
+    @Override
+    public long[] hämtaSvartlistade() {
         return new long[0];
     }
 }
+
+
+
