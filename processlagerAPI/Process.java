@@ -17,7 +17,7 @@ public class Process implements IProcess  {
    }
 
     @Override
-    public int kollaTillgänglighet(String titel) throws SQLException {
+    public int kollaTillgänglighet(String titel) {
             int tillgänglighetsCase = 0;
             Bok [] listaAvBöcker = DatabasAPI.hämtaTillgänglighet(titel);
 
@@ -30,7 +30,7 @@ public class Process implements IProcess  {
         }
 
     @Override
-    public int kollaMedlemsStatus(int kontoID) throws Exception {
+    public int kollaMedlemsstatus(int kontoID) {
         int medlemsstatus;
         int index = -1;
         Konto [] listAvKonto = DatabasAPI.hämtaKonton();
@@ -70,32 +70,31 @@ public class Process implements IProcess  {
         int day = date1.getDayOfYear();
 
         if (listAvKonto[index].getAntalForseningar() >= 2) {
-            tempAvstängning(listAvKonto[index].getKontoID(), new Date(year, month, day));
+            tempAvstängning(listAvKonto[index].getKontoID(), 15);
             medlemsstatus = 2;
             return medlemsstatus;
         }
 
-        return medlemsstatus;
+        return 0;
+    }
+
+    public int kollaMedlemsstatus (int kontiId, int antalDagar) {
+       return 0;
     }
 //behöver kasta Exception om den måste svartlista en medlem för test.
     @Override
-    public int tempAvstängning(int kontoId, Date datum) throws Exception {
+    public int tempAvstängning(int kontoId, int antalDagar) {
 
         String message = "";
         long persNr = 0;
         int index = 0;
         int nummerAvAvstängdaDagar = 0;
-        Konto [] listaAvKonto = DatabasAPI.hämtaKonton();
+        Konto[] listaAvKonto = DatabasAPI.hämtaKonton();
 
         Date date = new Date();
         int day = date.getDay();
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-        Date firstDate = sdf.parse(date.toString());
-        Date secondDate = sdf.parse(datum.toString());
-
-        long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
-        int diff = (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
 
 
@@ -107,35 +106,35 @@ public class Process implements IProcess  {
             } else {
                 message = "Personen var redan 2 gånger avstängd och bli svartlistad";
             }
-            throw new Exception();
-        } else {
+
+        } else
             DatabasAPI.registreraTempAvstänging(kontoId, nummerAvAvstängdaDagar);
 
-            return ;
-        }
+            return 0;
+
     }
 
 
+
     @Override
-    public boolean svartlistaMedlem(long personNr) {
-        return false;
+    public int svartlistaMedlem(long personNr) {
+        return 0;
     }
 
     //Viktor is doing
     @Override
-    public Konto regKonto(String fnamn, String enamn, long personNr, String roll) throws Exception {
-        if(1+2==4) throw new Exception();
+    public Konto regKonto(String fnamn, String enamn, long personNr, String roll) {
         return null;
     }
 
     @Override
-    public boolean avslutaKonto(long personNr) {
-        return false;
+    public int avslutaKonto(int kontoID) {
+        return 0;
     }
 
     @Override
-    public boolean registreraLån(long personNr, int bibID) {
-        boolean lån = false;
+    public int registreraLån(int kontoId, int bibID) {
+        int lån = 1;
         Konto [] listaAvKonto = DatabasAPI.hämtaKonton();
 
         //kolla om det bli för münga lün
@@ -162,6 +161,6 @@ public class Process implements IProcess  {
             }
         }*/
 
-        return återlämning;
+        return 0;
     }
 }

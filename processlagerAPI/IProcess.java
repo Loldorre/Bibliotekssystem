@@ -17,29 +17,33 @@ public interface IProcess{
     // 0 om finns inte
     // 1 om finns.
     // 2 om finns men alla utlånade.(stödjs inte i databaslagret i nuvarande lösning då hämtarmetoden där endast hämtar de böcker som inte är utlånade)
-    public int kollaTillgänglighet(String titel) throws SQLException;
+    public int kollaTillgänglighet(String titel);
 
     /*return true or false om Personen är medlem eller inte*/
-    public int kollaMedlemsStatus(int kontoId) throws Exception;
+    public int kollaMedlemsstatus(int kontoId);
 
     /*
-     *Returnera ett datum hur länge personen är temporärt avstängd.
+     *Returnera ett datum hur hur länge personen är temporärt avstängd.
+     *Eller String hur länge och varför?
      */
-    public int tempAvstängning(int kontoId, Date datum) throws Exception ;
+    public int tempAvstängning(int kontoId,int antalDagar);
+
 
     /*Returnera true om personen är svartlistad*/
-    public boolean svartlistaMedlem(long personNr);
+    public int svartlistaMedlem(long personNr);
 
     /*return Konto efter det registerades*/
-    public Konto regKonto(String fnamn, String enamn, long personNr, String roll) throws Exception;
+    public Konto regKonto(String fnamn, String enamn, long personNr, String roll);
 
     /*return true if konto är avslutad*/
-    public boolean avslutaKonto(long personNr);
+    public int avslutaKonto(int kontoId);
 
     /*return true om lån är registrera*/
-    public boolean registreraLån(long personNr, int bibID);
+    public int registreraLån(int kontoId, int bibID);
 
-    public int återlämnaBok(long personNr, int bibID);
+    public int återlämnaBok(int kontoId, int bibID);
+
+    public int kollaMedlemsstatus (int kontoID, int avstängningsDagar);
 
 }
 
