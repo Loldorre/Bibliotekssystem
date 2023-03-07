@@ -1,18 +1,19 @@
 package databasAPI;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 public interface IDatabas {
 
     /* Hämta alla böcker med riktig titel som inte är utlånade (alltså i samling men inte i lån).*/
- Bok[] hämtaTillgänglighet (String titel);
+    Bok[] hämtaTillgänglighet (String titel);
 
     /*skapa en Lån och returnera en String
-    *
-    * behöver definiera vad databasen kan tänkas svara... för tester
-    *
-    */
-    String skapaLån (Date startDatum, int kontoID, int ISBN);
+     *
+     * behöver definiera vad databasen kan tänkas svara... för tester
+     *
+     */
+    int skapaLån (int kontoID, int ISBN);
 
 
     /*ta bort lån enligt medlems personnummer eller Bokens ISBN
@@ -20,39 +21,45 @@ public interface IDatabas {
      * behöver definiera vad databasen kan tänkas svara... för tester
      *
      */
-    String taBortLån(int kontoID, int ISBN);
 
-/*lägga till en medlem på svartlista*/
+
+    /*lägga till en medlem på svartlista*/
     /*svartlista medlem genom medlems personnummer
      *
      * behöver definiera vad databasen kan tänkas svara... för tester
      *
      * */
-    String läggTillSvartlista(BigInteger personNr);
+    int läggTillSvartlistade(long personNr);
 
 
     /*returnera String att Konto är skapad*/
     /*skapa Konto med medlemens namn, efternamn, personnummer och roll
-    *
-    * behöver definiera vad databasen kan tänkas svara... för tester
-    *
-    * */
-    String skapaKonto(String fnamn, String  enamn, BigInteger personNr, String roll);
+     *
+     * behöver definiera vad databasen kan tänkas svara... för tester
+     *
+     * */
+    int skapaKonto(String fnamn, String  enamn, long personNr, String roll);
 
 
     /* returnera en String efter att Konto är avslutad.
-    *
-    * behöver definiera vad databasen kan tänkas svara... för tester
-    *
-    */
-    String avslutaKonto(int kontoID);
+     *
+     * behöver definiera vad databasen kan tänkas svara... för tester
+     *
+     */
+    int avslutaKonto(int kontoID);
 
     /*  returnera en Konto[] objekt med alla konton på servern.
-    *
-    * */
-    Konto[] hämtaKonton();
+     *
+     * */
+    public Konto[] hämtaKonton();
 
-    public String registreraTempAvstänging(int kontoID);
+    public int registreraTempAvstänging(int kontoID, int numOfDays);
+
+    public int taBortLån(int bid);
+    public int updateAntalFörseningar(int kontoID);
+    public int updateAntalAvstängningar(int kontoID);
+    public long[] hämtaSvarlistade();
+    public Lån[] hämtaLån();
 
 }
 
