@@ -14,8 +14,8 @@ import java.util.Date;
 import java.time.ZoneId;
 
 public class Databas implements IDatabas {
-    int kontoIdDecider = 0;
-    Connection connection;
+    private int kontoIdDecider = 0;
+    private Connection connection;
 
     public Databas() {
         try {
@@ -26,6 +26,7 @@ public class Databas implements IDatabas {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     //Hämtar en array av böcker som finns i Bok-tabellen och inte inte lån-tabellen
@@ -57,7 +58,9 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public String skapaLån(int kontoID, int bid /*bid från samling*/) {
+    public int skapaLån(int kontoID, int bid /*bid från samling*/) {
+
+        int failOrSuccess = 0;
 
         //Getting todays date, converting it to Date object, converting to MySQL Date format
         ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -74,7 +77,7 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(getTitel);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            failOrSuccess = 1;
         } finally {
             try {
                 connection.close();
@@ -83,45 +86,21 @@ public class Databas implements IDatabas {
             }
         }
 
-        return "Lån registrerat";
+        return failOrSuccess;
     }
-
 
 
     @Override
-    public String taBortLån(int kontoID, int bid) {
+    public int läggTillSvartlistade(long personNr) {
 
-        //Create MySQL query and try to execute it in order to remove loan från databas table "lån"
-        try {
-            Statement stmt = connection.createStatement();
-            String getTitel = "delete from lån where kontoID="+kontoID+" and bid="+bid;
-            int rS = stmt.executeUpdate(getTitel);
+        int failOrSuccess = 0;
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return null;
-    }
-
-    public static void main(String[] args) {
-        Databas x = new Databas();
-        x.taBortLån(1111, 4);
-    }
-
-    @Override
-    public String läggTillSvartlista(long personNr) {
         try {
             Statement stmt = connection.createStatement();
             String addBlacklist = "insert into svartlista values (" + personNr + ")";
             long rS = stmt.executeUpdate(addBlacklist);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            failOrSuccess = 1;
         } finally {
             try {
                 connection.close();
@@ -129,19 +108,21 @@ public class Databas implements IDatabas {
                 throw new RuntimeException(e);
             }
         }
-        return personNr + " tillagt i svartlista";
+        return failOrSuccess;
     }
 
 
     @Override
-    public String skapaKonto(String fnamn, String enamn, long personNr, String roll) {
+    public int skapaKonto(String fnamn, String enamn, long personNr, String roll) {
+        int failOrSuccess = 0;
+
         try {
             Statement stmt = connection.createStatement();
             String addAccount = "insert into konto values (\"" + fnamn + "\",\"" + enamn + "\"," + personNr + ",\"" + roll + "\"," + kontoIdDecider + "," + null + "," + 0 + "," + 0 + ")";
             int rS = stmt.executeUpdate(addAccount);
             kontoIdDecider++;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            failOrSuccess = 1;
         } finally {
             try {
                 connection.close();
@@ -149,19 +130,21 @@ public class Databas implements IDatabas {
                 throw new RuntimeException(e);
             }
         }
-        return "Konto för " + fnamn + " " + enamn + " har skapats";
+        return failOrSuccess;
     }
 
 
     @Override
-    public String avslutaKonto(int kontoID) {
+    public int avslutaKonto(int kontoID) {
+        int failOrSuccess = 0;
+
         try {
             Statement stmt = connection.createStatement();
             String deleteAccount = "delete from konto where kontoID =" + kontoID;
             int rS = stmt.executeUpdate(deleteAccount);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            failOrSuccess = 1;
         } finally {
             try {
                 connection.close();
@@ -169,19 +152,20 @@ public class Databas implements IDatabas {
                 throw new RuntimeException(e);
             }
         }
-        return "Kontot har tagits bort";
+        return failOrSuccess;
     }
 
 
     @Override
     public Konto[] hämtaKonton() {
+
         ArrayList<Konto> arrayOfAccounts = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
             String getAccount = "select * from konto";
             ResultSet rS = stmt.executeQuery(getAccount);
             while (rS.next()) {
-                //arrayOfAccounts.add(new Konto(rS.getString("fnamn"), rS.getString("enamn"), rS.getLong("personNr"), rS.getString("roll"), rS.getInt("kontoID"), rS.getDate("avstängd"), rS.getInt("antalAvstängningar"), rS.getInt("antalFörseningar")));
+                arrayOfAccounts.add(new Konto(rS.getString("fnamn"), rS.getString("enamn"), rS.getLong("personNr"), rS.getString("roll"), rS.getInt("kontoID"), rS.getDate("avstängd"), rS.getInt("antalAvstängningar"), rS.getInt("antalFörseningar")));
             }
 
         } catch (SQLException e) {
@@ -201,7 +185,8 @@ public class Databas implements IDatabas {
 
 
     @Override
-    public String registreraTempAvstänging(int kontoID, int numOfDays) {
+    public int registreraTempAvstänging(int kontoID, int numOfDays) {
+        int failOrSuccess = 0;
 
         //Hämtar dagens daturm, lägger på numOfDays och gör om till ett MySQL-vänligt Date objekt
         ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -223,7 +208,7 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(getAccount);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            failOrSuccess = 1;
         } finally {
             try {
                 connection.close();
@@ -232,20 +217,21 @@ public class Databas implements IDatabas {
             }
         }
 
-        return "Temporär avstängning registrerad";
+        return failOrSuccess;
     }
 
 
     @Override
-    public String returnBook(int bid){
+    public int taBortLån(int bid){
 
+        int failOrSuccess = 0;
         try {
             Statement stmt = connection.createStatement();
             String getAccount = "delete from lån where bid="+bid;
             int rS = stmt.executeUpdate(getAccount);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            failOrSuccess = 1;
         } finally {
             try {
                 connection.close();
@@ -254,11 +240,15 @@ public class Databas implements IDatabas {
             }
         }
 
-
-        return "Bok är återlämnad";
+        return failOrSuccess;
     }
 
-    public String updateAntalAvstängningar(int kontoID) {
+
+    @Override
+    public int updateAntalAvstängningar(int kontoID) {
+
+        int failOrSuccess = 0;
+
         int amountOfBan = 0;
         Databas accessKonto = new Databas();
         for (Konto kon : accessKonto.hämtaKonton()) {
@@ -274,7 +264,7 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(getAccount);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            failOrSuccess=1;
         } finally {
             try {
                 connection.close();
@@ -283,11 +273,13 @@ public class Databas implements IDatabas {
             }
         }
 
-        return "antal avstägningar uppdaterat";
+        return failOrSuccess;
     }
 
+    @Override
+    public int updateAntalFörseningar(int kontoID) {
 
-    public String updateAntalFörseningar(int kontoID) {
+        int failOrSuccess = 0;
         int amountOfLateReturns = 0;
         Databas accessKonto = new Databas();
         for (Konto kon : accessKonto.hämtaKonton()) {
@@ -303,7 +295,7 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(getAccount);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            failOrSuccess = 1;
         } finally {
             try {
                 connection.close();
@@ -312,13 +304,69 @@ public class Databas implements IDatabas {
             }
         }
 
-        return "antal förseningar uppdaterat";
+        return failOrSuccess;
     }
 
+
     @Override
-    public long[] hämtaSvartlistade(){
-        return new long[]{};
+    // Klar tack vare Z
+    public long[] hämtaSvarlistade() {
+
+        //arrayOfBooks used with .toArray to create the return array
+        ArrayList<Long> arrayOfBlacklist = new ArrayList<>();
+
+        //Getting an array of book with titel which is then returned
+        try {
+            Statement stmt = connection.createStatement();
+            String getPersonNr = "select personNr from svartlista";
+            ResultSet rS = stmt.executeQuery(getPersonNr);
+            while (rS.next()) {
+                arrayOfBlacklist.add(rS.getLong("personNr"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        long[] returnBlacklistArray = new long[arrayOfBlacklist.size()];
+        int i = 0;
+        for (Long item : arrayOfBlacklist) {
+            returnBlacklistArray[i] = item;
+            i++;
+        }
+
+
+        return returnBlacklistArray;
     }
+
+    public Lån[] hämtaLån(){
+
+        ArrayList<Lån> loans = new ArrayList<>();
+
+        //Getting an array of book with titel which is then returned
+        try {
+            Statement stmt = connection.createStatement();
+            String getTitel = "select * from lån";
+            ResultSet rS = stmt.executeQuery(getTitel);
+            while (rS.next()) {
+                loans.add(new Lån(rS.getInt("bid"), rS.getInt("kontoid"), rS.getDate("lånDatum")));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Lån[] arrayOfLoans = new Lån[loans.size()];
+        loans.toArray(arrayOfLoans);
+
+        return arrayOfLoans;
+    }
+
 
 
 }
+
