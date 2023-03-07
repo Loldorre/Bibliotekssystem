@@ -32,11 +32,6 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public Bok[] hämtaTillgängligheten(String titel) {
-        return new Bok[0];
-    }
-
-    @Override
     public Lån[] hämtaLån() {
         return new Lån[0];
     }
@@ -62,13 +57,17 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public int läggTillSvartlista(long personNr) {
+    public long[] hämtaSvarlistade() {
+        return new long[0];
+    }
+    @Override
+    public int avslutaKonto(int kontoID) {
         return 0;
     }
 
     @Override
-    public int avslutaKonto(int kontoID) {
-        return 0;
+    public Bok[] hämtaTillgänglighet(String titel) {
+        return new Bok[0];
     }
 
     @Override
@@ -77,14 +76,15 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public int skapaKonto(String fnamn, String enman, Long personNr, int roll) {
+    public int läggTillSvartlistade(long personNr) {
         return 0;
     }
 
     @Override
-    public long[] hämtaSvartlistade() {
-        return new long[0];
+    public int skapaKonto(String fnamn, String enamn, long personNr, String roll) {
+        return 0;
     }
+
 }
 
 

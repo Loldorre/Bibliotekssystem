@@ -1,5 +1,7 @@
 package databasAPI;
 
+import java.util.Date;
+
 public class Konto {
     private String fNamn;
     private String eNamn;
@@ -15,13 +17,13 @@ public class Konto {
 
     //4 siffror
     private int kontoID;
-    private boolean avstangd;
+    private Date avstangd;
     //int[] med alla bid för lånade böcker
     private Lån[] lanadeBocker;
     private int antalAvstangningar;
     private int antalForseningar;
 
-    public Konto (String fNamn, String eNamn, long personNr, int roll, int kontoID, boolean avstangd, Lån[] lanadeBocker, int antalAvstangningar, int antalForseningar) {
+    public Konto (String fNamn, String eNamn, long personNr, int roll, int kontoID, Date avstangd, Lån[] lanadeBocker, int antalAvstangningar, int antalForseningar) {
         this.fNamn = fNamn;
         this.eNamn = eNamn;
         this.roll = roll;
@@ -73,11 +75,11 @@ public class Konto {
         this.kontoID = kontoID;
     }
 
-    public boolean isAvstangd() {
+    public Date isAvstangd() {
         return avstangd;
     }
 
-    public void setAvstangd(boolean avstangd) {
+    public void setAvstangd(Date avstangd) {
         this.avstangd = avstangd;
     }
 

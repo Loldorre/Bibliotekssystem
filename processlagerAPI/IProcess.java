@@ -13,6 +13,7 @@ public interface IProcess {
 
     /*return true or false om Personen är medlem eller inte*/
     public int kollaMedlemsstatus(int kontoId);
+    public int kollaMedlemsstatus(int kontoId, int avstängningsDagar);
 
     /*
      *Returnera ett datum hur hur länge personen är temporärt avstängd.
@@ -34,7 +35,5 @@ public interface IProcess {
     public int registreraLån(int kontoId, int bibID);
 
     public int återlämnaBok(int kontoId, int bibID);
-
-    public int kollaMedlemsstatus (int kontoID, int avstängningsDagar);
 
 }

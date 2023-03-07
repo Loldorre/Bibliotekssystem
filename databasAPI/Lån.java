@@ -7,8 +7,9 @@ public class Lån {
     Date datum;
     int kontoID;
 
-    Lån(int bid,Date datum){
+    public Lån(int bid,Date datum,int kontoID){
         this.bid = bid;
         this.datum = datum;
+        this.kontoID = kontoID;
     }
 }

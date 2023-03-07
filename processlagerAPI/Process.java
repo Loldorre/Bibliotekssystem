@@ -24,7 +24,10 @@ class Process implements IProcess {
     public int kollaMedlemsstatus(int kontoId) {
         return 0;
     }
-
+    @Override
+    public int kollaMedlemsstatus(int kontoId,int avstängningsDagar) {
+        return 0;
+    }
     @Override
     public int tempAvstängning(int kontoId, int antalDagar) {
         return 0;
@@ -55,8 +58,4 @@ class Process implements IProcess {
         return 0;
     }
 
-    @Override
-    public int kollaMedlemsstatus(int kontoID, int avstängningsDagar) {
-        return 0;
-    }
 }
