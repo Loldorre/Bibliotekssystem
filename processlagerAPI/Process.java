@@ -31,11 +31,9 @@ public class Process implements IProcess  {
 
     @Override
     public int kollaMedlemsStatus(int kontoID) throws Exception {
-        int medlemsstatus = 0;
+        int medlemsstatus;
         int index = -1;
         Konto [] listAvKonto = DatabasAPI.hämtaKonton();
-
-        //visa om personen mate bestraffas
 
         for (int i = 0; i < listAvKonto.length; i++) {
             if (listAvKonto[i].getKontoID() == kontoID ) {
@@ -43,7 +41,24 @@ public class Process implements IProcess  {
             }
         }
 
+        Lån [] listAvBöcker = listAvKonto[index].getLanadeBocker();
+
+        Date today = new Date();
+
+
+
+        //visa om personen mate bestraffas
+        //kolla alla bok igenom om de är försenad
+        //om de är försenad uppdatera försening
+        //om försening är över 2 bli personen avständ
+        //om personen var redan avstängd tvü günger ska personen bli svartlistad
+
+
+        //annars kolla om konto finns och dü bli det godkänd
+
+
         if (index == -1) {
+            medlemsstatus = 0;
             return  medlemsstatus;
         }
 
@@ -123,13 +138,20 @@ public class Process implements IProcess  {
         boolean lån = false;
         Konto [] listaAvKonto = DatabasAPI.hämtaKonton();
 
+        //kolla om det bli för münga lün
+
         return lån;
     }
 
     @Override
-    public int återlämnaBok(long personNr, int bibID) {
+    public int återlämnaBok(int kontoID, int bibID) {
         boolean återlämning = false;
         Konto [] listAvKonto = DatabasAPI.hämtaKonton();
+
+        //kolla medlemstatus?
+        //hämta konto information
+        //kolla om boken är för sent eller inte
+        //uppdatera förseningar/avstängning/svartlistad
 
         /*for (int i = 0; i < listaLanadeBöcker.length; i++) {
             listaLanadeBöcker[i] //hämta lan att jämföra date som den skulle ha varit tillbaka
