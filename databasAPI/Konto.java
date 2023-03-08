@@ -1,5 +1,9 @@
 package databasAPI;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Konto {
     private String fNamn;
     private String eNamn;
@@ -12,29 +16,71 @@ public class Konto {
     * */
     private String roll;
     private long personNr;
+    private Connection connection;
 
-    //4 siffror
+
     private int kontoID;
-    private boolean avstangd;
-    //int[] med alla bid för lånade böcker
-    private int [] lanadeBocker;
+    private Date avstangd;
+    Lån[]  lånadeBöcker;
     private int antalAvstangningar;
     private int antalForseningar;
 
-    public Konto (String fNamn, String eNamn, long personNr, String roll, int kontoID, boolean avstangd, int[] lanadeBocker, int antalAvstangningar, int antalForseningar) {
+    public Konto (String fNamn, String eNamn, long personNr, String roll, int kontoID, Date avstangd, int antalAvstangningar, int antalForseningar) {
+
+        //Kolla anslutning till databasen
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://192.168.50.101:3306/1ik173-server", "Dorian", "Dorian1234");
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         this.fNamn = fNamn;
         this.eNamn = eNamn;
         this.roll = roll;
         this.personNr = personNr;
-
-        //this.behorighetsniva = behorighetsniva;(redundant pga roll)
-
         this.kontoID = kontoID;
-        this.lanadeBocker = lanadeBocker;
         this.avstangd = avstangd;
+        if (roll=="undergraduate"){ lånadeBöcker=new Lån[3];}
+        else if (roll=="postgraduate"){ lånadeBöcker=new Lån[5];}
+        else if (roll=="candidate"){ lånadeBöcker=new Lån[7];}
+        else if (roll=="teacher"){ lånadeBöcker=new Lån[10];}
         this.antalAvstangningar = antalAvstangningar;
         this.antalForseningar = antalForseningar;
+
+        lånadeBöcker = hämtaLånFörKonto(kontoID);
     }
+
+    public Lån[] hämtaLånFörKonto(int kontoID){
+
+        //arrayOfLoans used with .toArray to create the return array
+        ArrayList<Lån> arrayOfLoans = new ArrayList<>();
+
+        //Getting an array of Lån with kontoID which is then returned
+        try {
+            Statement stmt = connection.createStatement();
+            String getTitel = "select * from lån where kontoid=" + kontoID;
+            ResultSet rS = stmt.executeQuery(getTitel);
+            while (rS.next()) {
+                arrayOfLoans.add(new Lån(rS.getInt("bid"), rS.getInt("kontoid"), rS.getDate("låndatum"), rS.getDate("returnTheBook")));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Lån[] loanArray = new Lån[arrayOfLoans.size()];
+        arrayOfLoans.toArray(loanArray);
+
+        return loanArray;
+    }
+
+
 
     public String getfNamn() {
         return fNamn;
@@ -86,20 +132,12 @@ public class Konto {
         this.kontoID = kontoID;
     }
 
-    public boolean isAvstangd() {
+    public Date isAvstangd() {
         return avstangd;
     }
 
-    public void setAvstangd(boolean avstangd) {
+    public void setAvstangd(Date avstangd) {
         this.avstangd = avstangd;
-    }
-
-    public int[] getLanadeBocker() {
-        return lanadeBocker;
-    }
-
-    public void setLanadeBocker(int[] lanadeBocker) {
-        this.lanadeBocker = lanadeBocker;
     }
 
     public int getAntalAvstangningar() {
