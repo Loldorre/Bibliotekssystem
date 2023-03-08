@@ -18,7 +18,7 @@ public class Konto {
     //4 siffror
     private int kontoID;
     private Date avstangd;
-    //int[] med alla bid för lånade böcker
+    //Lån[] med alla bid för lånade böcker
     private Lån[] lanadeBocker;
     private int antalAvstangningar;
     private int antalForseningar;

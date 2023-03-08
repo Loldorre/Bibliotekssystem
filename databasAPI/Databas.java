@@ -27,7 +27,7 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public int taBortLån(int bid) {
+    public int taBortLån(int bibID) {
         return 0;
     }
 
@@ -71,7 +71,7 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public int skapaLån(int kontoID, int ISBN) {
+    public int skapaLån(int kontoID, int bibID) {
         return 0;
     }
 
@@ -81,7 +81,7 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    public int skapaKonto(String fnamn, String enamn, long personNr, String roll) {
+    public int skapaKonto(String fnamn, String enamn, long personNr, int roll) {
         return 0;
     }
 
