@@ -11,7 +11,6 @@ import java.util.Date;
 import java.time.ZoneId;
 
 public class Databas implements IDatabas {
-    private int kontoIdDecider = 0;
     private Connection connection;
 
    public Databas() {
@@ -57,7 +56,7 @@ public class Databas implements IDatabas {
     @Override
     public int skapaLån(int kontoID, int bid /*bid från samling*/) {
 
-       int failOrSuccess = 0;
+       int returnValue = 0; //1 = fail, everything else is a KontoID which mean success
 
         //Getting todays date, converting it to Date object, converting to MySQL Date format
         ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -74,7 +73,7 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(getTitel);
 
         } catch (SQLException e) {
-            failOrSuccess = 1;
+            returnValue = 1;
         } finally {
             try {
                 connection.close();
@@ -83,7 +82,7 @@ public class Databas implements IDatabas {
             }
         }
 
-        return failOrSuccess;
+        return returnValue;
     }
 
 
@@ -109,15 +108,18 @@ public class Databas implements IDatabas {
     }
 
 
-    @Override
+    @Override //Hämtar inte kontoId. ska fixas
     public int skapaKonto(String fnamn, String enamn, long personNr, String roll) {
        int failOrSuccess = 0;
 
         try {
             Statement stmt = connection.createStatement();
-            String addAccount = "insert into konto values (\"" + fnamn + "\",\"" + enamn + "\"," + personNr + ",\"" + roll + "\"," + kontoIdDecider + "," + null + "," + 0 + "," + 0 + ")";
-            int rS = stmt.executeUpdate(addAccount);
-            kontoIdDecider++;
+            Statement getStmt = connection.createStatement();
+            String addAccount = "insert into konto values (\"" + fnamn + "\",\"" + enamn + "\"," + personNr + ",\"" + roll + "\"," + 0 +", " + null + "," + 0 + "," + 0 + ")";
+            String getAddedKontoId = "select kontoID from konto where personNr=" + personNr;
+           int rS = getStmt.executeUpdate(addAccount);
+           ResultSet newRs = getStmt.executeQuery(getAddedKontoId);
+           failOrSuccess = newRs.getInt("kontoid");
         } catch (SQLException e) {
             failOrSuccess = 1;
         } finally {
@@ -127,9 +129,13 @@ public class Databas implements IDatabas {
                 throw new RuntimeException(e);
             }
         }
+
         return failOrSuccess;
     }
-
+    public static void main(String[] args) {
+        Databas x = new Databas();
+        System.out.println(x.skapaKonto("Per", "Bolund", 7305240909L, "undergraduate"));
+    }
 
     @Override
     public int avslutaKonto(int kontoID) {
@@ -162,7 +168,7 @@ public class Databas implements IDatabas {
             String getAccount = "select * from konto";
             ResultSet rS = stmt.executeQuery(getAccount);
             while (rS.next()) {
-                arrayOfAccounts.add(new Konto(rS.getString("fnamn"), rS.getString("enamn"), rS.getLong("personNr"), rS.getString("roll"), rS.getInt("kontoID"), rS.getDate("avstängd"), rS.getInt("antalAvstängningar"), rS.getInt("antalFörseningar")));
+                arrayOfAccounts.add(new Konto(rS.getString("fnamn"), rS.getString("enamn"), rS.getLong("personNr"), rS.getInt("roll"), rS.getInt("kontoID"), rS.getDate("avstängd"), rS.getInt("antalAvstängningar"), rS.getInt("antalFörseningar")));
             }
 
         } catch (SQLException e) {

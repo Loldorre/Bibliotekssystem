@@ -17,7 +17,7 @@ public class Konto {
     candidate = 7
     teacher = 10
     * */
-    private String roll;
+    private int roll;
     private long personNr;
     private Connection connection;
 
@@ -28,7 +28,7 @@ public class Konto {
     private int antalAvstangningar;
     private int antalForseningar;
 
-    public Konto (String fNamn, String eNamn, long personNr, String roll, int kontoID, Date avstangd, int antalAvstangningar, int antalForseningar) {
+    public Konto (String fNamn, String eNamn, long personNr, int roll, int kontoID, Date avstangd, int antalAvstangningar, int antalForseningar) {
 
         //Kolla anslutning till databasen
         try {
@@ -45,10 +45,10 @@ public class Konto {
         this.personNr = personNr;
         this.kontoID = kontoID;
         this.avstangd = avstangd;
-        if (roll=="undergraduate"){ lånadeBöcker=new Lån[3];}
-        else if (roll=="postgraduate"){ lånadeBöcker=new Lån[5];}
-        else if (roll=="candidate"){ lånadeBöcker=new Lån[7];}
-        else if (roll=="teacher"){ lånadeBöcker=new Lån[10];}
+        if (roll==0){ lånadeBöcker=new Lån[3];}
+        else if (roll==1){ lånadeBöcker=new Lån[5];}
+        else if (roll==2){ lånadeBöcker=new Lån[7];}
+        else if (roll==3){ lånadeBöcker=new Lån[10];}
         this.antalAvstangningar = antalAvstangningar;
         this.antalForseningar = antalForseningar;
 
@@ -101,11 +101,11 @@ public class Konto {
         this.eNamn = eNamn;
     }
 
-    public String getRoll() {
+    public int getRoll() {
         return roll;
     }
 
-    public void setRoll(String roll) {
+    public void setRoll(int roll) {
         this.roll = roll;
     }
 
