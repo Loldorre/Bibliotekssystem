@@ -70,7 +70,7 @@ public class TestProcess {
         @DisplayName("kollaMedlemsstatus: Elvis konto kollas för möjlighet att låna och får avslag då hans konto inte finns")
         public void testkollaMedlemsstatus2() {
             when(dbapi.hämtaKonton()).thenReturn(new Konto[]{});
-            assertEquals(1,p.kollaMedlemsstatus(1234));
+            assertEquals(3,p.kollaMedlemsstatus(1234));
         }
         @Test
         @DisplayName("kollaMedlemsstatus: Elvis kollas och får godkänt trotts en försening")
@@ -93,14 +93,13 @@ public class TestProcess {
             when(dbapi.hämtaKonton()).thenReturn(new Konto[]{ new Konto("Elvis","Presley",3111012940L,0,1234,null, new Lån[]{new Lån(1,1234,new Date(20220101))},2,2)});
             when(dbapi.läggTillSvartlistade(311101012940L)).thenReturn(0);
             when(dbapi.avslutaKonto(1234)).thenReturn(0);
-            assertEquals(3,p.kollaMedlemsstatus(1234));
+            assertEquals(1,p.kollaMedlemsstatus(1234));
         }
         @Test
         @DisplayName("kollaMedlemsstatus: Elvis kollas men är avstängd... (alla böcker återlämnade)")
         public void testkollaMedlemsstatus6() {
-            when(dbapi.hämtaKonton()).thenReturn(new Konto[]{ new Konto("Elvis","Presley",3111012940L,0,1234,new Date(20990101), new Lån[]{},2,2)});
-            when(dbapi.läggTillSvartlistade(311101012940L)).thenReturn(0);
-            when(dbapi.avslutaKonto(1234)).thenReturn(0);
+            when(dbapi.hämtaKonton()).thenReturn(new Konto[]{
+                    new Konto("Elvis","Presley",3111012940L,0,1234,new Date(20990101), new Lån[]{},2,2)});
             assertEquals(2,p.kollaMedlemsstatus(1234));
         }
         @Test

@@ -1,5 +1,7 @@
 package databasAPI;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Konto {
@@ -15,24 +17,30 @@ public class Konto {
     private int roll;
     private long personNr;
 
-    //4 siffror
+
     private int kontoID;
     private Date avstangd;
-    //Lån[] med alla bid för lånade böcker
-    private Lån[] lanadeBocker;
+    Lån[]  lånadeBöcker;
     private int antalAvstangningar;
     private int antalForseningar;
 
-    public Konto (String fNamn, String eNamn, long personNr, int roll, int kontoID, Date avstangd, Lån[] lanadeBocker, int antalAvstangningar, int antalForseningar) {
+    public Konto (String fNamn, String eNamn, long personNr, int roll, int kontoID, Date avstangd,Lån[] lån, int antalAvstangningar, int antalForseningar) {
+
         this.fNamn = fNamn;
         this.eNamn = eNamn;
         this.roll = roll;
         this.personNr = personNr;
         this.kontoID = kontoID;
-        this.lanadeBocker = lanadeBocker;
         this.avstangd = avstangd;
+        this.lånadeBöcker = lån;
         this.antalAvstangningar = antalAvstangningar;
         this.antalForseningar = antalForseningar;
+    }
+public Date getAvstangd(){
+        return this.avstangd;
+    }
+    public Lån[] getLånadeBöcker() {
+        return lånadeBöcker;
     }
 
     public String getfNamn() {
@@ -60,13 +68,12 @@ public class Konto {
     }
 
     public long getPersonNr() {
-        return this.personNr;
+        return personNr;
     }
 
     public void setPersonNr(long personNr) {
         this.personNr = personNr;
     }
-
     public int getKontoID() {
         return kontoID;
     }
@@ -81,14 +88,6 @@ public class Konto {
 
     public void setAvstangd(Date avstangd) {
         this.avstangd = avstangd;
-    }
-
-    public Lån[] getLanadeBocker() {
-        return lanadeBocker;
-    }
-
-    public void setLanadeBocker(Lån[] lanadeBocker) {
-        this.lanadeBocker = lanadeBocker;
     }
 
     public int getAntalAvstangningar() {
