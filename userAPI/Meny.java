@@ -101,7 +101,7 @@ public class Meny {
 
                     case 2: //återlämna bok
                         System.out.println("Skriv in kontoId: ");
-                        int kontoId4 = scan.nextInt();
+                         kontoId = scan.nextInt();
                         int avstängningsdagar = scan.nextInt();
                         int bibID = scan.nextInt();
                         try{
@@ -130,7 +130,7 @@ public class Meny {
 
                     case 3: //avsluta konto
                         System.out.println("Vänligen ange kontoId: ");
-                        int kontoId1 = scan.nextInt();
+                         kontoId = scan.nextInt();
 
 
                         try {
@@ -151,15 +151,16 @@ public class Meny {
             break;
 
 
-                        break;
+
                     case 4: //registrera konto
                         System.out.println("Vänligen ange namn, efternamn, personnummer och roll");
 
-                        String fnamn, enamn, roll;
+                        String fnamn, enamn;
+                        int roll;
                         personNr = scan.nextLong();
                         fnamn = scan.nextLine();
                         enamn = scan.nextLine();
-                        roll = scan.nextLine();
+                        roll = scan.nextInt();
 
                         try {
                             //fixa här, processL
@@ -179,8 +180,8 @@ public class Meny {
                             if (kontoinfo == 3){
                                 System.out.println("OPS! Databasstrul. Försök igen!");
                         }
-                            if (kontoinfo == 0){
-                                System.out.println("Konto skapat!");
+                            if (kontoinfo > 999){
+                                System.out.println("Konto " + kontoinfo + "skapat");
                             }
                         } catch (NumberFormatException n) {
                         }
@@ -192,6 +193,7 @@ public class Meny {
                     {
                         System.out.println("Ange användarens personnummer:");
                         personNr = scan.nextLong();
+                        kontoId = scan.nextInt();
 
                         try {
                             int svarpersonnumer = processObj.svartlistaMedlem(personNr);
@@ -203,10 +205,11 @@ public class Meny {
                             }
                             if (svarpersonnumer == 0) {
                                 System.out.println("Medlem svartlistad!");
+
+
+                                int svaravsluta = processObj.avslutaKonto(kontoId);
+                                System.out.println("Medlems konto avslutad!");
                             }
-
-                            //finns inget personnumer, kontoid !
-
 
                         } catch (NumberFormatException n) {
                         }
@@ -218,7 +221,7 @@ public class Meny {
 
                     case 6:  //tepmorär avstängning
                         System.out.println("Ange kontoId:");
-                        int kontoId2 = scan.nextInt();
+                         kontoId = scan.nextInt();
                         int avstängningsDagar = scan.nextInt();
                         try{
                             if (processObj.kollaMedlemsstatus(kontoId, avstängningsDagar) == 3){
