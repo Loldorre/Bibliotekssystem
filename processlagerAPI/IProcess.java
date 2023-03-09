@@ -33,7 +33,7 @@ public interface IProcess{
     public int svartlistaMedlem(long personNr);
 
     /*return Konto efter det registerades*/
-    public Konto regKonto(String fnamn, String enamn, long personNr, String roll);
+    public int regKonto(String fnamn, String enamn, long personNr, int roll);
 
     /*return true if konto är avslutad*/
     public int avslutaKonto(int kontoId);
