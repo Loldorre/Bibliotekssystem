@@ -51,17 +51,6 @@ public class Process implements IProcess  {
             return  3;
         }
 
-        if (listAvKonto[index].getAntalAvstangningar() > 1) {
-            svartlistaMedlem(listAvKonto[index].getPersonNr());
-            DatabasAPI.avslutaKonto(listAvKonto[index].getKontoID());
-            return 1;
-        }
-
-        if (listAvKonto[index].getAntalForseningar() > 1) {
-            tempAvstängning(listAvKonto[index].getKontoID(), 15);
-            listAvKonto[index].setAntalForseningar(0);
-        }
-
         Date today = new Date();
 
         Lån [] lånadeBöcker = listAvKonto[index].hämtaLånFörKonto(listAvKonto[index].getKontoID());
@@ -71,20 +60,20 @@ public class Process implements IProcess  {
            Date lånDatum = lånadeBöcker[i].getLånDatum();
 
             LocalDate slutDatum = LocalDate.of(lånDatum.getYear(), lånDatum.getMonth(), lånDatum.getDate()).plusDays(14);
-
             Date returnTheBookDate = new Date(slutDatum.getYear(), slutDatum.getMonthValue(), slutDatum.getDayOfMonth());
 
             if (returnTheBookDate.compareTo(today) >= 0) {
                 DatabasAPI.updateAntalFörseningar(listAvKonto[index].getKontoID());
+                listAvKonto[index].setAntalForseningar(listAvKonto[index].getAntalForseningar() + 1);
             }
 
             if (listAvKonto[index].getAntalForseningar() > 1) {
                 tempAvstängning(listAvKonto[index].getKontoID(), 15);
                 LocalDate datum = LocalDate.now().plusDays(15);
                 listAvKonto[index].setAvstangd(new Date(datum.getYear(), datum.getMonthValue(), datum.getDayOfMonth()));
-                DatabasAPI.updateAntalAvstängningar(listAvKonto[index].getKontoID());
                 listAvKonto[index].setAntalForseningar(0);
-                listAvKonto[index].setAntalAvstangningar( listAvKonto[index].getAntalAvstangningar()+1);
+                listAvKonto[index].setAntalAvstangningar(listAvKonto[index].getAntalAvstangningar()+1);
+                return 2;
             }
 
             if (listAvKonto[index].getAntalAvstangningar() > 1) {
@@ -92,7 +81,6 @@ public class Process implements IProcess  {
                 avslutaKonto(listAvKonto[index].getKontoID());
                 return 1;
             }
-
         }
 
         if (listAvKonto[index].getAntalAvstangningar() == 1) {
@@ -111,33 +99,28 @@ public class Process implements IProcess  {
     @Override
     public int tempAvstängning(int kontoId, int antalDagar) {
 
-        String message = "";
-        long persNr = 0;
-        int index = 0;
-        int nummerAvAvstängdaDagar = 0;
         Konto[] listaAvKonto = DatabasAPI.hämtaKonton();
+        Konto konto = null;
 
-        Date date = new Date();
-        int day = date.getDay();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-
-
-
-        if (listaAvKonto[index].getAntalAvstangningar() >= 2) {
-            DatabasAPI.läggTillSvartlistade(persNr);
-            DatabasAPI.avslutaKonto(listaAvKonto[index].getKontoID());
-            if (DatabasAPI.läggTillSvartlistade(kontoId) != 1) {
-                message = "Person var redan 2 gånger avstängt. Avstängning failade, gör svartlistning manuellt.";
-            } else {
-                message = "Personen var redan 2 gånger avstängd och bli svartlistad";
+        for (Konto value : listaAvKonto) {
+            if (value.getKontoID() == kontoId) {
+                konto = value;
+                break;
             }
+        }
 
-        } else
-            DatabasAPI.registreraTempAvstänging(kontoId, nummerAvAvstängdaDagar);
+        if (konto == null) {
+            return 3;
+        }
 
+        int frånStatus = kollaMedlemsstatus(kontoId);
+
+        if (frånStatus == 0) {
+            DatabasAPI.registreraTempAvstänging(kontoId, antalDagar);
             return 0;
-
+        } else {
+            return frånStatus;
+        }
     }
 
 
@@ -160,12 +143,22 @@ public class Process implements IProcess  {
 
     @Override
     public int registreraLån(int kontoId, int bibID) {
-        int lån = 1;
-        Konto [] listaAvKonto = DatabasAPI.hämtaKonton();
 
-        //kolla om det bli för münga lün
+       /* Konto [] listaAvKonto = DatabasAPI.hämtaKonton();
+        Konto konto = null;
 
-        return lån;
+        for (Konto value : listaAvKonto) {
+            if (value.getKontoID() == kontoId) {
+                konto = value;
+                break;
+            }
+        }
+        if (konto == null) {
+            return 3;
+        }
+        Lån [] lånadeBöcker = konto.getLanadeBocker(); */
+
+        return DatabasAPI.skapaLån(kontoId, bibID);
     }
 
     @Override
@@ -173,19 +166,6 @@ public class Process implements IProcess  {
         boolean återlämning = false;
         Konto [] listAvKonto = DatabasAPI.hämtaKonton();
 
-        //kolla medlemstatus?
-        //hämta konto information
-        //kolla om boken är för sent eller inte
-        //uppdatera förseningar/avstängning/svartlistad
-
-        /*for (int i = 0; i < listaLanadeBöcker.length; i++) {
-            listaLanadeBöcker[i] //hämta lan att jämföra date som den skulle ha varit tillbaka
-            if (listaLanadeBöcker[i].date.compareTo(currentDate < 0)) {
-                listaAvKonto[i].getAntalForseningar();
-                if (antalFörseningar > 2) {
-                }
-            }
-        }*/
 
         return 0;
     }
