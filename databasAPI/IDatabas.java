@@ -12,7 +12,7 @@ public interface IDatabas {
      * behöver definiera vad databasen kan tänkas svara... för tester
      *
      */
-    int skapaLån (int kontoID, int ISBN);
+    int skapaLån (int kontoID, int bibID);
 
 
     /*ta bort lån enligt medlems personnummer eller Bokens ISBN
@@ -37,7 +37,7 @@ public interface IDatabas {
      * behöver definiera vad databasen kan tänkas svara... för tester
      *
      * */
-    int skapaKonto(String fnamn, String  enamn, long personNr, String roll);
+    int skapaKonto(String fnamn, String  enamn, long personNr, int roll);
 
 
     /* returnera en String efter att Konto är avslutad.
@@ -54,7 +54,7 @@ public interface IDatabas {
 
     public int registreraTempAvstänging(int kontoID, int numOfDays);
 
-    public int taBortLån(int bid);
+    public int taBortLån(int bibID);
     public int updateAntalFörseningar(int kontoID);
     public int updateAntalAvstängningar(int kontoID);
     public long[] hämtaSvarlistade();
