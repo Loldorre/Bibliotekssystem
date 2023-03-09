@@ -117,9 +117,11 @@ public class Databas implements IDatabas {
             Statement getStmt = connection.createStatement();
             String addAccount = "insert into konto values (\"" + fnamn + "\",\"" + enamn + "\"," + personNr + ",\"" + roll + "\"," + 0 +", " + null + "," + 0 + "," + 0 + ")";
             String getAddedKontoId = "select kontoID from konto where personNr=" + personNr;
-           int rS = getStmt.executeUpdate(addAccount);
+           int rS = stmt.executeUpdate(addAccount);
            ResultSet newRs = getStmt.executeQuery(getAddedKontoId);
-           failOrSuccess = newRs.getInt("kontoid");
+           while(newRs.next()) {
+               failOrSuccess = newRs.getInt("kontoid");
+           }
         } catch (SQLException e) {
             failOrSuccess = 1;
         } finally {
@@ -129,6 +131,7 @@ public class Databas implements IDatabas {
                 throw new RuntimeException(e);
             }
         }
+
 
         return failOrSuccess;
     }
