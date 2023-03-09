@@ -11,10 +11,17 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class Process implements IProcess  {
-    Databas DatabasAPI = new Databas();
-   public Process(Databas db) throws SQLException {
-       DatabasAPI = db;
-   }
+    Databas DatabasAPI = null;
+
+    public Process() {
+        this.DatabasAPI = new Databas();
+    }
+    public Process(Databas db) {
+        this.DatabasAPI = db;
+    }
+ //  public Process(Databas db) throws SQLException {
+    //   DatabasAPI = db;
+  // }
 
     @Override
     public int kollaTillgänglighet(String titel) {
@@ -61,7 +68,13 @@ public class Process implements IProcess  {
 
         for (int i = 0; i < lånadeBöcker.length; i++) {
 
-            if (lånadeBöcker[i].getReturnTheBookDate().compareTo(today) >= 0) {
+           Date lånDatum = lånadeBöcker[i].getLånDatum();
+
+            LocalDate slutDatum = LocalDate.of(lånDatum.getYear(), lånDatum.getMonth(), lånDatum.getDate()).plusDays(14);
+
+            Date returnTheBookDate = new Date(slutDatum.getYear(), slutDatum.getMonthValue(), slutDatum.getDayOfMonth());
+
+            if (returnTheBookDate.compareTo(today) >= 0) {
                 DatabasAPI.updateAntalFörseningar(listAvKonto[index].getKontoID());
             }
 
@@ -86,12 +99,6 @@ public class Process implements IProcess  {
             return 2;
         }
 
-        LocalDate date1 = LocalDate.now().plusDays(15);
-
-        int year = date1.getYear();
-        int month = date1.getMonthValue();
-        int day = date1.getDayOfYear();
-
         return 0;
     }
 
@@ -99,6 +106,8 @@ public class Process implements IProcess  {
        return 0;
     }
 //behöver kasta Exception om den måste svartlista en medlem för test.
+
+
     @Override
     public int tempAvstängning(int kontoId, int antalDagar) {
 

@@ -349,7 +349,7 @@ public class Databas implements IDatabas {
             String getTitel = "select * from lån";
             ResultSet rS = stmt.executeQuery(getTitel);
             while (rS.next()) {
-                loans.add(new Lån(rS.getInt("bid"), rS.getInt("kontoid"), rS.getDate("lånDatum")));
+              //  loans.add(new Lån(rS.getInt("bid"), rS.getInt("kontoid"), rS.getDate("lånDatum")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

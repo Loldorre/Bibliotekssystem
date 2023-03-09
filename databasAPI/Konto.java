@@ -63,7 +63,7 @@ public class Konto {
             String getTitel = "select * from lån where kontoid=" + kontoID;
             ResultSet rS = stmt.executeQuery(getTitel);
             while (rS.next()) {
-                arrayOfLoans.add(new Lån(rS.getInt("bid"), rS.getInt("kontoid"), rS.getDate("låndatum"), rS.getDate("returnTheBook")));
+                arrayOfLoans.add(new Lån(rS.getInt("bid"), rS.getInt("kontoid"), rS.getDate("låndatum")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
