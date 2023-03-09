@@ -9,21 +9,11 @@ public class Lån {
     private int kontoID;
     private Date lånDatum;
 
-    private Date returnTheBookDate;
 
-    public Lån(int bid, int kontoID, Date lånDatum, Date slutDatum){
+    public Lån(int bid, int kontoID, Date lånDatum){
         this.bid = bid;
         this.kontoID = kontoID;
         this.lånDatum = lånDatum;
-        this.returnTheBookDate = slutDatum;
-    }
-
-    public Date getReturnTheBookDate() {
-        return returnTheBookDate;
-    }
-
-    public void setReturnTheBookDate(Date returnTheBookDate) {
-        this.returnTheBookDate = returnTheBookDate;
     }
 
     public int getBid() {
