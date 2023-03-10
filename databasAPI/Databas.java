@@ -74,7 +74,7 @@ public class Databas implements IDatabas {
             }
         } catch (SQLException e) {
             logger.debug("sql strular");
-            throw new RuntimeException(e);
+            return new Bok[]{};
         }
         Bok[] returBookArray = new Bok[arrayOfBooks.size()];
         arrayOfBooks.toArray(returBookArray);

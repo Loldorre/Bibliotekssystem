@@ -86,12 +86,13 @@ public class Process implements IProcess {
 
 //---------------------------------Kollar om det finns försenade böcker---------------------------------
         Lån[] lånadeBöcker = medlem.getLånadeBöcker();
-
         for (Lån l : lånadeBöcker) {
+            logger.debug("återlämningsdatum" +l.getLånDatum().getYear(), l.getLånDatum().getMonth(), l.getLånDatum().getDay() + 14 );
             Date slutDatum = new Date(l.getLånDatum().getYear(), l.getLånDatum().getMonth(), l.getLånDatum().getDay() + 14);
             if (slutDatum.after(new Date())) {
                 logger.debug("försenad bok hittad");
                 medlem.setAntalForseningar(medlem.getAntalForseningar() + 1);
+                DatabasAPI.updateAntalFörseningar(medlem.getKontoID());
                 break;
             }
         }
@@ -173,7 +174,7 @@ public class Process implements IProcess {
 
             for (Lån l : lånadeBöcker) {
                 Date slutDatum = new Date(l.getLånDatum().getYear(), l.getLånDatum().getMonth(), l.getLånDatum().getDay() + 14);
-                if (slutDatum.after(new Date())) {
+                if (slutDatum.before(new Date())) {
                     logger.debug("försenad bok hittad");
                     medlem.setAntalForseningar(medlem.getAntalForseningar() + 1);
                     break;
@@ -181,7 +182,6 @@ public class Process implements IProcess {
             }
             logger.debug("Kollar antal förseningar");
             if (medlem.getAntalForseningar() > 2 ) { //Om kontot nu har > 2 förseningar Stängs kontoto av.-----
-
                 logger.debug("kollar antal avstängningar");
                 if (medlem.getAntalAvstangningar() > 1) { //------- Om kontot har mer än en avstängning nu så svartlista och avsluta kontot.----
                     logger.debug("Medlem har >1 avstängning");
