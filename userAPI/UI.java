@@ -37,7 +37,7 @@ public class UI {
             val = scan.nextInt();
 
             switch (val) {
-                case 1: //låna bok
+                case 1: //låna bok (klar av viktor)
 
                     //kolla konto
                     //kolla tillgängloghet
@@ -69,19 +69,17 @@ public class UI {
                         }
                         if (kontoStatusSvar == 0) {
                             System.out.println("Konto Godkänt! Medlem kan låna bok");
-                        }
-                        while (kontoStatusSvar == 0 ) {
+
                             System.out.println("Ange bokens ISBN: ");
                             scan.nextLine();
                             int ISBN = scan.nextInt();
-
                             int tillgänglighetsvar = processObj.kollaTillgänglighet(ISBN);
                             if (tillgänglighetsvar == 0) {
                                 System.out.println("Inget lån");
                             }
                             if (tillgänglighetsvar > 0) {
                                 processObj.registreraLån(kontoId, tillgänglighetsvar);
-                                System.out.println("Boken: " + ISBN+ " med bid: " + tillgänglighetsvar + " lånad till "+ kontoId);
+                                System.out.println("Boken: " + ISBN+ " med bid: " + tillgänglighetsvar + " lånad till "+ kontoId+"\n");
                             }
                         }
 
@@ -90,50 +88,73 @@ public class UI {
                     fortsatt = false;
                     break;
 
-                case 2: //återlämna bok
-                    System.out.println("Skriv in kontoId: ");
-                    kontoId = scan.nextInt();
-                    System.out.println("Skriv in bibId: ");
-                    int bibID = scan.nextInt();
-                    try{
+                case 2: //återlämna bok (Linnea Klar)
 
-                        int aterlamnastatus = processObj.kollaMedlemsstatus(kontoId);
+                    try {
+                        System.out.println("Skriv in kontoId: ");
+                        kontoId = scan.nextInt();
+                        int medlemsstatus = processObj.kollaMedlemsstatus(kontoId);
 
-                        if ( aterlamnastatus== 3){
+                        if (medlemsstatus == 3){
                             System.out.println("Konto finns inte");
-                        }
-                        if (aterlamnastatus == 2){
-                            System.out.println("Bok återlämnad och medlem avstängd i 15 dagar");
-                        }
-                        if (aterlamnastatus == 1){
-                            int svar = processObj.återlämnaBok(bibID);
-                            System.out.println("Boken återlämnad och medlem svartlistad");
-                        }
-                        if (aterlamnastatus == 0){
-                            int svar = processObj.återlämnaBok(bibID,kontoId);
-                            System.out.println("Boken återlämnad!");
+                        } else {
+                            System.out.println("Skriv in bibId: ");
+                            int bibID = scan.nextInt();
+
+                            if (medlemsstatus == 2) {
+                                int svar = processObj.återlämnaBok(kontoId, bibID);
+                                if (svar == 2) {
+                                    System.out.println("Det fanns inga lånade böcker kopplade till konto med samma bid");
+                                } else if (svar == 1) {
+                                    System.out.println("Bib fanns inte");
+                                } else {
+                                    System.out.println("Bok återlämnad och medlem avstängd i 15 dagar");
+                                }
+                            }
+
+                            if (medlemsstatus == 1) {
+                                int svar = processObj.återlämnaBok(bibID);
+
+                                if (svar == 1) {
+                                    System.out.println("Bib fanns inte");
+                                } else {
+                                    System.out.println("Boken återlämnad och medlem svartlistad");
+                                }
+                            }
+
+                            if (medlemsstatus == 0) {
+                                int svar = processObj.återlämnaBok(kontoId, bibID);
+                                if (svar == 2) {
+                                    System.out.println("Det fanns inga lånade böcker kopplade till konto med samma bid2");
+                                } else if (svar == 1) {
+                                    System.out.println("Bib fanns inte");
+                                } else if (svar == 0) {
+                                    System.out.println("Boken återlämnad!");
+                                }
+                            }
                         }
 
 
-                    }catch (NumberFormatException n) {
+                    } catch (NumberFormatException n) {
+
                     }
                     fortsatt = false;
                     break;
 
-                case 3: //avsluta konto
+                case 3: //avsluta konto klar av Sanja
                     System.out.println("Vänligen ange kontoId: ");
                     kontoId = scan.nextInt();
                     try {
                         int Svarmedlemstatus = processObj.avslutaKonto(kontoId);
 
                         if (Svarmedlemstatus == 1){
-                            System.out.println("Angiven konto finns inte!");
+                            System.out.println("Angiven kontoId existerar inte!");
                         }
                         if (Svarmedlemstatus == 2){
-                            System.out.println("OoPS! Databasstrul. Försök igen!");
+                            System.out.println("OPS! Databasstrul. Försök igen!");
                         }
                         if (Svarmedlemstatus== 0){
-                            System.out.println("Kontot avslutad!");
+                            System.out.println("Konto" + " " + kontoId + "avslutad!");
                         }
                     } catch (NumberFormatException n) {
                     }
@@ -177,35 +198,35 @@ public class UI {
                     fortsatt = false;
                     break;
 
-                case 5: //svartlista medlem
+                case 5: //svartlista medlem (klar av Sanja)
                 {
-                    System.out.println("Ange användarens personnummer:");
+                    System.out.println("Vänligen ange användarens personnummer:");
                     personNr = scan.nextLong();
-                    System.out.println("Ange kontoId:");
+                    System.out.println("Ange användarens kontoId:");
                     kontoId = scan.nextInt();
 
                     try {
                         int svarpersonnumer = processObj.svartlistaMedlem(personNr);
                         if (svarpersonnumer == 1) {
-                            System.out.println("Personen redan svartlistad!");
+                            System.out.println("Personen" + " " + personNr + " är redan svartlistad!");
                         }
                         if (svarpersonnumer == 2) {
                             System.out.println("OPS! Databasstrul. Försök igen!");
                         }
                         if (svarpersonnumer == 0) {
-                            System.out.println("Medlem svartlistad!");
+                            System.out.println("Personen" + " " +  personNr+ "  svartlistad!");
 
                             int svaravsluta = processObj.avslutaKonto(kontoId);
                             if (svaravsluta == 0) {
                                 System.out.println("Medlems konto avslutad!");
                             }
                             if (svaravsluta == 1) {
-                                System.out.println("konto finns inte!");
+                                System.out.println("Angivet kontoID existerar inte!");
                             }
                             if (svaravsluta == 2) {
-                                System.out.println("databasstrul");
+                                System.out.println("OPS! Databasstrul. Försök igen!");
                             }
-                            }
+                        }
 
                     } catch (NumberFormatException n) {
 
