@@ -89,7 +89,9 @@ public class Process implements IProcess {
 //---------------------------------Kollar om det finns försenade böcker---------------------------------
         Lån[] lånadeBöcker = medlem.getLånadeBöcker();
 
+        logger.debug(lånadeBöcker.length);
         for (Lån l : lånadeBöcker) {
+            logger.debug("inne i loop");
             Date slutDatum = new Date(l.getLånDatum().getYear(), l.getLånDatum().getMonth(), l.getLånDatum().getDay() + 14);
             if (slutDatum.before(new Date())) {
                 logger.debug("försenad bok hittad");
@@ -98,7 +100,7 @@ public class Process implements IProcess {
             }
         }
         logger.debug("Kollar antal förseningar");
-        if (medlem.getAntalForseningar() > 2) { //Om kontot nu har > 2 förseningar Stängs kontoto av.-----
+        if (medlem.getAntalForseningar() > 2 ) { //Om kontot nu har > 2 förseningar Stängs kontoto av.-----
 
             logger.debug("kollar antal avstängningar");
             if (medlem.getAntalAvstangningar() > 1) { //------- Om kontot har mer än en avstängning nu så svartlista och avsluta kontot.----
@@ -107,7 +109,8 @@ public class Process implements IProcess {
                 svar = this.avslutaKonto(medlem.getKontoID());
                 logger.debug("<--- medlem avstängd MedlemSvartlistad (return 3)");
                 return 1;
-            } else {
+            }
+            else {
                 logger.debug("Medlem har >2 förseningar");
                 svar = tempAvstängning(medlem.getKontoID(), 15);
                 LocalDate datum = LocalDate.now().plusDays(15);
@@ -117,6 +120,30 @@ public class Process implements IProcess {
             }
         }
 
+//-------Kollar om medlem har uppnått maximalt antal böcker---------------
+        int maxböcker=0;
+
+        if(medlem.getRoll()==0){
+            logger.debug("medlem undergrad max 3");
+            maxböcker=3;
+        }
+        if(medlem.getRoll()==1){
+            logger.debug("medlem är grad max 5");
+            maxböcker=5;
+        }
+        if(medlem.getRoll()==2){
+            logger.debug("doctorate student max 7");
+            maxböcker=7;
+        }
+        if(medlem.getRoll()==3){
+            logger.debug("medlem är postDoc or teacher max 10");
+            maxböcker=10;
+        }
+        logger.debug("kollar om medlem har uppnåt  max böcker");
+        if(medlem.getLånadeBöcker().length >=maxböcker){
+            logger.debug("<--- medlem har uppnått max antal böcker (return 0)");
+            return 4;
+        }
         logger.debug("<--- medlem godkänd (return 0)");
         return 0;
     }
