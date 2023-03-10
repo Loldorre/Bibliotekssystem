@@ -28,16 +28,35 @@ public class Process implements IProcess {
 
     @Override
     public int kollaTillgänglighet(String titel) {
-        int tillgänglighetsCase = 0;
+        logger.trace("kollaTillgänglighet  --->");
         Bok[] listaAvBöcker = DatabasAPI.hämtaTillgänglighet(titel);
         if (listaAvBöcker.length > 0) {
+            logger.debug("Lista av böcker har längd: " + listaAvBöcker.length );
             for (Bok b : listaAvBöcker) {
                 if (b.getTitel() == titel) {
+                    logger.debug("<--- kollaTillgänglighet bibID " + b.getBibID() + "redo för lån = " +b.getBibID());
                     return b.getBibID();
                 }
     }
         }
-        return tillgänglighetsCase;
+        logger.debug("<--- kollaTillgänglighet bibID = "+ 0);
+        return 0;
+    }
+
+    public int kollaTillgänglighet(int isbn) {
+        logger.trace("kollaTillgänglighet  --->");
+        Bok[] listaAvBöcker = DatabasAPI.hämtaTillgänglighet();
+        if (listaAvBöcker.length > 0) {
+            logger.debug("Lista av böcker har längd: " + listaAvBöcker.length );
+            for (Bok b : listaAvBöcker) {
+                if (b.getISBN() == isbn) {
+                    logger.debug("<--- kollaTillgänglighet bibID " + b.getBibID() + "redo för lån = " +b.getBibID());
+                    return b.getBibID();
+                }
+            }
+        }
+        logger.debug("<--- kollaTillgänglighet bibID = "+ 0);
+        return 0;
     }
     @Override
     public int kollaMedlemsstatus(int kontoID) {
@@ -56,10 +75,10 @@ public class Process implements IProcess {
             logger.debug("<--- konto finns inte (return 3)");//-----Konto finns inte slut på koll!---------------------------------------
             return 3;
         }
-        //---------------kollar om kontot redan är avstängt
+        //---------------kollar om kontot redan är avstängt---------
         if (medlem.getAvstangd() != null) {
             Date avstangdDate = new Date(medlem.getAvstangd().getYear(), medlem.getAvstangd().getMonth(), medlem.getAvstangd().getDay());
-            if (avstangdDate.before(new Date())) { //------Kontot redan avstängt----
+            if (avstangdDate.after(new Date())) { //------Kontot redan avstängt----
                 logger.debug("<--- konto är redan avstängt (return 2)");
                 return 2;
             }
@@ -78,9 +97,9 @@ public class Process implements IProcess {
         }
         logger.debug("Kollar antal förseningar");
         if (medlem.getAntalForseningar() > 2 ) { //Om kontot nu har > 2 förseningar Stängs kontoto av.-----
-            logger.debug("kollar antal avstängningar");
 
-            if (medlem.getAntalAvstangningar() > 1) { //------- Om kontot har mer än en avstängning nu så svartlist aoch avsluta kontot.----
+            logger.debug("kollar antal avstängningar");
+            if (medlem.getAntalAvstangningar() > 1) { //------- Om kontot har mer än en avstängning nu så svartlista och avsluta kontot.----
                 logger.debug("Medlem har >1 avstängning");
                 svar = this.svartlistaMedlem(medlem.getPersonNr());
                 svar = this.avslutaKonto(medlem.getKontoID());
@@ -121,7 +140,7 @@ public class Process implements IProcess {
         //---------------kollar om kontot redan är avstängt
         if (medlem.getAvstangd() != null) {
             Date avstangdDate = new Date(medlem.getAvstangd().getYear(), medlem.getAvstangd().getMonth(), medlem.getAvstangd().getDay());
-            if (avstangdDate.before(new Date())) { //------Kontot redan avstängt----
+            if (avstangdDate.after(new Date())) { //------Kontot redan avstängt----
                 logger.debug("<--- konto är redan avstängt (return 2)");
                 return 2;
             }
@@ -166,6 +185,7 @@ public class Process implements IProcess {
 
     @Override
     public int tempAvstängning(int kontoId, int antalDagar) {
+        logger.debug(" tempAvstängning ---->");
             int svar = DatabasAPI.registreraTempAvstänging(kontoId, antalDagar);
             if(svar >0){
                 return 5;}
@@ -174,6 +194,7 @@ public class Process implements IProcess {
 
     @Override
     public int svartlistaMedlem(long personNr) {
+        logger.debug(" svartlistaMedlem ---->");
         int databasSvar;
         long[] svartlistade;
         svartlistade = this.DatabasAPI.hämtaSvarlistade();
@@ -189,6 +210,7 @@ public class Process implements IProcess {
 
     @Override
     public int regKonto(String fnamn, String enamn, long personNr, int roll) {
+        logger.debug(" regKonto ---->");
         Konto[] kontolista = this.DatabasAPI.hämtaKonton();
         long[] svartlistade = this.DatabasAPI.hämtaSvarlistade();
         int databasSvar;
@@ -205,6 +227,7 @@ public class Process implements IProcess {
 
     @Override
     public int avslutaKonto(int kontoId) {
+        logger.debug(" avslutaKonto ---->");
         Konto[] kontolista = this.DatabasAPI.hämtaKonton();
         int databasSvar;
         for(Konto k :kontolista){
@@ -219,7 +242,7 @@ public class Process implements IProcess {
 
     @Override
     public int registreraLån(int kontoId, int bibID) {
-
+        logger.debug(" registreraLån ---->");
        /* Konto [] listaAvKonto = DatabasAPI.hämtaKonton();
         Konto konto = null;
         for (Konto value : listaAvKonto) {
@@ -239,6 +262,7 @@ int svar = DatabasAPI.skapaLån(kontoId, bibID);
 
     @Override
     public int återlämnaBok(int kontoId, int bibID) {
+        logger.debug(" återlämnaBok ---->");
 int databasSvar = this.DatabasAPI.taBortLån(bibID);
 if (databasSvar == 1)
     return 1;

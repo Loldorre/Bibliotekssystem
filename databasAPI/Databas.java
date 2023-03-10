@@ -55,6 +55,32 @@ public class Databas implements IDatabas {
         return returBookArray;
     }
 
+    //Hämtar en array av böcker som finns i Bok-tabellen och inte inte lån-tabellen
+    public Bok[] hämtaTillgänglighet() {
+        logger.debug("hämtaTillgänglighet ----->");
+        //arrayOfBooks used with .toArray to create the return array
+        ArrayList<Bok> arrayOfBooks = new ArrayList<>();
+
+        //Getting an array of book with titel which is then returned
+        try {
+            Statement stmt = connection.createStatement();
+            String getTitel = "SELECT distinct bok.titel, bok.författare, bok.utgivningsår, samling.bid,samling.isbn FROM samling,lån,bok where bok.isbn = samling.isbn and\n" +
+                    "samling.bid not in (select bid from lån) order by bid;";
+            logger.debug("hämtar tillgängliga böcker ");
+            ResultSet rS = stmt.executeQuery(getTitel);
+            while (rS.next()) {
+                logger.debug("lägger till: " + rS.getString("titel"),rS.getInt("bid"));
+                arrayOfBooks.add(new Bok(rS.getInt("bid"),rS.getInt("isbn"), rS.getString("titel"), rS.getString("författare"), rS.getInt("utgivningsår")));
+            }
+        } catch (SQLException e) {
+            logger.debug("sql strular");
+            throw new RuntimeException(e);
+        }
+        Bok[] returBookArray = new Bok[arrayOfBooks.size()];
+        arrayOfBooks.toArray(returBookArray);
+        logger.debug("<------ hämtaTillgänglighet");
+        return returBookArray;
+    }
     @Override
     public int skapaLån(int kontoID, int bid /*bid från samling*/) {
 
@@ -88,7 +114,7 @@ public class Databas implements IDatabas {
     }
     @Override
     public int läggTillSvartlistade(long personNr) {
-
+        logger.debug("läggTillSartlistade ----->");
         int failOrSuccess = 0;
         try {
             Statement stmt = connection.createStatement();
@@ -119,12 +145,13 @@ public class Databas implements IDatabas {
         } catch (SQLException e) {
             failOrSuccess = 1;
         }
-        logger.debug("<----- Skapa Konto ");
+        logger.debug("<----- Skapa Konto "+ failOrSuccess);
         return failOrSuccess;
     }
 
     @Override
     public int avslutaKonto(int kontoID) {
+        logger.debug("avsluta konto ------->");
         int failOrSuccess = 0;
 
         try {
@@ -135,6 +162,7 @@ public class Databas implements IDatabas {
         } catch (SQLException e) {
             failOrSuccess = 1;
         }
+        logger.debug("<------- avsluta konto " + failOrSuccess);
         return failOrSuccess;
     }
 
@@ -192,7 +220,8 @@ public class Databas implements IDatabas {
         Konto[] returKontoArray = new Konto[arrayOfAccounts.size()];
         arrayOfAccounts.toArray(returKontoArray);
         logger.debug("Kont[] returned");
-        logger.debug("<----- hämtaKonto()");
+        logger.debug("<----- hämtaKonto()" + "antal konton = "+returKontoArray.length);
+
         return returKontoArray;
     }
 
@@ -248,7 +277,7 @@ public class Databas implements IDatabas {
 
     @Override
     public int updateAntalAvstängningar(int kontoID) {
-
+        logger.debug("updateAntalAvstängningar -----> ");
         int failOrSuccess = 0;
 
         int amountOfBan = 0;
@@ -268,12 +297,13 @@ public class Databas implements IDatabas {
         } catch (SQLException e) {
             failOrSuccess=1;
         }
+        logger.debug("<------- updateAntalAvstängningar " + failOrSuccess);
         return failOrSuccess;
     }
 
     @Override
     public int updateAntalFörseningar(int kontoID) {
-
+        logger.debug("updateAntalFörseningar -----> ");
         int failOrSuccess = 0;
         int amountOfLateReturns = 0;
         Databas accessKonto = new Databas();
@@ -292,7 +322,7 @@ public class Databas implements IDatabas {
         } catch (SQLException e) {
             failOrSuccess = 1;
         }
-
+        logger.debug("<------- updateAntalFörseningar " + failOrSuccess);
         return failOrSuccess;
     }
 
@@ -300,7 +330,7 @@ public class Databas implements IDatabas {
     @Override
     // Klar tack vare Z
     public long[] hämtaSvarlistade() {
-
+        logger.debug("hämtaSvartlistade -----> ");
         //arrayOfBooks used with .toArray to create the return array
         ArrayList<Long> arrayOfBlacklist = new ArrayList<>();
 
@@ -322,11 +352,12 @@ public class Databas implements IDatabas {
             returnBlacklistArray[i] = item;
             i++;
         }
+        logger.debug("<------- hämtaSvartlistade (listas längd = " + returnBlacklistArray.length);
         return returnBlacklistArray;
     }
 
     public Lån[] hämtaLån(){
-
+        logger.debug("hämtaLån -----> ");
         ArrayList<Lån> loans = new ArrayList<>();
 
         //Getting an array of book with titel which is then returned
@@ -343,7 +374,7 @@ public class Databas implements IDatabas {
 
         Lån[] arrayOfLoans = new Lån[loans.size()];
         loans.toArray(arrayOfLoans);
-
+       logger.debug("<------- hämtaLån (listas längd = " + arrayOfLoans.length);
         return arrayOfLoans;
     }
 
