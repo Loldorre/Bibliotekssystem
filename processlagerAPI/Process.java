@@ -263,17 +263,20 @@ int svar = DatabasAPI.skapaLån(kontoId, bibID);
     @Override
     public int återlämnaBok(int kontoId, int bibID) {
         logger.debug(" återlämnaBok ---->");
-int databasSvar = this.DatabasAPI.taBortLån(bibID);
-if (databasSvar == 1)
-    return 1;
-if (databasSvar == 2)
-    return 1;
-if (databasSvar == 3)
-    return 1;
-if (databasSvar == 4)
+        int databasSvar = this.DatabasAPI.taBortLån(bibID);
+
+        if (databasSvar == 1) {
             return 1;
-if (databasSvar == 5)
+        } else if (databasSvar == 2) {
             return 1;
-else return 0;
+        } else if (databasSvar == 3) {
+            return 1;
+        } else if (databasSvar == 4) {
+            return 1;
+        } else if (databasSvar == 5) {
+            return 1;
+        } else
+            logger.debug("<----- atermämna bok ");
+        return 0;
     }
-}
+    }

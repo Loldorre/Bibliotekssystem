@@ -18,6 +18,7 @@ public class UI {
         boolean fortsatt = false;
         boolean running = true;
         Process processObj = new Process();
+
         while(running){
             System.out.println(
                     "------------------------------------------\n"+
@@ -92,20 +93,27 @@ public class UI {
                     kontoId = scan.nextInt();
                     System.out.println("Skriv in bibId: ");
                     int bibID = scan.nextInt();
+
                     try{
+                        int medlemsstatus = processObj.kollaMedlemsstatus(kontoId);
 
-                        int aterlamnastatus = processObj.kollaMedlemsstatus(kontoId);
-
-                        if ( aterlamnastatus== 3){
+                        if (medlemsstatus == 3){
                             System.out.println("Konto finns inte");
                         }
-                        if (aterlamnastatus == 2){
+
+                        if (medlemsstatus == 2){
+                            processObj.återlämnaBok(kontoId, bibID);
                             System.out.println("Bok återlämnad och medlem avstängd i 15 dagar");
                         }
-                        if (aterlamnastatus == 1){
-                            System.out.println("Boken återlämnad och medlem  svartlistad");
+
+                        if (medlemsstatus == 1){
+                            processObj.återlämnaBok(kontoId, bibID);
+                            System.out.println("Boken återlämnad och medlem svartlistad");
                         }
-                        if (aterlamnastatus == 0){
+
+                        if (medlemsstatus == 0){
+                            int svar = processObj.återlämnaBok(kontoId, bibID);
+                            System.out.println(svar);
                             System.out.println("Boken återlämnad!");
                         }
 
