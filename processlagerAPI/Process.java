@@ -78,7 +78,7 @@ public class Process implements IProcess {
         //---------------kollar om kontot redan är avstängt---------
         if (medlem.getAvstangd() != null) {
             Date avstangdDate = new Date(medlem.getAvstangd().getYear(), medlem.getAvstangd().getMonth(), medlem.getAvstangd().getDay());
-            if (avstangdDate.after(new Date())) { //------Kontot redan avstängt----
+            if (avstangdDate.before(new Date())) { //------Kontot redan avstängt----
                 logger.debug("<--- konto är redan avstängt (return 2)");
                 return 2;
             }
@@ -212,17 +212,34 @@ public class Process implements IProcess {
     public int regKonto(String fnamn, String enamn, long personNr, int roll) {
         logger.debug(" regKonto ---->");
         Konto[] kontolista = this.DatabasAPI.hämtaKonton();
+        logger.debug("hämtar svartlistade");
         long[] svartlistade = this.DatabasAPI.hämtaSvarlistade();
+        logger.debug("svartlistade = "+ svartlistade.length );
         int databasSvar;
+        logger.debug("kollar om kontot finns");
         for(Konto k :kontolista){
-            if(k.getPersonNr()==personNr){return 1;}
+            if(k.getPersonNr()==personNr){
+                logger.debug(" <----- kontot finns");
+                return 1;
+            }
         }
+        logger.debug("letar i svartlistan");
         for(long l:svartlistade) {
-            if(l==personNr){return 2;}
+            if(l==personNr){
+                logger.debug(" <----- personnummer" + personNr + "svartlistat");
+                return 2;
+            }
         }
+        logger.debug("skapar konto");
         databasSvar = this.DatabasAPI.skapaKonto(fnamn, enamn, personNr, roll);
-        if(databasSvar>999){return databasSvar;}
-        else{return 3;}
+        if(databasSvar>999){
+            logger.debug("<----- skapaKonto()"+ fnamn+", "+enamn+","+personNr+"," + roll);
+            return databasSvar;}
+
+        else{
+            logger.debug("<----- skapaKonto() databas strul...");
+            return 3;
+        }
     }
 
     @Override
