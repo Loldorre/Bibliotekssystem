@@ -23,7 +23,7 @@ public class Databas implements IDatabas {
         }
     }
 
-
+    //---------------------------------------Hämta tillgänglighet av bok--------------------------------------------
     @Override
     //Hämtar en array av böcker som finns i Bok-tabellen och inte inte lån-tabellen
     public Bok[] hämtaTillgänglighet(String titel) {
@@ -34,10 +34,10 @@ public class Databas implements IDatabas {
         //Getting an array of book with titel which is then returned
         try {
             Statement stmt = connection.createStatement();
-            String getTitel = "select * from bok where titel=\"" + titel + "\"";
+            String getTitel = "Select bok.isbn, bok.titel, bok.författare, bok.utgivningsår,bok.antal, samling.bid from bok, samling where samling.bid not in (select bid from lån) and samling.isbn = bok.isbn";
             ResultSet rS = stmt.executeQuery(getTitel);
             while (rS.next()) {
-                arrayOfBooks.add(new Bok(rS.getInt("isbn"), rS.getString("titel"), rS.getString("författare"), rS.getInt("utgivningsår"), rS.getInt("antal")));
+                arrayOfBooks.add(new Bok(rS.getInt("bok.isbn"), rS.getString("titel"), rS.getString("författare"), rS.getInt("utgivningsår"), rS.getInt("antal")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -48,6 +48,8 @@ public class Databas implements IDatabas {
         return returBookArray;
     }
 
+
+    //---------------------------------------Skapa lån--------------------------------------------
     @Override
     public int skapaLån(int kontoID, int bid /*bid från samling*/) {
 
@@ -75,6 +77,7 @@ public class Databas implements IDatabas {
     }
 
 
+//---------------------------------------Lägg till i Svartlista--------------------------------------------
     @Override
     public int läggTillSvartlistade(long personNr) {
 
@@ -87,11 +90,13 @@ public class Databas implements IDatabas {
         } catch (SQLException e) {
             failOrSuccess = 5;
         }
+
         return failOrSuccess;
     }
 
 
-    @Override //Hämtar inte kontoId. ska fixas
+//---------------------------------------Skapa konto--------------------------------------------
+    @Override
     public int skapaKonto(String fnamn, String enamn, long personNr, String roll) {
        int failOrSuccess = 0;
 
@@ -113,6 +118,8 @@ public class Databas implements IDatabas {
         return failOrSuccess;
     }
 
+
+    //---------------------------------------Hämta lån för specifikt konto--------------------------------------------
     public Lån[] hämtaLånFörKonto(int kontoID){
 
         //arrayOfLoans used with .toArray to create the return array
@@ -136,6 +143,8 @@ public class Databas implements IDatabas {
         return loanArray;
     }
 
+
+    //---------------------------------------Avsluta aktivt konto--------------------------------------------
     @Override
     public int avslutaKonto(int kontoID) {
        int failOrSuccess = 0;
@@ -152,7 +161,7 @@ public class Databas implements IDatabas {
         return failOrSuccess;
     }
 
-
+    //---------------------------------------Hämta alla konton--------------------------------------------
     @Override
     public Konto[] hämtaKonton() {
 
@@ -175,7 +184,7 @@ public class Databas implements IDatabas {
         return returKontoArray;
     }
 
-
+    //---------------------------------------Stäng av användare temporärt--------------------------------------------
     @Override
     public int registreraTempAvstänging(int kontoID, int numOfDays) {
         int failOrSuccess = 0;
@@ -206,7 +215,7 @@ public class Databas implements IDatabas {
         return failOrSuccess;
     }
 
-
+    //---------------------------------------Ta bort lån / Återlämna bok--------------------------------------------
     @Override
     public int taBortLån(int bid){
 
@@ -223,7 +232,7 @@ public class Databas implements IDatabas {
         return failOrSuccess;
     }
 
-
+    //---------------------------------------Uppdatera antal avstängningar för ett konto--------------------------------------------
     @Override
     public int updateAntalAvstängningar(int kontoID) {
 
@@ -251,6 +260,8 @@ public class Databas implements IDatabas {
         return failOrSuccess;
     }
 
+
+    //---------------------------------------Uppdatera antal förseningar för ett konto--------------------------------------------
     @Override
     public int updateAntalFörseningar(int kontoID) {
 
@@ -277,6 +288,7 @@ public class Databas implements IDatabas {
     }
 
 
+    //---------------------------------------hämta alla svartlistade--------------------------------------------
     @Override
     // Klar tack vare Z
     public long[] hämtaSvarlistade() {
@@ -307,6 +319,8 @@ public class Databas implements IDatabas {
         return returnBlacklistArray;
     }
 
+
+    //---------------------------------------Hämta alla lån--------------------------------------------
     public Lån[] hämtaLån(){
 
         ArrayList<Lån> loans = new ArrayList<>();
