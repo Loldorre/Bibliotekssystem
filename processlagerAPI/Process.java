@@ -23,11 +23,15 @@ public class Process implements IProcess  {
     @Override
     public int kollaTillgänglighet(String titel) {
             int tillgänglighetsCase = 0;
+            logger.debug("hämta Bok lista från Databasen ----->");
             Bok [] listaAvBöcker = DatabasAPI.hämtaTillgänglighet(titel);
 
+
             if (listaAvBöcker.length == 0) {
+                logger.debug("ingen Bok med den Titeln hittades. ");
                 return tillgänglighetsCase;
             } else {
+                logger.debug("BibId av första boken i arrayn returneras --->");
                 tillgänglighetsCase = listaAvBöcker[0].getBibID();
                 return tillgänglighetsCase;
             }
@@ -153,6 +157,7 @@ public class Process implements IProcess  {
     @Override
     public int tempAvstängning(int kontoId, int antalDagar) {
 
+        logger.debug("Konton hämtas.");
         Konto[] listaAvKonto = DatabasAPI.hämtaKonton();
         Konto konto = null;
 
@@ -164,7 +169,7 @@ public class Process implements IProcess  {
         }
 
         if (konto == null) {
-            return 3;
+           return 3;
         }
 
         int frånStatus = kollaMedlemsstatus(kontoId);
@@ -242,6 +247,7 @@ public class Process implements IProcess  {
         }
         Lån [] lånadeBöcker = konto.getLanadeBocker(); */
 
+        logger.debug("lånen skapas");
         return DatabasAPI.skapaLån(kontoId, bibID);
     }
 

@@ -6,10 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.math.BigInteger;
-import java.sql.SQLException;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
