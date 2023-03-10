@@ -1,18 +1,19 @@
 package processlagerAPI;
-import databasAPI.*;
+
+import databasAPI.Bok;
+import databasAPI.Databas;
+import databasAPI.Konto;
+import databasAPI.Lån;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import java.math.BigInteger;
-import java.sql.SQLException;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class TestProcess {

@@ -28,7 +28,7 @@ public class Databas implements IDatabas {
     }
 
     @Override
-    //Hämtar en array av böcker som finns i Bok-tabellen och inte inte lån-tabellen
+    //Hämtar en array av böcker som finns i Bok-tabellen och inte i lån-tabellen
     public Bok[] hämtaTillgänglighet(String titel) {
         logger.debug("hämtaTillgänglighet ----->");
         //arrayOfBooks used with .toArray to create the return array
@@ -47,7 +47,7 @@ public class Databas implements IDatabas {
             }
         } catch (SQLException e) {
             logger.debug("sql strular");
-            throw new RuntimeException(e);
+            return new Bok[] {};
         }
         Bok[] returBookArray = new Bok[arrayOfBooks.size()];
         arrayOfBooks.toArray(returBookArray);

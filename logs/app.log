@@ -1,0 +1,307 @@
+2023-03-10 16:34:17,691 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 16:34:28,081 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:34:28,101 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:34:41,193 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:34:41,194 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:34:41,195 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:34:41,195 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:34:41,195 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:34:41,196 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:34:41,196 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:34:41,196 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:34:41,196 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:34:41,197 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:34:41,197 DEBUG p.TestProcess [main] Lista av böcker har längd: 9
+2023-03-10 16:34:41,197 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 16:36:13,412 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 16:36:16,874 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:36:16,883 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:36:26,648 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:36:26,650 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:36:26,651 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:36:26,651 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:36:26,652 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:36:26,652 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:36:26,652 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:36:26,653 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:36:26,653 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:36:26,654 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:36:26,655 DEBUG p.TestProcess [main] Lista av böcker har längd: 9
+2023-03-10 16:36:26,655 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 16:38:06,982 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 16:38:09,234 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:38:09,245 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:38:09,359 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:38:09,360 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:38:09,360 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:38:09,360 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:38:09,360 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:09,361 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:09,361 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:09,361 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:09,361 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:09,361 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:38:09,362 DEBUG p.TestProcess [main] Lista av böcker har längd: 9
+2023-03-10 16:38:09,362 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 16:38:18,913 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:38:18,915 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:38:18,984 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:38:18,985 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:38:18,985 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:38:18,986 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:38:18,986 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:18,987 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:18,987 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:18,987 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:18,988 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:18,988 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:38:18,989 DEBUG p.TestProcess [main] Lista av böcker har längd: 9
+2023-03-10 16:38:18,989 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 16:38:36,749 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:38:36,749 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:38:36,890 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:38:36,890 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:38:36,890 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:38:36,891 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:38:36,891 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:36,891 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:36,892 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:36,892 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:36,892 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:36,892 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:38:36,892 DEBUG p.TestProcess [main] Lista av böcker har längd: 9
+2023-03-10 16:38:36,893 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 16:38:41,687 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:38:41,688 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:38:41,792 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:38:41,792 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:38:41,793 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:38:41,793 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:38:41,794 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:41,794 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:41,794 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:41,795 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:41,795 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:41,795 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:38:41,796 DEBUG p.TestProcess [main] Lista av böcker har längd: 9
+2023-03-10 16:38:41,796 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 16:38:43,779 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:38:43,779 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:38:43,880 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:38:43,880 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:38:43,881 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:38:43,881 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:38:43,881 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:43,882 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:43,882 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:43,882 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:43,883 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:38:43,883 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:38:43,883 DEBUG p.TestProcess [main] Lista av böcker har längd: 9
+2023-03-10 16:38:43,884 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 16:41:01,655 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 16:41:14,844 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:41:14,854 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:41:14,951 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:41:14,952 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:41:14,953 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:41:14,954 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:41:14,954 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:41:14,955 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:41:14,955 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:41:14,956 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:41:14,956 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:41:14,957 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:41:14,958 DEBUG p.TestProcess [main] Lista av böcker har längd: 9
+2023-03-10 16:41:14,958 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 16:42:48,605 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:42:48,606 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:42:48,743 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:42:48,744 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:42:48,744 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:42:48,745 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:42:48,745 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:42:48,746 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:42:48,746 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:42:48,746 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:42:48,746 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:42:48,747 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:42:48,747 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:42:48,748 DEBUG p.TestProcess [main] Lista av böcker har längd: 10
+2023-03-10 16:42:48,748 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 16:44:31,652 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 16:44:42,380 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:44:42,391 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:44:42,553 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:44:42,555 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:44:42,556 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:44:42,557 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:44:42,557 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:44:42,558 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:44:42,558 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:44:42,558 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:44:42,559 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:44:42,559 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:44:42,559 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:44:42,560 DEBUG p.TestProcess [main] Lista av böcker har längd: 10
+2023-03-10 16:44:42,560 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 16:46:39,123 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 16:46:47,696 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:46:47,712 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:46:47,823 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:46:47,824 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:46:47,824 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:46:47,824 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:46:47,825 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:46:47,825 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:46:47,825 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:46:47,825 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:46:47,825 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:46:47,826 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:46:47,826 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:46:47,826 DEBUG p.TestProcess [main] Lista av böcker har längd: 10
+2023-03-10 16:46:47,827 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 16:58:09,617 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 16:58:17,080 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 16:58:17,091 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 16:58:17,224 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 16:58:17,227 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:58:17,227 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 16:58:17,227 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:58:17,228 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:58:17,228 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:58:17,228 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:58:17,228 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 16:58:17,228 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 16:58:17,230 DEBUG p.TestProcess [main] Lista av böcker har längd: 8
+2023-03-10 16:58:17,230 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 17:15:10,242 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 17:15:18,878 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 17:15:18,884 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 17:15:19,830 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 17:15:19,831 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:15:19,831 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:15:19,832 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:19,832 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:19,832 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:19,833 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:19,833 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 17:15:19,833 DEBUG p.TestProcess [main] Lista av böcker har längd: 7
+2023-03-10 17:15:19,836 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 4redo för lån = 4
+2023-03-10 17:15:19,837 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 6redo för lån = 6
+2023-03-10 17:15:19,837 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 17:15:19,837 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 17:15:19,837 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 17:15:20,053 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 17:15:20,054 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:15:20,055 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:15:20,056 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:20,057 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:20,058 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:20,059 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:20,060 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 17:15:20,060 DEBUG p.TestProcess [main] Lista av böcker har längd: 7
+2023-03-10 17:15:20,060 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 4redo för lån = 4
+2023-03-10 17:15:20,061 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 6redo för lån = 6
+2023-03-10 17:15:20,061 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 17:15:32,825 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 17:15:32,827 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 17:15:32,907 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 17:15:32,907 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:15:32,908 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:15:32,908 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:32,908 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:32,908 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:32,909 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:32,909 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 17:15:32,909 DEBUG p.TestProcess [main] Lista av böcker har längd: 7
+2023-03-10 17:15:32,909 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 8redo för lån = 8
+2023-03-10 17:15:32,909 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 9redo för lån = 9
+2023-03-10 17:15:32,910 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 10redo för lån = 10
+2023-03-10 17:15:32,910 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 11redo för lån = 11
+2023-03-10 17:15:32,910 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 17:15:32,910 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 17:15:32,910 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 17:15:32,964 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 17:15:32,964 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:15:32,964 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:15:32,965 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:32,965 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:32,965 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:32,965 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:15:32,965 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 17:15:32,965 DEBUG p.TestProcess [main] Lista av böcker har längd: 7
+2023-03-10 17:15:32,966 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 8redo för lån = 8
+2023-03-10 17:15:32,966 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 9redo för lån = 9
+2023-03-10 17:15:32,966 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 10redo för lån = 10
+2023-03-10 17:15:32,966 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 11redo för lån = 11
+2023-03-10 17:15:32,967 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 17:16:43,526 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 17:16:43,527 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 17:16:43,683 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 17:16:43,684 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:16:43,685 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:16:43,685 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:16:43,686 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:16:43,686 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:16:43,687 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:16:43,687 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 17:16:43,688 DEBUG p.TestProcess [main] Lista av böcker har längd: 7
+2023-03-10 17:16:43,688 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 17:16:53,818 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 17:16:53,819 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 17:16:54,227 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 17:16:54,228 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:16:54,228 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:16:54,228 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:16:54,229 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:16:54,229 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:16:54,230 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:16:54,230 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 17:16:54,231 DEBUG p.TestProcess [main] Lista av böcker har längd: 7
+2023-03-10 17:16:54,231 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 17:18:11,998 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 17:19:25,795 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 17:19:33,192 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 17:19:33,203 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 17:19:33,613 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 17:19:33,616 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:19:33,617 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:19:33,618 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:19:33,618 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:19:33,619 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:19:33,619 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:19:33,620 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 17:19:33,620 DEBUG p.TestProcess [main] Lista av böcker har längd: 7
+2023-03-10 17:19:33,621 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 17:25:06,183 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 17:25:12,528 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 17:25:12,536 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 17:25:12,944 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 17:25:12,947 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 17:25:12,947 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:25:12,948 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:25:12,948 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:25:12,949 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:25:12,950 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:25:12,950 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:25:12,950 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 17:25:12,951 DEBUG p.TestProcess [main] Lista av böcker har längd: 8
+2023-03-10 17:25:12,957 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 1redo för lån = 1
+2023-03-10 17:25:12,958 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 3redo för lån = 3
+2023-03-10 17:25:12,958 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 17:25:12,958 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 17:25:12,958 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 17:25:13,161 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 17:25:13,162 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 17:25:13,163 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:25:13,163 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 17:25:13,164 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:25:13,164 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:25:13,164 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:25:13,165 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 17:25:13,165 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 17:25:13,166 DEBUG p.TestProcess [main] Lista av böcker har längd: 8
+2023-03-10 17:25:13,166 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 1redo för lån = 1
+2023-03-10 17:25:13,166 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 3redo för lån = 3
+2023-03-10 17:25:13,167 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0

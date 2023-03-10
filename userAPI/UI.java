@@ -1,13 +1,8 @@
 package userAPI;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.String;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.Scanner;
 import processlagerAPI.Process;
-import org.w3c.dom.ls.LSOutput;
+
+import java.util.Scanner;
 public class UI {
     public static void main(String[] args) throws Exception {
 
@@ -35,6 +30,7 @@ public class UI {
                     "------------------------------------------\n");
             System.out.print("Välj vad du vill göra? (1 - 7): ");
             val = scan.nextInt();
+            scan.nextLine();
 
             switch (val) {
                 case 1: //låna bok
@@ -239,7 +235,6 @@ public class UI {
                 case 7: //kolla tillgänglighet
                     System.out.println("Ange bokens titel: ");
                     String bokTitle = scan.nextLine();
-
                     try {
                         int statustillganglighet = processObj.kollaTillgänglighet(bokTitle);
                         if (statustillganglighet == 0){
@@ -250,14 +245,12 @@ public class UI {
                         }
                     }catch (NumberFormatException n) {
                     }
-                    fortsatt = false;
                     break;
             }
         }
 
     }
 }
-
 
 /*
         int kontoId = scan.nextInt();

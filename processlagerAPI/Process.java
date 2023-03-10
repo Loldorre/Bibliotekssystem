@@ -1,19 +1,14 @@
 package processlagerAPI;
 
-import databasAPI.*;
-import java.sql.SQLException;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDate;
-import java.util.Date;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-
+import databasAPI.Bok;
+import databasAPI.Databas;
+import databasAPI.Konto;
+import databasAPI.Lån;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import processlagerAPI.Process;
+
+import java.time.LocalDate;
+import java.util.Date;
 public class Process implements IProcess {
     private static Logger logger = LogManager.getLogger(TestProcess.class.getName());
 
@@ -28,19 +23,20 @@ public class Process implements IProcess {
 
     @Override
     public int kollaTillgänglighet(String titel) {
+        int returnValue=0;
         logger.trace("kollaTillgänglighet  --->");
-        Bok[] listaAvBöcker = DatabasAPI.hämtaTillgänglighet(titel);
+        Bok[] listaAvBöcker = DatabasAPI.hämtaTillgänglighet();
         if (listaAvBöcker.length > 0) {
             logger.debug("Lista av böcker har längd: " + listaAvBöcker.length );
             for (Bok b : listaAvBöcker) {
-                if (b.getTitel() == titel) {
+                if (b.getTitel().equals(titel)){
                     logger.debug("<--- kollaTillgänglighet bibID " + b.getBibID() + "redo för lån = " +b.getBibID());
-                    return b.getBibID();
+                    returnValue = b.getBibID();
                 }
-    }
+            }
         }
         logger.debug("<--- kollaTillgänglighet bibID = "+ 0);
-        return 0;
+        return returnValue;
     }
 
     public int kollaTillgänglighet(int isbn) {

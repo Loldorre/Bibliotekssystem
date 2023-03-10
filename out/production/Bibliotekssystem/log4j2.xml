@@ -2,26 +2,21 @@
 <Configuration  monitorInterval="1">
 
 	<Appenders>
-		<Console name="CONSOLE" target="SYSTEM_OUT">
+		<Console name="abc123" target="SYSTEM_OUT">
 			<PatternLayout
 				pattern="%d{HH:mm:ss.SSS} [%threadId] %-5level %logger - %m%n" />
 		</Console>
-     <File name="LoggFile" fileName="logs/app.log">
+     <File name="MyFile" fileName="logs/app.log">
       <PatternLayout>
         <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
       </PatternLayout>
     </File>
-		<File name="testLoggFile" fileName="logs/test.log">
-			<PatternLayout>
-				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-			</PatternLayout>
-		</File>
 	</Appenders>
 	
 	<Loggers>
-		<Root level="trace">
-			<AppenderRef ref="CONSOLE" />
-			<AppenderRef ref="testLoggFile" />
+		<Root level="debug">
+			<AppenderRef ref="abc123" />
+			<AppenderRef ref="MyFile" />
 		</Root>
 	</Loggers>
 	

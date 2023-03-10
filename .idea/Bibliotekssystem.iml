@@ -24,7 +24,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="Log4j2Lib" level="project" />
     <orderEntry type="library" exported="" name="MockitoLib" level="project" />
+    <orderEntry type="library" exported="" name="Log4j2Lib" level="project" />
   </component>
 </module>
