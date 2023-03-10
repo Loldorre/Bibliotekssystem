@@ -201,7 +201,7 @@ public class TestProcess {
         public void testRegKonto3() {
             when(dbapi.hämtaKonton()).thenReturn(new Konto[]{
                     new Konto("Jesus","Karlsson",1112242990L,0,1111,new Date(20250101), new Lån[]{},1,2),
-                    new Konto("Claes","McGuyver",6501012990L,3,1112,null, new Lån[]{},0,0)
+                    new Konto("Claes","McGuyver",6501012990L,3,1112,null, new Lån[]{},0,0)});
                     when(dbapi.hämtaSvarlistade()).thenReturn(new long[]{});
 
             assertEquals(1,p.regKonto("Claes","McGuyver",6501012990L,3));
