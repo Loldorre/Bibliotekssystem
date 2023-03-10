@@ -97,7 +97,7 @@ public class UI {
 
                         if (medlemsstatus == 3){
                             System.out.println("Konto finns inte");
-                        }else {
+                        } else {
                             System.out.println("Skriv in bibId: ");
                             int bibID = scan.nextInt();
 

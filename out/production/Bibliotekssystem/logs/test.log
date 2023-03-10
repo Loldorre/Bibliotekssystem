@@ -28705,3 +28705,104 @@
 2023-03-10 17:38:31,139 DEBUG p.TestProcess [main] medlem undergrad max 3
 2023-03-10 17:38:31,139 DEBUG p.TestProcess [main] kollar om medlem har uppnåt  max böcker
 2023-03-10 17:38:31,139 DEBUG p.TestProcess [main] <--- medlem godkänd (return 0)
+2023-03-10 17:45:59,363 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,373 DEBUG p.TestProcess [main]  återlämnaBok ---->
+2023-03-10 17:45:59,385 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,385 DEBUG p.TestProcess [main]  återlämnaBok ---->
+2023-03-10 17:45:59,392 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,394 DEBUG p.TestProcess [main]  registreraLån ---->
+2023-03-10 17:45:59,402 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,405 DEBUG p.TestProcess [main]  registreraLån ---->
+2023-03-10 17:45:59,405 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,408 DEBUG p.TestProcess [main]  avslutaKonto ---->
+2023-03-10 17:45:59,410 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,410 DEBUG p.TestProcess [main]  avslutaKonto ---->
+2023-03-10 17:45:59,413 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,413 DEBUG p.TestProcess [main]  avslutaKonto ---->
+2023-03-10 17:45:59,416 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,416 DEBUG p.TestProcess [main]  regKonto ---->
+2023-03-10 17:45:59,418 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,420 DEBUG p.TestProcess [main]  regKonto ---->
+2023-03-10 17:45:59,420 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,420 DEBUG p.TestProcess [main]  regKonto ---->
+2023-03-10 17:45:59,420 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,423 DEBUG p.TestProcess [main]  regKonto ---->
+2023-03-10 17:45:59,423 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,423 DEBUG p.TestProcess [main]  svartlistaMedlem ---->
+2023-03-10 17:45:59,426 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,427 DEBUG p.TestProcess [main]  svartlistaMedlem ---->
+2023-03-10 17:45:59,428 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,429 DEBUG p.TestProcess [main]  svartlistaMedlem ---->
+2023-03-10 17:45:59,432 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,432 DEBUG p.TestProcess [main]  tempAvstängning ---->
+2023-03-10 17:45:59,432 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,436 DEBUG p.TestProcess [main]  tempAvstängning ---->
+2023-03-10 17:45:59,439 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,439 TRACE p.TestProcess [main] kollaMedlemsstatus  --->
+2023-03-10 17:45:59,439 DEBUG p.TestProcess [main] konto finns
+2023-03-10 17:45:59,439 DEBUG p.TestProcess [main] 1
+2023-03-10 17:45:59,439 DEBUG p.TestProcess [main] inne i loop
+2023-03-10 17:45:59,439 DEBUG p.TestProcess [main] försenad bok hittad
+2023-03-10 17:45:59,439 DEBUG p.TestProcess [main] Kollar antal förseningar
+2023-03-10 17:45:59,439 DEBUG p.TestProcess [main] medlem undergrad max 3
+2023-03-10 17:45:59,439 DEBUG p.TestProcess [main] kollar om medlem har uppnåt  max böcker
+2023-03-10 17:45:59,439 DEBUG p.TestProcess [main] <--- medlem godkänd (return 0)
+2023-03-10 17:45:59,439 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,442 TRACE p.TestProcess [main] kollaMedlemsstatus  --->
+2023-03-10 17:45:59,442 DEBUG p.TestProcess [main] <--- konto finns inte (return 3)
+2023-03-10 17:45:59,442 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,443 TRACE p.TestProcess [main] kollaMedlemsstatus  --->
+2023-03-10 17:45:59,443 DEBUG p.TestProcess [main] konto finns
+2023-03-10 17:45:59,443 DEBUG p.TestProcess [main] 1
+2023-03-10 17:45:59,444 DEBUG p.TestProcess [main] inne i loop
+2023-03-10 17:45:59,444 DEBUG p.TestProcess [main] försenad bok hittad
+2023-03-10 17:45:59,444 DEBUG p.TestProcess [main] Kollar antal förseningar
+2023-03-10 17:45:59,444 DEBUG p.TestProcess [main] medlem undergrad max 3
+2023-03-10 17:45:59,444 DEBUG p.TestProcess [main] kollar om medlem har uppnåt  max böcker
+2023-03-10 17:45:59,444 DEBUG p.TestProcess [main] <--- medlem godkänd (return 0)
+2023-03-10 17:45:59,446 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,448 TRACE p.TestProcess [main] kollaMedlemsstatus  --->
+2023-03-10 17:45:59,449 DEBUG p.TestProcess [main] konto finns
+2023-03-10 17:45:59,449 DEBUG p.TestProcess [main] 1
+2023-03-10 17:45:59,449 DEBUG p.TestProcess [main] inne i loop
+2023-03-10 17:45:59,449 DEBUG p.TestProcess [main] försenad bok hittad
+2023-03-10 17:45:59,449 DEBUG p.TestProcess [main] Kollar antal förseningar
+2023-03-10 17:45:59,449 DEBUG p.TestProcess [main] kollar antal avstängningar
+2023-03-10 17:45:59,449 DEBUG p.TestProcess [main] Medlem har >2 förseningar
+2023-03-10 17:45:59,450 DEBUG p.TestProcess [main]  tempAvstängning ---->
+2023-03-10 17:45:59,450 DEBUG p.TestProcess [main] <--- medlem avstängd (return 2)
+2023-03-10 17:45:59,453 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,453 TRACE p.TestProcess [main] kollaMedlemsstatus  --->
+2023-03-10 17:45:59,453 DEBUG p.TestProcess [main] konto finns
+2023-03-10 17:45:59,453 DEBUG p.TestProcess [main] 1
+2023-03-10 17:45:59,453 DEBUG p.TestProcess [main] inne i loop
+2023-03-10 17:45:59,453 DEBUG p.TestProcess [main] försenad bok hittad
+2023-03-10 17:45:59,453 DEBUG p.TestProcess [main] Kollar antal förseningar
+2023-03-10 17:45:59,453 DEBUG p.TestProcess [main] kollar antal avstängningar
+2023-03-10 17:45:59,453 DEBUG p.TestProcess [main] Medlem har >1 avstängning
+2023-03-10 17:45:59,453 DEBUG p.TestProcess [main]  svartlistaMedlem ---->
+2023-03-10 17:45:59,453 DEBUG p.TestProcess [main]  avslutaKonto ---->
+2023-03-10 17:45:59,453 DEBUG p.TestProcess [main] <--- medlem avstängd MedlemSvartlistad (return 3)
+2023-03-10 17:45:59,457 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,457 TRACE p.TestProcess [main] kollaMedlemsstatus  --->
+2023-03-10 17:45:59,457 DEBUG p.TestProcess [main] konto finns
+2023-03-10 17:45:59,458 DEBUG p.TestProcess [main] 0
+2023-03-10 17:45:59,458 DEBUG p.TestProcess [main] Kollar antal förseningar
+2023-03-10 17:45:59,458 DEBUG p.TestProcess [main] medlem undergrad max 3
+2023-03-10 17:45:59,458 DEBUG p.TestProcess [main] kollar om medlem har uppnåt  max böcker
+2023-03-10 17:45:59,458 DEBUG p.TestProcess [main] <--- medlem godkänd (return 0)
+2023-03-10 17:45:59,462 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,462 TRACE p.TestProcess [main] kollaMedlemsstatus  --->
+2023-03-10 17:45:59,462 DEBUG p.TestProcess [main] konto finns
+2023-03-10 17:45:59,462 DEBUG p.TestProcess [main] ökar medlemmens avstängningar
+2023-03-10 17:45:59,462 DEBUG p.TestProcess [main] försenad bok hittad
+2023-03-10 17:45:59,462 DEBUG p.TestProcess [main] Kollar antal förseningar
+2023-03-10 17:45:59,465 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,465 TRACE p.TestProcess [main] kollaTillgänglighet  --->
+2023-03-10 17:45:59,465 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID = 0
+2023-03-10 17:45:59,465 DEBUG p.TestProcess [main] KollaTillgänglighet1 passed
+2023-03-10 17:45:59,468 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-10 17:45:59,469 TRACE p.TestProcess [main] kollaTillgänglighet  --->
+2023-03-10 17:45:59,469 DEBUG p.TestProcess [main] Lista av böcker har längd: 3
+2023-03-10 17:45:59,470 DEBUG p.TestProcess [main] <--- kollaTillgänglighet bibID 6redo för lån = 6
+2023-03-10 17:45:59,470 DEBUG p.TestProcess [main] KollaTillgänglighet2 passed
