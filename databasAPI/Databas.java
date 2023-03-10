@@ -140,6 +140,34 @@ public class Databas implements IDatabas {
         System.out.println(x.skapaKonto("Per", "Bolund", 7305240909L, "undergraduate"));
     }
 
+    public Lån[] hämtaLånFörKonto(int kontoID){
+
+        //arrayOfLoans used with .toArray to create the return array
+        ArrayList<Lån> arrayOfLoans = new ArrayList<>();
+
+        //Getting an array of Lån with kontoID which is then returned
+        try {
+            Statement stmt = connection.createStatement();
+            String getTitel = "select * from lån where kontoid=" + kontoID;
+            ResultSet rS = stmt.executeQuery(getTitel);
+            while (rS.next()) {
+                arrayOfLoans.add(new Lån(rS.getInt("bid"), rS.getInt("kontoid"), rS.getDate("låndatum")));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Lån[] loanArray = new Lån[arrayOfLoans.size()];
+        arrayOfLoans.toArray(loanArray);
+
+        return loanArray;
+    }
+
     @Override
     public int avslutaKonto(int kontoID) {
        int failOrSuccess = 0;
