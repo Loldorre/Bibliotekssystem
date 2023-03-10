@@ -1,10 +1,6 @@
 package databasAPI;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Konto {
@@ -19,9 +15,7 @@ public class Konto {
     * */
     private int roll;
     private long personNr;
-    private Connection connection;
-
-
+    private final Connection connection;
     private int kontoID;
     private Date avstangd;
     Lån[]  lånadeBöcker;
@@ -38,7 +32,6 @@ public class Konto {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         this.fNamn = fNamn;
         this.eNamn = eNamn;
         this.roll = roll;
