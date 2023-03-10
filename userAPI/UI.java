@@ -89,36 +89,54 @@ public class UI {
                     break;
 
                 case 2: //återlämna bok
-                    System.out.println("Skriv in kontoId: ");
-                    kontoId = scan.nextInt();
-                    System.out.println("Skriv in bibId: ");
-                    int bibID = scan.nextInt();
 
-                    try{
+                    try {
+                        System.out.println("Skriv in kontoId: ");
+                        kontoId = scan.nextInt();
                         int medlemsstatus = processObj.kollaMedlemsstatus(kontoId);
 
                         if (medlemsstatus == 3){
                             System.out.println("Konto finns inte");
+                        }else {
+                            System.out.println("Skriv in bibId: ");
+                            int bibID = scan.nextInt();
+
+                            if (medlemsstatus == 2) {
+                                int svar = processObj.återlämnaBok(kontoId, bibID);
+                                if (svar == 2) {
+                                    System.out.println("Det fanns inga lånade böcker kopplade till konto med samma bid");
+                                } else if (svar == 1) {
+                                    System.out.println("Bib fanns inte");
+                                } else {
+                                    System.out.println("Bok återlämnad och medlem avstängd i 15 dagar");
+                                }
+                            }
+
+                            if (medlemsstatus == 1) {
+                                int svar = processObj.återlämnaBok(bibID);
+
+                                if (svar == 1) {
+                                    System.out.println("Bib fanns inte");
+                                } else {
+                                    System.out.println("Boken återlämnad och medlem svartlistad");
+                                }
+                            }
+
+                            if (medlemsstatus == 0) {
+                                int svar = processObj.återlämnaBok(kontoId, bibID);
+                                if (svar == 2) {
+                                    System.out.println("Det fanns inga lånade böcker kopplade till konto med samma bid2");
+                                } else if (svar == 1) {
+                                    System.out.println("Bib fanns inte");
+                                } else if (svar == 0) {
+                                    System.out.println("Boken återlämnad!");
+                                }
+                            }
                         }
 
-                        if (medlemsstatus == 2){
-                            processObj.återlämnaBok(kontoId, bibID);
-                            System.out.println("Bok återlämnad och medlem avstängd i 15 dagar");
-                        }
 
-                        if (medlemsstatus == 1){
-                            processObj.återlämnaBok(kontoId, bibID);
-                            System.out.println("Boken återlämnad och medlem svartlistad");
-                        }
+                    } catch (NumberFormatException n) {
 
-                        if (medlemsstatus == 0){
-                            int svar = processObj.återlämnaBok(kontoId, bibID);
-                            System.out.println(svar);
-                            System.out.println("Boken återlämnad!");
-                        }
-
-
-                    }catch (NumberFormatException n) {
                     }
                     fortsatt = false;
                     break;

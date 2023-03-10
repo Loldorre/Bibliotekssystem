@@ -36,4 +36,6 @@ public interface IProcess {
 
     public int återlämnaBok(int kontoId, int bibID);
 
+    public int återlämnaBok(int bibID);
+
 }

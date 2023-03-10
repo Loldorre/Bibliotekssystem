@@ -266,6 +266,10 @@ public class Databas implements IDatabas {
             String getAccount = "delete from lån where bid="+bid;
             int rS = stmt.executeUpdate(getAccount);
 
+            if (rS == 0) {
+                return 1;
+            }
+
         } catch (SQLException e) {
             failOrSuccess = 1;
         }
