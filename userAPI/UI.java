@@ -107,7 +107,7 @@ public class UI {
                         }
                         if (aterlamnastatus == 1){
                             int svar = processObj.återlämnaBok(bibID);
-                            System.out.println("Boken återlämnad och medlem  svartlistad");
+                            System.out.println("Boken återlämnad och medlem svartlistad");
                         }
                         if (aterlamnastatus == 0){
                             int svar = processObj.återlämnaBok(bibID,kontoId);
