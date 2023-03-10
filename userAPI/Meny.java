@@ -136,17 +136,20 @@ public class Meny {
                     break;
 
                 case 4: //registrera konto
-                    System.out.println("Vänligen ange namn, efternamn, personnummer och roll");
+                    System.out.println("Ange förnamn:");
+                    String fnamn = scan.nextLine();
+                    scan.nextLine();
+                    System.out.println("Ange efternamn:");
+                    String enamn = scan.nextLine();
 
-                    String fnamn, enamn;
-                    int roll;
+                    System.out.println("Ange personnummer:");
                     personNr = scan.nextLong();
-                    fnamn = scan.nextLine();
-                    enamn = scan.nextLine();
-                    roll = scan.nextInt();
+                    scan.nextLine();
+                    System.out.println("Ange typ:");
+                    int roll = scan.nextInt();
 
                     try {
-                        //fixa här, processL
+
                         int kontoinfo = processObj.regKonto(fnamn, enamn, personNr, roll);
 
                         if (kontoinfo == 1){
