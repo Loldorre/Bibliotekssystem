@@ -55,17 +55,20 @@ public class UI {
                         int kontoStatusSvar = processObj.kollaMedlemsstatus(kontoId);
 
                         if (kontoStatusSvar == 1) {
-                            System.out.println("Medlem är svarlistad. (Go fuck yourself.)");
+                            System.out.println("Medlem hade för många avstängningar och är nu svarlistad.");
                         }
                         //
                         if (kontoStatusSvar== 2) {
-                            System.out.println("Medlem är tyvärr avstängd i 15 dagar. ");
+                            System.out.println("Medlem avstängd lån nekat. ");
                         }
                         if (kontoStatusSvar ==3){
-                            System.out.println("Konto finns inte");
+                            System.out.println("Konto finns inte, lån nekat");
+                        }
+                        if (kontoStatusSvar ==4){
+                            System.out.println("Medlem har uppnått maximalt antal lånade böcker. Lån nekat.");
                         }
                         if (kontoStatusSvar == 0) {
-                            System.out.println("Godkänt! Medlem kan låna bok!");
+                            System.out.println("Konto Godkänt! Medlem kan låna bok");
                         }
                         while (kontoStatusSvar == 0 ) {
                             System.out.println("Ange bokens ISBN: ");
@@ -127,7 +130,7 @@ public class UI {
                             System.out.println("Angiven konto finns inte!");
                         }
                         if (Svarmedlemstatus == 2){
-                            System.out.println("OPS! Databasstrul. Försök igen!");
+                            System.out.println("OoPS! Databasstrul. Försök igen!");
                         }
                         if (Svarmedlemstatus== 0){
                             System.out.println("Kontot avslutad!");

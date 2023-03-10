@@ -78,7 +78,7 @@ public class Process implements IProcess {
         //---------------kollar om kontot redan är avstängt---------
         if (medlem.getAvstangd() != null) {
             Date avstangdDate = new Date(medlem.getAvstangd().getYear(), medlem.getAvstangd().getMonth(), medlem.getAvstangd().getDay());
-            if (avstangdDate.before(new Date())) { //------Kontot redan avstängt----
+            if (avstangdDate.after(new Date())) { //------Kontot redan avstängt----
                 logger.debug("<--- konto är redan avstängt (return 2)");
                 return 2;
             }
@@ -116,6 +116,30 @@ public class Process implements IProcess {
         }
             }
 
+//-------Kollar om medlem har uppnått maximalt antal böcker---------------
+        int maxböcker=0;
+
+        if(medlem.getRoll()==0){
+            logger.debug("medlem undergrad max 3");
+            maxböcker=3;
+        }
+        if(medlem.getRoll()==1){
+            logger.debug("medlem är grad max 5");
+            maxböcker=5;
+        }
+        if(medlem.getRoll()==2){
+            logger.debug("doctorate student max 7");
+            maxböcker=7;
+        }
+        if(medlem.getRoll()==3){
+            logger.debug("medlem är postDoc or teacher max 10");
+            maxböcker=10;
+        }
+        logger.debug("kollar om medlem har uppnåt  max böcker");
+        if(medlem.getLånadeBöcker().length >=maxböcker){
+            logger.debug("<--- medlem har uppnått max antal böcker (return 0)");
+            return 4;
+        }
         logger.debug("<--- medlem godkänd (return 0)");
         return 0;
     }
@@ -277,18 +301,6 @@ public class Process implements IProcess {
     @Override
     public int registreraLån(int kontoId, int bibID) {
         logger.debug(" registreraLån ---->");
-       /* Konto [] listaAvKonto = DatabasAPI.hämtaKonton();
-        Konto konto = null;
-        for (Konto value : listaAvKonto) {
-            if (value.getKontoID() == kontoId) {
-                konto = value;
-                break;
-            }
-        }
-        if (konto == null) {
-            return 3;
-        }
-        Lån [] lånadeBöcker = konto.getLanadeBocker(); */
 int svar = DatabasAPI.skapaLån(kontoId, bibID);
            if(svar > 0) return 5;
     return 0;

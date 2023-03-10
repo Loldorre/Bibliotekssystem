@@ -47,7 +47,7 @@ public class Databas implements IDatabas {
             }
         } catch (SQLException e) {
             logger.debug("sql strular");
-            throw new RuntimeException(e);
+            return new Bok[]{};
         }
         Bok[] returBookArray = new Bok[arrayOfBooks.size()];
         arrayOfBooks.toArray(returBookArray);
@@ -222,11 +222,13 @@ public class Databas implements IDatabas {
                         rS.getInt("roll"),
                         rS.getInt("kontoID"),
                         rS.getDate("avstängd"),
-                        new Lån[]{},
+                        lånArray,
                         rS.getInt("antalAvstängningar"),
                         rS.getInt("antalFörseningar")));
 
-                logger.debug("kontoobjekt lagt till arrayOfAccounts");
+                logger.debug("kontoobjekt lagt till arrayOfAccounts"+rS.getInt("kontoID"));
+                logger.debug("antal böcker lånade: "+lånArray.length);
+
             }
         }
         catch (SQLException e) {
