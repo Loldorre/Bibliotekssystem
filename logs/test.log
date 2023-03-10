@@ -28110,3 +28110,27 @@
 2023-03-10 14:28:22,014 DEBUG p.TestProcess [main] taBortLån ------->
 2023-03-10 14:28:22,030 DEBUG p.TestProcess [main] <------- taBortLån 
 2023-03-10 14:33:29,763 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 14:33:48,877 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 14:34:01,842 TRACE p.TestProcess [main] kollaMedlemsstatus  --->
+2023-03-10 14:34:01,843 DEBUG p.TestProcess [main] hämtaKonton ------->
+2023-03-10 14:34:01,848 DEBUG p.TestProcess [main] Databas ansluten
+2023-03-10 14:34:01,881 DEBUG p.TestProcess [main] konton hämtade till rs
+2023-03-10 14:34:01,898 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 14:34:01,899 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 14:34:01,900 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 14:34:01,900 DEBUG p.TestProcess [main] skapar kontobjekt1008
+2023-03-10 14:34:01,900 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts
+2023-03-10 14:34:01,918 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 14:34:01,918 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 14:34:01,919 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 14:34:01,919 DEBUG p.TestProcess [main] skapar kontobjekt1010
+2023-03-10 14:34:01,920 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts
+2023-03-10 14:34:01,920 DEBUG p.TestProcess [main] Kont[] returned
+2023-03-10 14:34:01,920 DEBUG p.TestProcess [main] <----- hämtaKonto()antal konton = 2
+2023-03-10 14:34:01,920 DEBUG p.TestProcess [main] konto finns
+2023-03-10 14:34:01,920 DEBUG p.TestProcess [main] Kollar antal förseningar
+2023-03-10 14:34:01,920 DEBUG p.TestProcess [main] <--- medlem godkänd (return 0)
+2023-03-10 14:34:01,920 DEBUG p.TestProcess [main]  återlämnaBok ---->
+2023-03-10 14:34:01,921 DEBUG p.TestProcess [main] taBortLån ------->
+2023-03-10 14:34:01,937 DEBUG p.TestProcess [main] <------- taBortLån 
+2023-03-10 14:34:01,937 DEBUG p.TestProcess [main] <----- atermämna bok 
