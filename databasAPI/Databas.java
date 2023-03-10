@@ -308,7 +308,6 @@ public class Databas implements IDatabas {
             throw new RuntimeException(e);
         }
 
-
         long[] returnBlacklistArray = new long[arrayOfBlacklist.size()];
         int i = 0;
         for (Long item : arrayOfBlacklist) {
