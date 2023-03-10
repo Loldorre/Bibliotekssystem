@@ -55,7 +55,7 @@ public class UI {
                         int kontoStatusSvar = processObj.kollaMedlemsstatus(kontoId);
 
                         if (kontoStatusSvar == 1) {
-                            System.out.println("Medlem är svarlistad.Go fuck yourself. ");
+                            System.out.println("Medlem är svarlistad. (Go fuck yourself.)");
                         }
                         //
                         if (kontoStatusSvar== 2) {
@@ -65,7 +65,7 @@ public class UI {
                             System.out.println("Konto finns inte");
                         }
                         if (kontoStatusSvar == 0) {
-                            System.out.println("Godkänt! Medlem kan låna bok! ");
+                            System.out.println("Godkänt! Medlem kan låna bok!");
                         }
                         while (kontoStatusSvar == 0 ) {
                             System.out.println("Ange bokens ISBN: ");
