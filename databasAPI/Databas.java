@@ -161,18 +161,24 @@ public class Databas implements IDatabas {
     @Override
     public int avslutaKonto(int kontoID) {
         logger.debug("avsluta konto ------->");
-        int failOrSuccess = 0;
-
+        int failOrSuccess;
         try {
+            logger.debug("skapar statement");
             Statement stmt = connection.createStatement();
-            String deleteAccount = "delete from konto where kontoID =" + kontoID;
+
+            String deleteAccount = "delete from konto where kontoID =" + kontoID+";";
+            logger.debug("kör sql kommando");
             int rS = stmt.executeUpdate(deleteAccount);
-            logger.debug("konto gick inte att avsluta" + failOrSuccess);
-            if(rS == 0){ return 1;}
+            if(rS == 0){
+                logger.debug("konto gick inte att avsluta");
+                failOrSuccess = 1;
+                return failOrSuccess;}
         } catch (SQLException e) {
-            failOrSuccess = 1;
+            failOrSuccess = 2;
+            return failOrSuccess;
         }
-        logger.debug("<------- avsluta konto " + failOrSuccess);
+        logger.debug("<------- avsluta konto " + 0);
+        failOrSuccess = 0;
         return failOrSuccess;
     }
 

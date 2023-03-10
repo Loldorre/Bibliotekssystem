@@ -254,9 +254,21 @@ public class Process implements IProcess {
         int databasSvar;
         for(Konto k :kontolista){
             if(k.getKontoID()==kontoId){
+                logger.debug("konto hittat - försöker avsluta" + kontoId);
                 databasSvar = this.DatabasAPI.avslutaKonto(kontoId);
-                if(databasSvar == 0) { return 0; }
-                if(databasSvar == 1) { return 2; }
+
+                if(databasSvar == 0) {
+                    logger.debug("kontot borttaget ur databasen" + kontoId);
+                    return 0;
+                }
+                if(databasSvar == 1) {
+                    logger.debug("kontonummer finns inte");
+                    return 1;
+                }
+                if(databasSvar == 2) {
+                    logger.debug("databas strul");
+                    return 2;
+                }
              }
         }
         return 1;
