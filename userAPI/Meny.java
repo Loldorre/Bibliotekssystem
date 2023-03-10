@@ -178,12 +178,13 @@ public class Meny {
                 {
                     System.out.println("Ange användarens personnummer:");
                     personNr = scan.nextLong();
+                    System.out.println("Ange kontoId:");
                     kontoId = scan.nextInt();
 
                     try {
                         int svarpersonnumer = processObj.svartlistaMedlem(personNr);
                         if (svarpersonnumer == 1) {
-                            System.out.println("Medlem finns inte! Fel personnumer.");
+                            System.out.println("Personen redan svartlistad!");
                         }
                         if (svarpersonnumer == 2) {
                             System.out.println("OPS! Databasstrul. Försök igen!");
@@ -197,6 +198,7 @@ public class Meny {
                         }
 
                     } catch (NumberFormatException n) {
+
                     }
                     fortsatt = false;
                 }
