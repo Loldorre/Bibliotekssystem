@@ -282,15 +282,32 @@ int svar = DatabasAPI.skapaLån(kontoId, bibID);
         logger.debug(" återlämnaBok ---->");
 int databasSvar = this.DatabasAPI.taBortLån(bibID);
 if (databasSvar == 1)
+{
+    logger.debug("<---- återlämnaBok returns" +1);
     return 1;
+}
 if (databasSvar == 2)
+{
+    logger.debug("<---- återlämnaBok returns" +1);
     return 1;
+}
 if (databasSvar == 3)
+{
+    logger.debug("<---- återlämnaBok returns" +1);
     return 1;
+}
 if (databasSvar == 4)
-            return 1;
-if (databasSvar == 5)
-            return 1;
-else return 0;
+
+{
+    logger.debug("<---- återlämnaBok returns" +1);
+    return 1;
+}
+if (databasSvar == 5) {
+    logger.debug("<---- återlämnaBok returns" +1);
+    return 1;
+}
+else{
+    logger.debug("<---- återlämnaBok returns" +0);
+    return 0;}
     }
 }

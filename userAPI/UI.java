@@ -106,6 +106,7 @@ public class UI {
                             System.out.println("Boken återlämnad och medlem  svartlistad");
                         }
                         if (aterlamnastatus == 0){
+                            int svar = processObj.återlämnaBok(kontoId,bibID);
                             System.out.println("Boken återlämnad!");
                         }
 
@@ -135,10 +136,11 @@ public class UI {
                     fortsatt = false;
                     break;
 
-                case 4: //registrera konto
+                case 4: //registrera konto (klar av Sanja)
                     System.out.println("Ange förnamn:");
-                    String fnamn = scan.nextLine();
                     scan.nextLine();
+                    String fnamn = scan.nextLine();
+
                     System.out.println("Ange efternamn:");
                     String enamn = scan.nextLine();
 
@@ -157,23 +159,19 @@ public class UI {
                         }
 
                         if (kontoinfo == 2){
-                            int perssvar = processObj.svartlistaMedlem(personNr);
-                            if(perssvar == 2){
-                                System.out.println("Medlem är svartlistad!");
-                            }
+                            System.out.println("Medlem är svartlistad!Det går inte att skapa konto. ");
 
                         }
                         if (kontoinfo == 3){
                             System.out.println("OPS! Databasstrul. Försök igen!");
                         }
                         if (kontoinfo > 999){
-                            System.out.println("Konto " + kontoinfo + "skapat");
+                            System.out.println("Konto för " + fnamn + " " +  enamn + " " +  kontoinfo + "  är skapat!");
                         }
                     } catch (NumberFormatException n) {
                     }
                     fortsatt = false;
                     break;
-
 
                 case 5: //svartlista medlem
                 {

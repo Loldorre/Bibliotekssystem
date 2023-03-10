@@ -138,6 +138,8 @@ public class Databas implements IDatabas {
             String addAccount = "insert into konto values (\"" + fnamn + "\",\"" + enamn + "\"," + personNr + ",\"" + roll + "\"," + 0 +", " + null + "," + 0 + "," + 0 + ")";
             String getAddedKontoId = "select kontoID from konto where personNr=" + personNr;
             int rS = stmt.executeUpdate(addAccount);
+            if (rS == 0) {
+                return 1;}
             ResultSet newRs = getStmt.executeQuery(getAddedKontoId);
             while(newRs.next()) {
                 failOrSuccess = newRs.getInt("kontoid");
@@ -260,16 +262,18 @@ public class Databas implements IDatabas {
     @Override
     public int taBortLån(int bid){
         logger.debug("taBortLån ------->");
-        int failOrSuccess = 0;
+        int failOrSuccess;
         try {
             Statement stmt = connection.createStatement();
-            String getAccount = "delete from lån where bid="+bid;
+            String getAccount = "delete from lån where bid="+bid+";";
             int rS = stmt.executeUpdate(getAccount);
-
+            logger.debug("<------- taBortLån " + "lånet fanns inte");
+            if(rS<1){return 1;}
+            failOrSuccess = 0;
         } catch (SQLException e) {
+            logger.error("sql strul!!!");
             failOrSuccess = 1;
         }
-
         logger.debug("<------- taBortLån ");
         return failOrSuccess;
     }
