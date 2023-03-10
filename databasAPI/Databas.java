@@ -41,13 +41,8 @@ public class Databas implements IDatabas {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
+
         Bok[] returBookArray = new Bok[arrayOfBooks.size()];
         arrayOfBooks.toArray(returBookArray);
         return returBookArray;
@@ -73,13 +68,7 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(getTitel);
 
         } catch (SQLException e) {
-            returnValue = 1;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            returnValue = 5;
         }
 
         return returnValue;
@@ -96,13 +85,7 @@ public class Databas implements IDatabas {
             String addBlacklist = "insert into svartlista values (" + personNr + ")";
             long rS = stmt.executeUpdate(addBlacklist);
         } catch (SQLException e) {
-            failOrSuccess = 1;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            failOrSuccess = 5;
         }
         return failOrSuccess;
     }
@@ -123,21 +106,11 @@ public class Databas implements IDatabas {
                failOrSuccess = newRs.getInt("kontoid");
            }
         } catch (SQLException e) {
-            failOrSuccess = 1;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            failOrSuccess = 5;
         }
 
 
         return failOrSuccess;
-    }
-    public static void main(String[] args) {
-        Databas x = new Databas();
-        System.out.println(x.skapaKonto("Per", "Bolund", 7305240909L, "undergraduate"));
     }
 
     public Lån[] hämtaLånFörKonto(int kontoID){
@@ -155,13 +128,8 @@ public class Databas implements IDatabas {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
+
         Lån[] loanArray = new Lån[arrayOfLoans.size()];
         arrayOfLoans.toArray(loanArray);
 
@@ -178,14 +146,9 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(deleteAccount);
 
         } catch (SQLException e) {
-            failOrSuccess = 1;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            failOrSuccess = 5;
         }
+
         return failOrSuccess;
     }
 
@@ -204,13 +167,8 @@ public class Databas implements IDatabas {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
+
         Konto[] returKontoArray = new Konto[arrayOfAccounts.size()];
         arrayOfAccounts.toArray(returKontoArray);
 
@@ -242,13 +200,7 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(getAccount);
 
         } catch (SQLException e) {
-            failOrSuccess = 1;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            failOrSuccess = 5;
         }
 
         return failOrSuccess;
@@ -265,13 +217,7 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(getAccount);
 
         } catch (SQLException e) {
-            failOrSuccess = 1;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            failOrSuccess = 5;
         }
 
         return failOrSuccess;
@@ -298,13 +244,8 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(getAccount);
 
         } catch (SQLException e) {
-            failOrSuccess=1;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            failOrSuccess=5;
+
         }
 
         return failOrSuccess;
@@ -329,13 +270,7 @@ public class Databas implements IDatabas {
             int rS = stmt.executeUpdate(getAccount);
 
         } catch (SQLException e) {
-            failOrSuccess = 1;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            failOrSuccess = 5;
         }
 
         return failOrSuccess;
@@ -369,7 +304,6 @@ public class Databas implements IDatabas {
             i++;
         }
 
-
         return returnBlacklistArray;
     }
 
@@ -387,21 +321,13 @@ public class Databas implements IDatabas {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
+
         Lån[] arrayOfLoans = new Lån[loans.size()];
         loans.toArray(arrayOfLoans);
 
        return arrayOfLoans;
     }
-
-
-
 }
 
 

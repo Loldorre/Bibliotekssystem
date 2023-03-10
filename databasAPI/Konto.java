@@ -49,9 +49,6 @@ public class Konto {
     }
 
 
-
-
-
     public String getfNamn() {
         return fNamn;
     }
