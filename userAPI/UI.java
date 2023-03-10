@@ -68,7 +68,7 @@ public class UI {
                             System.out.println("Godkänt! Medlem kan låna bok! ");
                         }
                         while (kontoStatusSvar == 0 ) {
-                            System.out.println("Ange bokens titel: ");
+                            System.out.println("Ange bokens ISBN: ");
                             scan.nextLine();
                             String titel = scan.nextLine();
 
@@ -103,10 +103,11 @@ public class UI {
                             System.out.println("Bok återlämnad och medlem avstängd i 15 dagar");
                         }
                         if (aterlamnastatus == 1){
+                            int svar = processObj.återlämnaBok(bibID);
                             System.out.println("Boken återlämnad och medlem  svartlistad");
                         }
                         if (aterlamnastatus == 0){
-                            int svar = processObj.återlämnaBok(kontoId,bibID);
+                            int svar = processObj.återlämnaBok(bibID,kontoId);
                             System.out.println("Boken återlämnad!");
                         }
 

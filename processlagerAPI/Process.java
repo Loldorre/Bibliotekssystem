@@ -201,10 +201,15 @@ public class Process implements IProcess {
         //kollar om medlemmen redan är svartlistad.
        if (svartlistade != null){
         for (long l : svartlistade) {
-            if (l == personNr) {return 1;}
+            if (l == personNr) {
+                logger.debug(" <------ svartListaMedlem. inga svartlistade>");
+                return 1;
+            }
                 }}
         databasSvar = this.DatabasAPI.läggTillSvartlistade(personNr);
-                if (databasSvar == 0) {return 0;}
+                if (databasSvar == 0) {
+                    return 0;
+                }
                 else return 2;
             }
 
@@ -276,9 +281,42 @@ int svar = DatabasAPI.skapaLån(kontoId, bibID);
            if(svar > 0) return 5;
     return 0;
     }
-
     @Override
-    public int återlämnaBok(int kontoId, int bibID) {
+    public int återlämnaBok( int kontoID,int bibID) {
+        logger.debug(" återlämnaBok ---->");
+        int databasSvar = this.DatabasAPI.taBortLån(bibID);
+        if (databasSvar == 1)
+        {
+            logger.debug("<---- återlämnaBok returns" +1);
+            return 1;
+        }
+        if (databasSvar == 2)
+        {
+            logger.debug("<---- återlämnaBok returns" +1);
+            return 1;
+        }
+        if (databasSvar == 3)
+        {
+            logger.debug("<---- återlämnaBok returns" +1);
+            return 1;
+        }
+        if (databasSvar == 4)
+
+        {
+            logger.debug("<---- återlämnaBok returns" +1);
+            return 1;
+        }
+        if (databasSvar == 5) {
+            logger.debug("<---- återlämnaBok returns" +1);
+            return 1;
+        }
+        else{
+            logger.debug("<---- återlämnaBok returns" +0);
+            return 0;}
+    }
+
+    //För svartlistade som vill lämna tillbaka.
+    public int återlämnaBok(int bibID) {
         logger.debug(" återlämnaBok ---->");
 int databasSvar = this.DatabasAPI.taBortLån(bibID);
 if (databasSvar == 1)

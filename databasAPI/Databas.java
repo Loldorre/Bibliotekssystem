@@ -115,16 +115,23 @@ public class Databas implements IDatabas {
     @Override
     public int läggTillSvartlistade(long personNr) {
         logger.debug("läggTillSartlistade ----->");
-        int failOrSuccess = 0;
+        int failOrSuccess;
         try {
             Statement stmt = connection.createStatement();
             String addBlacklist = "insert into svartlista values (" + personNr + ")";
             long rS = stmt.executeUpdate(addBlacklist);
+            if (rS == 0) {
+                logger.debug("inga fält uppdaterade");
+                return 1;
+            } else {
+                logger.debug("<----- läggTillSartlistade ");
+                return 0;
+            }
         } catch (SQLException e) {
-            failOrSuccess = 1;
+            return 2;
         }
-        return failOrSuccess;
     }
+
 
 
     @Override //Hämtar inte kontoId. ska fixas
@@ -160,7 +167,8 @@ public class Databas implements IDatabas {
             Statement stmt = connection.createStatement();
             String deleteAccount = "delete from konto where kontoID =" + kontoID;
             int rS = stmt.executeUpdate(deleteAccount);
-
+            logger.debug("konto gick inte att avsluta" + failOrSuccess);
+            if(rS == 0){ return 1;}
         } catch (SQLException e) {
             failOrSuccess = 1;
         }
