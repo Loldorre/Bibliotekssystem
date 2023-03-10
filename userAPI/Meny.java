@@ -137,8 +137,9 @@ public class Meny {
 
                 case 4: //registrera konto
                     System.out.println("Ange förnamn:");
-                    String fnamn = scan.nextLine();
                     scan.nextLine();
+                    String fnamn = scan.nextLine();
+
                     System.out.println("Ange efternamn:");
                     String enamn = scan.nextLine();
 
@@ -157,22 +158,20 @@ public class Meny {
                         }
 
                         if (kontoinfo == 2){
-                            int perssvar = processObj.svartlistaMedlem(personNr);
-                            if(perssvar == 2){
-                                System.out.println("Medlem är svartlistad!");
-                            }
+                                System.out.println("Medlem är svartlistad!Det går inte att skapa konto. ");
 
                         }
                         if (kontoinfo == 3){
                             System.out.println("OPS! Databasstrul. Försök igen!");
                         }
                         if (kontoinfo > 999){
-                            System.out.println("Konto " + kontoinfo + "skapat");
+                            System.out.println("Konto för " + fnamn + " " +  enamn + " " +  kontoinfo + "  är skapat!");
                         }
                     } catch (NumberFormatException n) {
                     }
                     fortsatt = false;
                     break;
+
 
 
                 case 5: //svartlista medlem
