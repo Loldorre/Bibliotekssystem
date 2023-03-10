@@ -29736,3 +29736,6 @@
 2023-03-10 18:03:03,921 DEBUG p.TestProcess [main] Kont[] returned
 2023-03-10 18:03:03,921 DEBUG p.TestProcess [main] <----- hämtaKonto()antal konton = 4
 2023-03-10 18:03:03,921 DEBUG p.TestProcess [main] <--- konto finns inte (return 3)
+2023-03-10 18:28:59,162 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 18:29:34,133 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 18:30:23,728 DEBUG p.TestProcess [main] Databas ansluten ----->

@@ -29673,3 +29673,68 @@
 2023-03-10 17:49:24,364 DEBUG p.TestProcess [main] <------- updateAntalAvstängningar 0
 2023-03-10 17:49:24,372 DEBUG p.TestProcess [main] <------- registreraTempAvstänging 
 2023-03-10 17:49:24,372 DEBUG p.TestProcess [main] <--- medlem avstängd (return 2)
+2023-03-10 18:01:38,739 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 18:02:09,639 TRACE p.TestProcess [main] kollaMedlemsstatus  --->
+2023-03-10 18:02:09,640 DEBUG p.TestProcess [main] hämtaKonton ------->
+2023-03-10 18:02:09,649 DEBUG p.TestProcess [main] Databas ansluten
+2023-03-10 18:02:09,677 DEBUG p.TestProcess [main] konton hämtade till rs
+2023-03-10 18:02:09,682 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 18:02:09,682 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 18:02:09,683 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 18:02:09,684 DEBUG p.TestProcess [main] skapar kontobjekt1001
+2023-03-10 18:02:09,686 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts1001
+2023-03-10 18:02:09,686 DEBUG p.TestProcess [main] antal böcker lånade: 0
+2023-03-10 18:02:09,689 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 18:02:09,689 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 18:02:09,689 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 18:02:09,689 DEBUG p.TestProcess [main] skapar kontobjekt1008
+2023-03-10 18:02:09,689 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts1008
+2023-03-10 18:02:09,689 DEBUG p.TestProcess [main] antal böcker lånade: 0
+2023-03-10 18:02:09,692 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 18:02:09,692 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 18:02:09,692 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 18:02:09,692 DEBUG p.TestProcess [main] skapar kontobjekt1111
+2023-03-10 18:02:09,692 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts1111
+2023-03-10 18:02:09,692 DEBUG p.TestProcess [main] antal böcker lånade: 0
+2023-03-10 18:02:09,695 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 18:02:09,696 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 18:02:09,696 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 18:02:09,696 DEBUG p.TestProcess [main] skapar kontobjekt9999
+2023-03-10 18:02:09,696 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts9999
+2023-03-10 18:02:09,697 DEBUG p.TestProcess [main] antal böcker lånade: 1
+2023-03-10 18:02:09,697 DEBUG p.TestProcess [main] Kont[] returned
+2023-03-10 18:02:09,697 DEBUG p.TestProcess [main] <----- hämtaKonto()antal konton = 4
+2023-03-10 18:02:09,697 DEBUG p.TestProcess [main] <--- konto finns inte (return 3)
+2023-03-10 18:03:03,895 TRACE p.TestProcess [main] kollaMedlemsstatus  --->
+2023-03-10 18:03:03,896 DEBUG p.TestProcess [main] hämtaKonton ------->
+2023-03-10 18:03:03,896 DEBUG p.TestProcess [main] Databas ansluten
+2023-03-10 18:03:03,901 DEBUG p.TestProcess [main] konton hämtade till rs
+2023-03-10 18:03:03,905 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 18:03:03,905 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 18:03:03,905 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 18:03:03,905 DEBUG p.TestProcess [main] skapar kontobjekt1001
+2023-03-10 18:03:03,906 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts1001
+2023-03-10 18:03:03,906 DEBUG p.TestProcess [main] antal böcker lånade: 0
+2023-03-10 18:03:03,909 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 18:03:03,909 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 18:03:03,909 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 18:03:03,909 DEBUG p.TestProcess [main] skapar kontobjekt1008
+2023-03-10 18:03:03,910 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts1008
+2023-03-10 18:03:03,910 DEBUG p.TestProcess [main] antal böcker lånade: 0
+2023-03-10 18:03:03,914 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 18:03:03,914 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 18:03:03,914 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 18:03:03,914 DEBUG p.TestProcess [main] skapar kontobjekt1111
+2023-03-10 18:03:03,915 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts1111
+2023-03-10 18:03:03,915 DEBUG p.TestProcess [main] antal böcker lånade: 0
+2023-03-10 18:03:03,919 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 18:03:03,920 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 18:03:03,920 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 18:03:03,920 DEBUG p.TestProcess [main] skapar kontobjekt9999
+2023-03-10 18:03:03,920 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts9999
+2023-03-10 18:03:03,920 DEBUG p.TestProcess [main] antal böcker lånade: 1
+2023-03-10 18:03:03,921 DEBUG p.TestProcess [main] Kont[] returned
+2023-03-10 18:03:03,921 DEBUG p.TestProcess [main] <----- hämtaKonto()antal konton = 4
+2023-03-10 18:03:03,921 DEBUG p.TestProcess [main] <--- konto finns inte (return 3)
+2023-03-10 18:28:59,162 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 18:29:34,133 DEBUG p.TestProcess [main] Databas ansluten ----->
