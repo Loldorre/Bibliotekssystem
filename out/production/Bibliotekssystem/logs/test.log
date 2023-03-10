@@ -27268,3 +27268,77 @@
 2023-03-10 11:43:51,206 DEBUG p.TestProcess [main] KollaTillgänglighet1 passed
 2023-03-10 11:43:51,208 DEBUG p.TestProcess [main] --Resetting mock--
 2023-03-10 11:43:51,209 DEBUG p.TestProcess [main] KollaTillgänglighet2 passed
+2023-03-10 11:44:01,175 DEBUG p.TestProcess [main] Databas ansluten ----->
+2023-03-10 11:44:06,150 TRACE p.TestProcess [main] kollaMedlemsstatus  --->
+2023-03-10 11:44:06,150 DEBUG p.TestProcess [main] hämtaKonton ------->
+2023-03-10 11:44:06,159 DEBUG p.TestProcess [main] Databas ansluten
+2023-03-10 11:44:06,182 DEBUG p.TestProcess [main] konton hämtade till rs
+2023-03-10 11:44:06,185 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 11:44:06,186 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 11:44:06,187 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 11:44:06,187 DEBUG p.TestProcess [main] skapar kontobjekt1007
+2023-03-10 11:44:06,188 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts
+2023-03-10 11:44:06,192 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 11:44:06,193 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 11:44:06,193 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 11:44:06,193 DEBUG p.TestProcess [main] skapar kontobjekt1008
+2023-03-10 11:44:06,194 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts
+2023-03-10 11:44:06,197 DEBUG p.TestProcess [main] kontos lån hämtade till lRS
+2023-03-10 11:44:06,197 DEBUG p.TestProcess [main] lån lagda i Lånarray-list
+2023-03-10 11:44:06,197 DEBUG p.TestProcess [main] Lånarray-list till array
+2023-03-10 11:44:06,197 DEBUG p.TestProcess [main] skapar kontobjekt1010
+2023-03-10 11:44:06,197 DEBUG p.TestProcess [main] kontoobjekt lagt till arrayOfAccounts
+2023-03-10 11:44:06,198 DEBUG p.TestProcess [main] Kont[] returned
+2023-03-10 11:44:06,198 DEBUG p.TestProcess [main] <----- hämtaKonto()
+2023-03-10 11:44:06,198 DEBUG p.TestProcess [main] konto finns
+2023-03-10 11:44:06,198 DEBUG p.TestProcess [main] Kollar antal förseningar
+2023-03-10 11:44:06,198 DEBUG p.TestProcess [main] <--- medlem godkänd (return 0)
+2023-03-10 11:44:37,142 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 11:44:37,142 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 11:44:37,152 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 11:44:37,154 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 11:44:37,154 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 11:44:37,154 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:44:37,154 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:44:37,155 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:44:37,155 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:44:37,155 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 11:45:27,128 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 11:45:27,130 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 11:45:27,136 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 11:45:27,137 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 11:45:27,138 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 11:45:27,140 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 11:45:27,140 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 11:45:27,141 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 11:45:27,142 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:27,142 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:27,143 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:27,144 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:27,145 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 11:45:27,146 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 11:45:27,147 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 11:45:27,153 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 11:45:27,154 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 11:45:27,155 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 11:45:27,155 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 11:45:27,156 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 11:45:27,157 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 11:45:27,158 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:27,159 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:27,159 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:27,160 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:27,160 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
+2023-03-10 11:45:38,012 DEBUG p.TestProcess [main] hämtaTillgänglighet ----->
+2023-03-10 11:45:38,013 DEBUG p.TestProcess [main] hämtar tillgängliga böcker 
+2023-03-10 11:45:38,016 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 11:45:38,017 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 11:45:38,017 DEBUG p.TestProcess [main] lägger till: Project Hail Mary: A Novel
+2023-03-10 11:45:38,017 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 11:45:38,017 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 11:45:38,018 DEBUG p.TestProcess [main] lägger till: Atomic Habits
+2023-03-10 11:45:38,018 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:38,018 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:38,018 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:38,018 DEBUG p.TestProcess [main] lägger till: Children of Time
+2023-03-10 11:45:38,019 DEBUG p.TestProcess [main] <------ hämtaTillgänglighet
