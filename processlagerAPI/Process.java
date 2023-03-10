@@ -145,92 +145,92 @@ public class Process implements IProcess {
         return 0;
     }
 
-    public int kollaMedlemsstatus (int kontoID, int antalDagar) {
-            logger.trace("kollaMedlemsstatus  --->");
-            Konto[] listAvKonto = DatabasAPI.hämtaKonton();
-            Konto medlem = null;
-            int svar;
-            //------------------------Letar efter kontot i listan från databasen---------------------------
-            for (Konto k : listAvKonto) {
-                if (k.getKontoID() == kontoID) {
-                    logger.debug("konto finns");
-                    medlem = k;
-                }
+    @Override
+    public int kollaMedlemsstatus(int kontoID,int dagar) {
+        logger.trace("kollaMedlemsstatus  --->");
+        Konto[] listAvKonto = DatabasAPI.hämtaKonton();
+        Konto medlem = null;
+        int svar;
+        //------------------------Letar efter kontot i listan från databasen---------------------------
+        for (Konto k : listAvKonto) {
+            if (k.getKontoID() == kontoID) {
+                logger.debug("konto finns");
+                medlem = k;
             }
-            if (medlem == null) {
-                logger.debug("<--- konto finns inte (return 3)");//-----Konto finns inte slut på koll!---------------------------------------
-                return 3;
+        }
+        if (medlem == null) {
+            logger.debug("<--- konto finns inte (return 3)");//-----Konto finns inte slut på koll!---------------------------------------
+            return 3;
+        }
+        //---------------kollar om kontot redan är avstängt---------
+        if (medlem.getAvstangd() != null) {
+            Date avstangdDate = new Date(medlem.getAvstangd().getYear(), medlem.getAvstangd().getMonth(), medlem.getAvstangd().getDay());
+            if (avstangdDate.after(new Date())) { //------Kontot redan avstängt----
+                logger.debug("<--- konto är redan avstängt (return 2)");
+                return 2;
             }
-            //---------------kollar om kontot redan är avstängt---------
-            if (medlem.getAvstangd() != null) {
-                Date avstangdDate = new Date(medlem.getAvstangd().getYear(), medlem.getAvstangd().getMonth(), medlem.getAvstangd().getDay());
-                if (avstangdDate.after(new Date())) { //------Kontot redan avstängt----
-                    logger.debug("<--- konto är redan avstängt (return 2)");
-                    return 2;
-                }
-            }
-//---------------------------------Kollar om det finns försenade böcker---------------------------------
-            Lån[] lånadeBöcker = medlem.getLånadeBöcker();
+        }
 
-            for (Lån l : lånadeBöcker) {
-                Date slutDatum = new Date(l.getLånDatum().getYear(), l.getLånDatum().getMonth(), l.getLånDatum().getDay() + 14);
-                if (slutDatum.before(new Date())) {
-                    logger.debug("försenad bok hittad");
-                    medlem.setAntalForseningar(medlem.getAntalForseningar() + 1);
-                    break;
-                }
+//---------------------------------Kollar om det finns försenade böcker---------------------------------
+        Lån[] lånadeBöcker = medlem.getLånadeBöcker();
+        for (Lån l : lånadeBöcker) {
+            logger.debug("återlämningsdatum" +l.getLånDatum().getYear(), l.getLånDatum().getMonth(), l.getLånDatum().getDay() + 14 );
+            Date slutDatum = new Date(l.getLånDatum().getYear(), l.getLånDatum().getMonth(), l.getLånDatum().getDay() + 14);
+            if (slutDatum.after(new Date())) {
+                logger.debug("försenad bok hittad");
+                medlem.setAntalForseningar(medlem.getAntalForseningar() + 1);
+                DatabasAPI.updateAntalFörseningar(medlem.getKontoID());
+                break;
             }
-            logger.debug("Kollar antal förseningar");
-            if (medlem.getAntalForseningar() > 2 ) { //Om kontot nu har > 2 förseningar Stängs kontoto av.-----
-                logger.debug("kollar antal avstängningar");
-                if (medlem.getAntalAvstangningar() > 1) { //------- Om kontot har mer än en avstängning nu så svartlista och avsluta kontot.----
-                    logger.debug("Medlem har >1 avstängning");
-                    svar = this.svartlistaMedlem(medlem.getPersonNr());
-                    svar = this.avslutaKonto(medlem.getKontoID());
-                    logger.debug("<--- medlem avstängd MedlemSvartlistad (return 3)");
-                    return 1;
-                }
-                else {
-                    logger.debug("Medlem har >2 förseningar");
-                    svar = tempAvstängning(medlem.getKontoID(), 15+antalDagar);
-                    LocalDate datum = LocalDate.now().plusDays(15);
-                    medlem.setAntalAvstangningar(medlem.getAntalAvstangningar() + 1);
-                    logger.debug("<--- medlem avstängd (return 2)");
-                    return 2;
-                }
+        }
+        logger.debug("Kollar antal förseningar");
+        if (medlem.getAntalForseningar() > 2 ) { //Om kontot nu har > 2 förseningar Stängs kontoto av.-----
+
+            logger.debug("kollar antal avstängningar");
+            if (medlem.getAntalAvstangningar() > 1) { //------- Om kontot har mer än en avstängning nu så svartlista och avsluta kontot.----
+                logger.debug("Medlem har >1 avstängning");
+                svar = this.svartlistaMedlem(medlem.getPersonNr());
+                svar = this.avslutaKonto(medlem.getKontoID());
+                logger.debug("<--- medlem avstängd MedlemSvartlistad (return 3)");
+                return 1;
             }
+            else {
+                logger.debug("Medlem har >2 förseningar");
+                svar = tempAvstängning(medlem.getKontoID(), 15+dagar);
+                LocalDate datum = LocalDate.now().plusDays(15);
+                medlem.setAntalAvstangningar(medlem.getAntalAvstangningar() + 1);
+                logger.debug("<--- medlem avstängd (return 2)");
+                return 2;
+            }
+        }
 
 //-------Kollar om medlem har uppnått maximalt antal böcker---------------
-            int maxböcker=0;
+        int maxböcker=0;
 
-            if(medlem.getRoll()==0){
-                logger.debug("medlem undergrad max 3");
-                maxböcker=3;
-            }
-            if(medlem.getRoll()==1){
-                logger.debug("medlem är grad max 5");
-                maxböcker=5;
-            }
-            if(medlem.getRoll()==2){
-                logger.debug("doctorate student max 7");
-                maxböcker=7;
-            }
-            if(medlem.getRoll()==3){
-                logger.debug("medlem är postDoc or teacher max 10");
-                maxböcker=10;
-            }
-            logger.debug("kollar om medlem har uppnåt  max böcker");
-            if(medlem.getLånadeBöcker().length >=maxböcker){
-                logger.debug("<--- medlem har uppnått max antal böcker (return 0)");
-                return 4;
-            }
-            logger.debug("<--- medlem godkänd (return 0)");
-        svar = tempAvstängning(medlem.getKontoID(), antalDagar);
-        LocalDate datum = LocalDate.now().plusDays(15);
-        medlem.setAntalAvstangningar(medlem.getAntalAvstangningar() + 1);
-        logger.debug("<--- medlem avstängd (return 2)");
-        return 2;
+        if(medlem.getRoll()==0){
+            logger.debug("medlem undergrad max 3");
+            maxböcker=3;
         }
+        if(medlem.getRoll()==1){
+            logger.debug("medlem är grad max 5");
+            maxböcker=5;
+        }
+        if(medlem.getRoll()==2){
+            logger.debug("doctorate student max 7");
+            maxböcker=7;
+        }
+        if(medlem.getRoll()==3){
+            logger.debug("medlem är postDoc or teacher max 10");
+            maxböcker=10;
+        }
+        logger.debug("kollar om medlem har uppnåt  max böcker");
+        if(medlem.getLånadeBöcker().length >=maxböcker){
+            logger.debug("<--- medlem har uppnått max antal böcker (return 0)");
+            return 4;
+        }
+        logger.debug("<--- medlem avstängd endast " +dagar);
+        return 2;
+    }
     @Override
     public int tempAvstängning(int kontoId, int antalDagar) {
         logger.debug(" tempAvstängning ---->");
