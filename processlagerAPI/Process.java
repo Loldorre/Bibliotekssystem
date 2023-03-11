@@ -67,7 +67,7 @@ public class Process implements IProcess {
         Konto medlem = null;
         boolean avstängd = false;
         int svar;
-        //------------------------Letar efter kontot i listan från databasen---------------------------
+        //------------------------Letar efter kontot i listan från databasen---------------------------Hela -
         for (Konto k : listAvKonto) {
             if (k.getKontoID() == kontoID) {
                 logger.debug("konto finns");
