@@ -20,8 +20,8 @@ public interface IProcess {
      *Eller String hur länge och varför?
      */
     public int tempAvstängning(int kontoId,int antalDagar);
-
-
+    public int återlämnaBok(int kontoId,int bibID);
+    public int återlämnaBok(int bibID);
     /*Returnera true om personen är svartlistad*/
     public int svartlistaMedlem(long personNr);
 
@@ -34,6 +34,5 @@ public interface IProcess {
     /*return true om lån är registrera*/
     public int registreraLån(int kontoId, int bibID);
 
-    public int återlämnaBok(int kontoId, int bibID);
 
 }

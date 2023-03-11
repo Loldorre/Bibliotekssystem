@@ -121,6 +121,14 @@ public class UI {
                                     System.out.println("Boken återlämnad och medlem svartlistad");
                                 }
                             }
+                            if (medlemsstatus == 4) {
+                                int svar = processObj.återlämnaBok(bibID);
+                                if (svar == 1) {
+                                    System.out.println("Bib fanns inte");
+                                } else {
+                                    System.out.println("Boken återlämnad! Och lån är inte maxad längre");
+                                }
+                            }
 
                             if (medlemsstatus == 0) {
                                 int svar = processObj.återlämnaBok(kontoId, bibID);
@@ -238,23 +246,24 @@ public class UI {
                 case 6:  //tepmorär avstängning
                     System.out.println("Ange kontoId:");
                     kontoId = scan.nextInt();
+                    System.out.println("Ange hur många dagar medlem ska stängas av: ");
                     int avstängningsDagar = scan.nextInt();
 
-                    try {
-                        int kollaavstangning = processObj.tempAvstängning(kontoId, avstängningsDagar);
-                        if (kollaavstangning == 3) {
+                    try{
+                        int kollaavstangning = processObj.kollaMedlemsstatus(kontoId, avstängningsDagar);
+                        if (kollaavstangning == 3){
                             System.out.println("Konto finns inte!");
                         }
-                        if (kollaavstangning == 2) {
-                            System.out.println("Avstängd innegående dagar + 15");
+                        if (kollaavstangning== 2){
+                            System.out.println("Avstängd "+avstängningsDagar+15+" dagar.");
                         }
-                        if (kollaavstangning == 1) {
-                            System.out.println("Svartlistad och avstängd");
+                        if (kollaavstangning== 1){
+                            System.out.println("Hade redan en avstängning och är nu Svartlistad och avstängd");
                         }
-                        if (kollaavstangning == 0) {
-                            System.out.println("Medlem avstängd" + avstängningsDagar + " dagar");
+                        if (kollaavstangning== 0){
+                            System.out.println("Medlem avstängd" + avstängningsDagar+" dagar");
                         }
-                    } catch (NumberFormatException n) {
+                    }catch (NumberFormatException n) {
                     }
                     fortsatt = false;
                     break;
@@ -263,18 +272,16 @@ public class UI {
                 case 7: //kolla tillgänglighet
                     System.out.println("Ange bokens titel: ");
                     String bokTitle = scan.nextLine();
-
                     try {
                         int statustillganglighet = processObj.kollaTillgänglighet(bokTitle);
-                        if (statustillganglighet == 0) {
-                            System.out.println("Inget lån!");
+                        if (statustillganglighet == 0){
+                            System.out.println("Inte tillgänglig för lån");
                         }
-                        if (statustillganglighet > 0) {
-                            System.out.println("Bok: " + processObj.kollaTillgänglighet(bokTitle) + " är tillgänglig");
+                        if (statustillganglighet > 0){
+                            System.out.println("Bok: " + processObj.kollaTillgänglighet(bokTitle) + " är tillgänglig för lån");
                         }
-                    } catch (NumberFormatException n) {
+                    }catch (NumberFormatException n) {
                     }
-                    fortsatt = false;
                     break;
 
                 case 8: //kolla tillgänglighet

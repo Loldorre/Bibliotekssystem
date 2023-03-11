@@ -6,7 +6,9 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.chrono.ChronoLocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -60,9 +62,10 @@ public class Process implements IProcess {
     }
     @Override
     public int kollaMedlemsstatus(int kontoID) {
-        logger.trace("kollaMedlemsstatus  --->");
+        logger.debug("kollaMedlemsstatus  --->");
         Konto[] listAvKonto = DatabasAPI.hämtaKonton();
         Konto medlem = null;
+        boolean avstängd = false;
         int svar;
         //------------------------Letar efter kontot i listan från databasen---------------------------
         for (Konto k : listAvKonto) {
@@ -78,18 +81,22 @@ public class Process implements IProcess {
         //---------------kollar om kontot redan är avstängt---------
         if (medlem.getAvstangd() != null) {
             Date avstangdDate = new Date(medlem.getAvstangd().getYear(), medlem.getAvstangd().getMonth(), medlem.getAvstangd().getDay());
-            if (avstangdDate.after(new Date())) { //------Kontot redan avstängt----
-                logger.debug("<--- konto är redan avstängt (return 2)");
-                return 2;
+            if (avstangdDate.after(new Date())) {
+                avstängd = true;//------Kontot redan avstängt----
+                logger.debug("konto är redan avstängt");
             }
         }
-
 //---------------------------------Kollar om det finns försenade böcker---------------------------------
         Lån[] lånadeBöcker = medlem.getLånadeBöcker();
         for (Lån l : lånadeBöcker) {
-            logger.debug("återlämningsdatum" +l.getLånDatum().getYear(), l.getLånDatum().getMonth(), l.getLånDatum().getDay() + 14 );
-            Date slutDatum = new Date(l.getLånDatum().getYear(), l.getLånDatum().getMonth(), l.getLånDatum().getDay() + 14);
-            if (slutDatum.after(new Date())) {
+            LocalDate today = LocalDate.now();
+            Date getTime =new Date(l.getLånDatum().getYear(),l.getLånDatum().getMonth(),l.getLånDatum().getDay());
+            LocalDate lånslut = getTime.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+            lånslut = lånslut.plusDays(14);
+
+            if (today.isAfter(lånslut)){
                 logger.debug("försenad bok hittad");
                 medlem.setAntalForseningar(medlem.getAntalForseningar() + 1);
                 DatabasAPI.updateAntalFörseningar(medlem.getKontoID());
@@ -97,7 +104,7 @@ public class Process implements IProcess {
             }
         }
         logger.debug("Kollar antal förseningar");
-        if (medlem.getAntalForseningar() > 2 ) { //Om kontot nu har > 2 förseningar Stängs kontoto av.-----
+        if (medlem.getAntalForseningar() > 2 || medlem.getAntalAvstangningar()>0) { //Om kontot nu har > 2 förseningar Stängs kontoto av.-----
 
             logger.debug("kollar antal avstängningar");
             if (medlem.getAntalAvstangningar() > 1) { //------- Om kontot har mer än en avstängning nu så svartlista och avsluta kontot.----
@@ -107,7 +114,7 @@ public class Process implements IProcess {
                 logger.debug("<--- medlem avstängd MedlemSvartlistad (return 3)");
                 return 1;
             }
-                else {
+            if(medlem.getAntalForseningar() > 2)
                 logger.debug("Medlem har >2 förseningar");
             svar = tempAvstängning(medlem.getKontoID(), 15);
             LocalDate datum = LocalDate.now().plusDays(15);
@@ -115,7 +122,6 @@ public class Process implements IProcess {
             logger.debug("<--- medlem avstängd (return 2)");
             return 2;
         }
-            }
 
 //-------Kollar om medlem har uppnått maximalt antal böcker---------------
         int maxböcker=0;
@@ -141,14 +147,19 @@ public class Process implements IProcess {
             logger.debug("<--- medlem har uppnått max antal böcker (return 0)");
             return 4;
         }
+        if(avstängd==true){
+            logger.debug("<----- konto är redan avstängt (return 2)");
+            return 2;
+        }
         logger.debug("<--- medlem godkänd (return 0)");
         return 0;
     }
 
     @Override
     public int kollaMedlemsstatus(int kontoID,int dagar) {
-        logger.trace("kollaMedlemsstatus  --->");
+        logger.trace("kollaMedlemsstatus för avstängning  --->");
         Konto[] listAvKonto = DatabasAPI.hämtaKonton();
+        boolean avstängd = false;
         Konto medlem = null;
         int svar;
         //------------------------Letar efter kontot i listan från databasen---------------------------
@@ -165,9 +176,16 @@ public class Process implements IProcess {
         //---------------kollar om kontot redan är avstängt---------
         if (medlem.getAvstangd() != null) {
             Date avstangdDate = new Date(medlem.getAvstangd().getYear(), medlem.getAvstangd().getMonth(), medlem.getAvstangd().getDay());
-            if (avstangdDate.after(new Date())) { //------Kontot redan avstängt----
-                logger.debug("<--- konto är redan avstängt (return 2)");
-                return 2;
+             LocalDate today = LocalDate.now();
+             LocalDate avstangd = avstangdDate.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+             //------Kontot redan avstängt----
+             if (avstangd.isAfter(today)) {
+                 dagar += (int)today.until(avstangd, ChronoUnit.DAYS)+1;
+             this.tempAvstängning(kontoID,dagar);
+             medlem.setAntalAvstangningar(medlem.getAntalAvstangningar());
+                logger.debug(" konto är redan avstängt lägger på " +dagar+ " på avstängning" );
             }
         }
 
@@ -184,52 +202,29 @@ public class Process implements IProcess {
             }
         }
         logger.debug("Kollar antal förseningar");
-        if (medlem.getAntalForseningar() > 2 ) { //Om kontot nu har > 2 förseningar Stängs kontoto av.-----
+        if (medlem.getAntalForseningar() > 2 || medlem.getAntalAvstangningar()>0) { //Om kontot nu har > 2 förseningar Stängs kontoto av.-----
 
             logger.debug("kollar antal avstängningar");
             if (medlem.getAntalAvstangningar() > 1) { //------- Om kontot har mer än en avstängning nu så svartlista och avsluta kontot.----
                 logger.debug("Medlem har >1 avstängning");
                 svar = this.svartlistaMedlem(medlem.getPersonNr());
                 svar = this.avslutaKonto(medlem.getKontoID());
-                logger.debug("<--- medlem avstängd MedlemSvartlistad (return 3)");
+                logger.debug("<--- medlem avstängd MedlemSvartlistad (return 1)");
                 return 1;
             }
-            else {
+            if(medlem.getAntalForseningar() > 2) {
                 logger.debug("Medlem har >2 förseningar");
-                svar = tempAvstängning(medlem.getKontoID(), 15+dagar);
+                svar = tempAvstängning(medlem.getKontoID(), 15+ dagar);
                 LocalDate datum = LocalDate.now().plusDays(15);
                 medlem.setAntalAvstangningar(medlem.getAntalAvstangningar() + 1);
-                logger.debug("<--- medlem avstängd (return 2)");
+                logger.debug("<--- medlem avstängd 15 + "+ dagar + "(return 2)");
                 return 2;
             }
         }
 
-//-------Kollar om medlem har uppnått maximalt antal böcker---------------
-        int maxböcker=0;
-
-        if(medlem.getRoll()==0){
-            logger.debug("medlem undergrad max 3");
-            maxböcker=3;
-        }
-        if(medlem.getRoll()==1){
-            logger.debug("medlem är grad max 5");
-            maxböcker=5;
-        }
-        if(medlem.getRoll()==2){
-            logger.debug("doctorate student max 7");
-            maxböcker=7;
-        }
-        if(medlem.getRoll()==3){
-            logger.debug("medlem är postDoc or teacher max 10");
-            maxböcker=10;
-        }
-        logger.debug("kollar om medlem har uppnåt  max böcker");
-        if(medlem.getLånadeBöcker().length >=maxböcker){
-            logger.debug("<--- medlem har uppnått max antal böcker (return 0)");
-            return 4;
-        }
-        logger.debug("<--- medlem avstängd endast " +dagar);
-        return 2;
+        logger.debug("<--- medlem avstängd endast " + dagar);
+        svar = tempAvstängning(medlem.getKontoID(), dagar);
+        return 0;
     }
     @Override
     public int tempAvstängning(int kontoId, int antalDagar) {
@@ -321,7 +316,6 @@ public class Process implements IProcess {
         }
         return 1;
     }
-
     @Override
     public int registreraLån(int kontoId, int bibID) {
         logger.debug(" registreraLån ---->");
@@ -330,70 +324,61 @@ int svar = DatabasAPI.skapaLån(kontoId, bibID);
     return 0;
     }
     @Override
-    public int återlämnaBok( int kontoID,int bibID) {
-        logger.debug(" återlämnaBok ---->");
-        int databasSvar = this.DatabasAPI.taBortLån(bibID);
-        if (databasSvar == 1)
-        {
-            logger.debug("<---- återlämnaBok returns" +1);
-            return 1;
-        }
-        if (databasSvar == 2)
-        {
-            logger.debug("<---- återlämnaBok returns" +1);
-            return 1;
-        }
-        if (databasSvar == 3)
-        {
-            logger.debug("<---- återlämnaBok returns" +1);
-            return 1;
-        }
-        if (databasSvar == 4)
-
-        {
-            logger.debug("<---- återlämnaBok returns" +1);
-            return 1;
-        }
-        if (databasSvar == 5) {
-            logger.debug("<---- återlämnaBok returns" +1);
-            return 1;
-        }
-        else{
-            logger.debug("<---- återlämnaBok returns" +0);
-            return 0;}
-    }
-
-    //För svartlistade som vill lämna tillbaka.
     public int återlämnaBok(int bibID) {
         logger.debug(" återlämnaBok ---->");
-int databasSvar = this.DatabasAPI.taBortLån(bibID);
-if (databasSvar == 1)
-{
-    logger.debug("<---- återlämnaBok returns" +1);
-    return 1;
-}
-if (databasSvar == 2)
-{
-    logger.debug("<---- återlämnaBok returns" +1);
-    return 1;
-}
-if (databasSvar == 3)
-{
-    logger.debug("<---- återlämnaBok returns" +1);
-    return 1;
-}
-if (databasSvar == 4)
+        int databasSvar = this.DatabasAPI.taBortLån(bibID);
 
-{
-    logger.debug("<---- återlämnaBok returns" +1);
-    return 1;
-}
-if (databasSvar == 5) {
-    logger.debug("<---- återlämnaBok returns" +1);
-    return 1;
-}
-else{
-    logger.debug("<---- återlämnaBok returns" +0);
-    return 0;}
+        if (databasSvar == 1) {
+            return 1;
+        } else if (databasSvar == 2) {
+            return 1;
+        } else if (databasSvar == 3) {
+            return 1;
+        } else if (databasSvar == 4) {
+            return 1;
+        } else if (databasSvar == 5) {
+            return 1;
+        } else
+            logger.debug("<----- atermämna bok ");
+        return 0;
     }
+
+    @Override
+    public int återlämnaBok(int kontoId, int bibID) {
+        logger.debug(" återlämnaBok ---->");
+        boolean bokKoppladTillMedlem = false;
+
+        Lån[] lånadeBöcker = DatabasAPI.hämtaLån();
+
+        for (int i = 0; i < lånadeBöcker.length; i++) {
+            if (lånadeBöcker[i].getKontoID() == kontoId && lånadeBöcker[i].getBid() == bibID) {
+                logger.debug("Det finns böcker kopplade i lån till kontoId");
+                bokKoppladTillMedlem = true;
+            }
+        }
+        if (!bokKoppladTillMedlem) {
+            logger.debug("det fanns inga lånade böcker kopplade till kontoid med samma bid");
+            return 2;
+        }
+
+        int databasSvar = this.DatabasAPI.taBortLån(bibID);
+
+        if (databasSvar == 1) {
+            return 1;
+        } else if (databasSvar == 2) {
+            return 1;
+        } else if (databasSvar == 3) {
+            return 1;
+        } else if (databasSvar == 4) {
+            return 1;
+        } else if (databasSvar == 5) {
+            return 1;
+        } else if (databasSvar == 0) {
+            logger.debug("<----- atermämna bok ");
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
 }

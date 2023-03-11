@@ -83,7 +83,7 @@ public class Databas implements IDatabas {
     }
     @Override
     public int skapaLån(int kontoID, int bid /*bid från samling*/) {
-
+        logger.debug("SkapaLån ----->");
         int returnValue = 0; //1 = fail, everything else is a KontoID which mean success
 
         //Getting todays date, converting it to Date object, converting to MySQL Date format
@@ -102,14 +102,9 @@ public class Databas implements IDatabas {
 
         } catch (SQLException e) {
             returnValue = 1;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
 
+        logger.debug("<------ skapaLån");
         return returnValue;
     }
     @Override
