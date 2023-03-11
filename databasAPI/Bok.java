@@ -18,7 +18,7 @@ public class Bok {
     /*Lade till denna för att kunna hantera böcker i listan med böcker som inte finns i samling. Dessa har inget bibID
     eftersom de bara finns utan att existera i samlingen. Dessa identifieras ju av ISBN.*/
 
-    public Bok (int ISBN, String titel, String forfattare, int antal, int utgivningsar) {
+    public Bok (int ISBN, String titel, String forfattare, int utgivningsar) {
         this.ISBN = ISBN;
         this.titel = titel;
         this.forfattare = forfattare;

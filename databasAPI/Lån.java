@@ -1,21 +1,35 @@
 package databasAPI;
 
 import java.time.LocalDate;
-import java.util.Date;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Lån {
 
     private int bid;
     private int kontoID;
-    private Date lånDatum;
+    private LocalDate lånDatum;
+    private LocalDate återlämningsDatum;
 
-
-    public Lån(int bid, int kontoID, Date lånDatum){
+    private static Logger logger = LogManager.getLogger(Lån.class.getName());
+    public Lån(int bid, int kontoID, LocalDate lånDatum,LocalDate återlämningsDatumDatum){
         this.bid = bid;
         this.kontoID = kontoID;
         this.lånDatum = lånDatum;
+        this.återlämningsDatum = återlämningsDatumDatum;
     }
-
+    public boolean ärFörsenad(){
+        logger.debug("Lån: ärFörsenad  --->");
+            //----Letar efter försenade böcker----
+            if (LocalDate.now().isAfter(this.återlämningsDatum)){
+                logger.debug("försenad bok hittad");
+                logger.debug(" <--- P: kollaLån = True");
+                return true;
+            }
+        //inga förseningar hittade
+        logger.debug(" <--- P: ärFörsenad = False");
+        return false;
+    }
     public int getBid() {
         return bid;
     }
@@ -32,11 +46,11 @@ public class Lån {
         this.kontoID = kontoID;
     }
 
-    public Date getLånDatum() {
+    public LocalDate getLånDatum() {
         return lånDatum;
     }
 
-    public void setLånDatum(Date lånDatum) {
+    public void setLånDatum(LocalDate lånDatum) {
         this.lånDatum = lånDatum;
     }
 }

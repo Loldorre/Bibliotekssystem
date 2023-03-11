@@ -6,18 +6,23 @@ import java.lang.String;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Scanner;
-import processlagerAPI.Process;
+
+import databasAPI.Bok;
+import databasAPI.Konto;
+import databasAPI.SaknasException;
+import processlagerAPI.*;
 import org.w3c.dom.ls.LSOutput;
+import processlagerAPI.Process;
+
 public class UI {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws FelException,SQLException, Exception,AvstängningKrävsException, SaknasException, BokFörsenadException, KontoAvstängtException, MaxBöckerException,SvartlistningKrävsException {
 
         Scanner scan = new Scanner(System.in);
-        long  personNr;
         int val = 8;
-        String valString;
-        boolean fortsatt = false;
         boolean running = true;
         Process processObj = new Process();
+        Konto medlem;
+        Bok bok;
         while(running){
             System.out.println(
                     "------------------------------------------\n"+
@@ -39,121 +44,100 @@ public class UI {
             switch (val) {
                 case 1: //låna bok (klar av viktor)
 
-                    //kolla konto
-                    //kolla tillgängloghet
-                    //låna bok
                     System.out.println(
                             "------------------------------------------\n" +
                                     "----------------Låna bok------------------\n" +
-                                    "------------------------------------------\n" + "Skriv in kontoId: ");
+                                    "------------------------------------------\n" +
+                                    "Skriv in kontoId: ");
                     int kontoId = scan.nextInt();
 
-                    //1- medlem svartlistad
-                    //2- medlem avstängd i 15 dagar
-                    //3- konto finns inte
+                    //Hämtar medlem ur databasen
                     try {
-                        int kontoStatusSvar = processObj.kollaMedlemsstatus(kontoId);
-
-                        if (kontoStatusSvar == 1) {
-                            System.out.println("Medlem hade för många avstängningar och är nu svarlistad.");
-                        }
-                        //
-                        if (kontoStatusSvar == 2) {
-                            System.out.println("Medlem avstängd lån nekat. ");
-                        }
-                        if (kontoStatusSvar == 3) {
-                            System.out.println("Konto finns inte, lån nekat");
-                        }
-                        if (kontoStatusSvar == 4) {
-                            System.out.println("Medlem har uppnått maximalt antal lånade böcker. Lån nekat.");
-                        }
-                        if (kontoStatusSvar == 0) {
-                            System.out.println("Konto Godkänt! Medlem kan låna bok");
-
-                            System.out.println("Ange bokens ISBN: ");
-                            scan.nextLine();
-                            int ISBN = scan.nextInt();
-                            int tillgänglighetsvar = processObj.kollaTillgänglighet(ISBN);
-                            if (tillgänglighetsvar == 0) {
-                                System.out.println("Inget lån");
-                            }
-                            if (tillgänglighetsvar > 0) {
-                                processObj.registreraLån(kontoId, tillgänglighetsvar);
-                                System.out.println("Boken: " + ISBN + " med bid: " + tillgänglighetsvar + " lånad till " + kontoId + "\n");
-                            }
-                        }
-
-                    } catch (NumberFormatException n) {
+                        medlem = processObj.hämtaKonto(kontoId);
+                        System.out.println("Konto hittat");
                     }
-                    fortsatt = false;
+                    catch(MaxBöckerException a){
+                        System.out.println(a.getMessage());
+                        break;
+                    }
+                    catch (SaknasException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    try{
+                        //kollar medlemmens lån
+                        medlem = processObj.kollaLån(medlem);
+                    }
+                    catch(BokFörsenadException a){
+                        System.out.println(a.getMessage());
+                            //kör öka försening på kontotot
+                            medlem =processObj.uppdateraKonto(medlem,"förseningar",medlem.getAntalForseningar()+1);
+                        }
+                        //kollar förseningar.
+                        try {
+                            medlem = processObj.kollaAvstängning(medlem);
+                        }
+                        catch(KontoAvstängtException d){
+                            System.out.println(d.getMessage());
+                            break;
+                        }
+                        catch(AvstängningKrävsException b){
+                            System.out.println(b.getMessage());
+                            processObj.uppdateraKonto(medlem,"förseningar",0);
+                            medlem= processObj.tempAvstängning(medlem,15);
+                            break;
+                        }
+                        catch(SvartlistningKrävsException c){
+                            try {
+                                System.out.println(c.getMessage());
+                                //Svartlista medlem
+                                medlem = processObj.svartlistaMedlem(medlem);
+                                //kör avsluta konto
+                                medlem = processObj.avslutaKonto(medlem);
+                                break;
+                            }
+                            catch(SaknasException x){
+                                System.out.println(x.getMessage());
+                                break;
+                            }
+                            catch(SQLException y){
+                                System.out.println(y.getMessage());
+                                break;
+                            }
+                        }
+                    try{
+                        System.out.println("Ange bokens ISBN: ");
+                        scan.nextLine();
+                        int ISBN = scan.nextInt();
+                        bok = processObj.kollaTillgänglighet(ISBN);
+                        processObj.registreraLån(medlem.getKontoID(), bok.getBibID());
+                        System.out.println("Boken: " + bok.getTitel() + " med bid: " + medlem.getKontoID() + " lånad till " + kontoId + "\n");
+                    }
+                    catch (SaknasException s)
+                    {
+                        System.out.println(s.getMessage());
+                        System.out.println("Inget lån");
+                        break;
+                    }
+                    catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
                     break;
 
                 case 2: //återlämna bok (Linnea Klar)
 
-                    try {
-                        System.out.println("Skriv in kontoId: ");
-                        kontoId = scan.nextInt();
-                        int medlemsstatus = processObj.kollaMedlemsstatus(kontoId);
-
-                        if (medlemsstatus == 3) {
-                            System.out.println("Konto finns inte");
-                        } else {
-                            System.out.println("Skriv in bibId: ");
-                            int bibID = scan.nextInt();
-
-                            if (medlemsstatus == 2) {
-                                int svar = processObj.återlämnaBok(kontoId, bibID);
-                                if (svar == 2) {
-                                    System.out.println("Det fanns inga lånade böcker kopplade till konto med samma bid");
-                                } else if (svar == 1) {
-                                    System.out.println("Bib fanns inte");
-                                } else {
-                                    System.out.println("Bok återlämnad och medlem avstängd i 15 dagar");
-                                }
-                            }
-
-                            if (medlemsstatus == 1) {
-                                int svar = processObj.återlämnaBok(bibID);
-
-                                if (svar == 1) {
-                                    System.out.println("Bib fanns inte");
-                                } else {
-                                    System.out.println("Boken återlämnad och medlem svartlistad");
-                                }
-                            }
-                            if (medlemsstatus == 4) {
-                                int svar = processObj.återlämnaBok(bibID);
-                                if (svar == 1) {
-                                    System.out.println("Bib fanns inte");
-                                } else {
-                                    System.out.println("Boken återlämnad! Och lån är inte maxad längre");
-                                }
-                            }
-
-                            if (medlemsstatus == 0) {
-                                int svar = processObj.återlämnaBok(kontoId, bibID);
-                                if (svar == 2) {
-                                    System.out.println("Det fanns inga lånade böcker kopplade till konto med samma bid2");
-                                } else if (svar == 1) {
-                                    System.out.println("Bib fanns inte");
-                                } else if (svar == 0) {
-                                    System.out.println("Boken återlämnad!");
-                                }
-                            }
-                        }
-
-
-                    } catch (NumberFormatException n) {
-
-                    }
-                    fortsatt = false;
                     break;
 
                 case 3: //avsluta konto klar av Sanja
                     System.out.println("Vänligen ange kontoId: ");
                     kontoId = scan.nextInt();
                     try {
-                        int Svarmedlemstatus = processObj.avslutaKonto(kontoId);
+                        int Svarmedlemstatus = 99;
 
                         if (Svarmedlemstatus == 1) {
                             System.out.println("Angiven kontoId existerar inte!");
@@ -166,7 +150,6 @@ public class UI {
                         }
                     } catch (NumberFormatException n) {
                     }
-                    fortsatt = false;
                     break;
 
                 case 4: //registrera konto (klar av Sanja)
@@ -178,12 +161,10 @@ public class UI {
                     String enamn = scan.nextLine();
 
                     System.out.println("Ange personnummer:");
-                    personNr = scan.nextLong();
+                    long personNr = scan.nextLong();
                     scan.nextLine();
                     System.out.println("Ange typ:");
                     int roll = scan.nextInt();
-
-                    try {
 
                         int kontoinfo = processObj.regKonto(fnamn, enamn, personNr, roll);
 
@@ -201,9 +182,6 @@ public class UI {
                         if (kontoinfo > 999) {
                             System.out.println("Konto för " + fnamn + " " + enamn + " " + kontoinfo + "  är skapat!");
                         }
-                    } catch (NumberFormatException n) {
-                    }
-                    fortsatt = false;
                     break;
 
                 case 5: //svartlista medlem (klar av Sanja)
@@ -212,9 +190,9 @@ public class UI {
                     personNr = scan.nextLong();
                     System.out.println("Ange användarens kontoId:");
                     kontoId = scan.nextInt();
-
-                    try {
-                        int svarpersonnumer = processObj.svartlistaMedlem(personNr);
+medlem = processObj.hämtaKonto(kontoId);
+                        int svarpersonnumer = 99;
+                        medlem = processObj.svartlistaMedlem(medlem);
                         if (svarpersonnumer == 1) {
                             System.out.println("Personen" + " " + personNr + " är redan svartlistad!");
                         }
@@ -224,7 +202,7 @@ public class UI {
                         if (svarpersonnumer == 0) {
                             System.out.println("Personen" + " " + personNr + "  svartlistad!");
 
-                            int svaravsluta = processObj.avslutaKonto(kontoId);
+                            int svaravsluta = 99;
                             if (svaravsluta == 0) {
                                 System.out.println("Medlems konto avslutad!");
                             }
@@ -235,12 +213,7 @@ public class UI {
                                 System.out.println("OPS! Databasstrul. Försök igen!");
                             }
                         }
-
-                    } catch (NumberFormatException n) {
-
                     }
-                    fortsatt = false;
-                }
                 break;
 
                 case 6:  //tepmorär avstängning
@@ -250,7 +223,7 @@ public class UI {
                     int avstängningsDagar = scan.nextInt();
 
                     try{
-                        int kollaavstangning = processObj.kollaMedlemsstatus(kontoId, avstängningsDagar);
+                        int kollaavstangning = 99;
                         if (kollaavstangning == 3){
                             System.out.println("Konto finns inte!");
                         }
@@ -265,7 +238,6 @@ public class UI {
                         }
                     }catch (NumberFormatException n) {
                     }
-                    fortsatt = false;
                     break;
 
 
@@ -273,7 +245,7 @@ public class UI {
                     System.out.println("Ange bokens titel: ");
                     String bokTitle = scan.nextLine();
                     try {
-                        int statustillganglighet = processObj.kollaTillgänglighet(bokTitle);
+                        int statustillganglighet = 99;
                         if (statustillganglighet == 0){
                             System.out.println("Inte tillgänglig för lån");
                         }

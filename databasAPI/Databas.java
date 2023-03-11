@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.time.ZoneId;
 
-public class Databas implements IDatabas {
+public class Databas {
     private Connection connection;
-    private static Logger logger = LogManager.getLogger(TestProcess.class.getName());
+    private static Logger logger = LogManager.getLogger(Databas.class.getName());
     public Databas() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -27,61 +27,29 @@ public class Databas implements IDatabas {
         }
     }
 
-    @Override
     //Hämtar en array av böcker som finns i Bok-tabellen och inte inte lån-tabellen
-    public Bok[] hämtaTillgänglighet(String titel) {
+
+    //Hämtar en array av böcker som finns i Bok-tabellen och inte inte lån-tabellen
+    public Bok[] hämtaTillgänglighet()throws SQLException {
         logger.debug("hämtaTillgänglighet ----->");
         //arrayOfBooks used with .toArray to create the return array
         ArrayList<Bok> arrayOfBooks = new ArrayList<>();
-
         //Getting an array of book with titel which is then returned
-        try {
-            Statement stmt = connection.createStatement();
-            String getTitel = "SELECT distinct bok.titel, bok.författare, bok.utgivningsår, samling.bid,samling.isbn FROM samling,lån,bok where bok.isbn = samling.isbn and\n" +
-                    "samling.bid not in (select bid from lån) order by bid;";
-            logger.debug("hämtar tillgängliga böcker ");
-            ResultSet rS = stmt.executeQuery(getTitel);
-            while (rS.next()) {
-                logger.debug("lägger till: " + rS.getString("titel"),rS.getInt("bid"));
-                arrayOfBooks.add(new Bok(rS.getInt("bid"),rS.getInt("isbn"), rS.getString("titel"), rS.getString("författare"), rS.getInt("utgivningsår")));
-            }
-        } catch (SQLException e) {
-            logger.debug("sql strular");
-            return new Bok[]{};
+
+        Statement stmt = connection.createStatement();
+        String getTitel = "SELECT distinct bok.titel, bok.författare, bok.utgivningsår, samling.bid,samling.isbn FROM samling,lån,bok where bok.isbn = samling.isbn and\n" +
+                "samling.bid not in (select bid from lån) order by bid;";
+        logger.debug("hämtar tillgängliga böcker ");
+        ResultSet rS = stmt.executeQuery(getTitel);
+        while (rS.next()) {
+            logger.debug("lägger till: " + rS.getString("titel"), rS.getInt("bid"));
+            arrayOfBooks.add(new Bok(rS.getInt("bid"), rS.getInt("isbn"), rS.getString("titel"), rS.getString("författare"), rS.getInt("utgivningsår")));
         }
         Bok[] returBookArray = new Bok[arrayOfBooks.size()];
-        arrayOfBooks.toArray(returBookArray);
+            arrayOfBooks.toArray(returBookArray);
         logger.debug("<------ hämtaTillgänglighet");
         return returBookArray;
     }
-
-    //Hämtar en array av böcker som finns i Bok-tabellen och inte inte lån-tabellen
-    public Bok[] hämtaTillgänglighet() {
-        logger.debug("hämtaTillgänglighet ----->");
-        //arrayOfBooks used with .toArray to create the return array
-        ArrayList<Bok> arrayOfBooks = new ArrayList<>();
-
-        //Getting an array of book with titel which is then returned
-        try {
-            Statement stmt = connection.createStatement();
-            String getTitel = "SELECT distinct bok.titel, bok.författare, bok.utgivningsår, samling.bid,samling.isbn FROM samling,lån,bok where bok.isbn = samling.isbn and\n" +
-                    "samling.bid not in (select bid from lån) order by bid;";
-            logger.debug("hämtar tillgängliga böcker ");
-            ResultSet rS = stmt.executeQuery(getTitel);
-            while (rS.next()) {
-                logger.debug("lägger till: " + rS.getString("titel"),rS.getInt("bid"));
-                arrayOfBooks.add(new Bok(rS.getInt("bid"),rS.getInt("isbn"), rS.getString("titel"), rS.getString("författare"), rS.getInt("utgivningsår")));
-            }
-        } catch (SQLException e) {
-            logger.debug("sql strular");
-            return new Bok[]{};
-        }
-        Bok[] returBookArray = new Bok[arrayOfBooks.size()];
-        arrayOfBooks.toArray(returBookArray);
-        logger.debug("<------ hämtaTillgänglighet");
-        return returBookArray;
-    }
-    @Override
     public int skapaLån(int kontoID, int bid /*bid från samling*/) {
         logger.debug("SkapaLån ----->");
         int returnValue = 0; //1 = fail, everything else is a KontoID which mean success
@@ -107,11 +75,9 @@ public class Databas implements IDatabas {
         logger.debug("<------ skapaLån");
         return returnValue;
     }
-    @Override
-    public int läggTillSvartlistade(long personNr) {
+    public int läggTillSvartlistade(long personNr) throws SQLException{
         logger.debug("läggTillSartlistade ----->");
         int failOrSuccess;
-        try {
             Statement stmt = connection.createStatement();
             String addBlacklist = "insert into svartlista values (" + personNr + ")";
             long rS = stmt.executeUpdate(addBlacklist);
@@ -122,14 +88,10 @@ public class Databas implements IDatabas {
                 logger.debug("<----- läggTillSartlistade ");
                 return 0;
             }
-        } catch (SQLException e) {
-            return 2;
-        }
     }
 
 
 
-    @Override //Hämtar inte kontoId. ska fixas
     public int skapaKonto(String fnamn, String enamn, long personNr, int roll) {
         logger.debug("Skapa Konto ----->");
         int failOrSuccess = 0;
@@ -153,7 +115,6 @@ public class Databas implements IDatabas {
         return failOrSuccess;
     }
 
-    @Override
     public int avslutaKonto(int kontoID) {
         logger.debug("avsluta konto ------->");
         int failOrSuccess;
@@ -178,22 +139,116 @@ public class Databas implements IDatabas {
     }
 
 
-    @Override
-    public Konto[] hämtaKonton() {
+    public Konto[] hämtaKonton() throws SQLException {
         logger.debug("hämtaKonton ------->");
         ArrayList<Konto> arrayOfAccounts = new ArrayList<>();
-        try {
+        Statement stmt = connection.createStatement();
+        Statement stmt2 = connection.createStatement();
+        logger.debug("Databas ansluten");
+        String getAccount = "select * from konto";
+        ResultSet rS = stmt.executeQuery(getAccount);
+        logger.debug("konton hämtade till rs");
+        while (rS.next()) {
+
+            //-------Hämtar lån från databsen baserat på kontoID---------
+            String getLån = "SELECT lån.bid,lån.kontoid,lån.låndatum,lån.återlämningsdatum FROM lån,konto where konto.kontoid= lån.kontoid and konto.kontoid ="
+                    + rS.getInt("kontoID") + ";";
+
+            ResultSet lRS = stmt2.executeQuery(getLån);
+
+            logger.debug("kontos lån hämtade till lRS");
+            ArrayList<Lån> arrayOfLån = new ArrayList<>();
+            Lån[] lånArray;
+
+            while (lRS.next()) {
+                Date låndate = new Date(
+                        lRS.getDate("lånDatum").getYear(),
+                        lRS.getDate("lånDatum").getMonth(),
+                        lRS.getDate("lånDatum").getDay());
+                Date slutdate = new Date(
+                        lRS.getDate("återlämningsdatum").getYear(),
+                        lRS.getDate("återlämningsdatum").getMonth(),
+                        lRS.getDate("återlämningsdatum").getDay()
+                );
+                LocalDate lånDatum = låndate.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+                LocalDate återlämningsdatum = slutdate.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+
+                arrayOfLån.add(new Lån(lRS.getInt("bid"), lRS.getInt("kontoID"), lånDatum, återlämningsdatum));
+            }
+
+            logger.debug("lån lagda i Lånarray-list");
+            lånArray = new Lån[arrayOfLån.size()];
+            logger.debug("Lånarray-list till array");
+            arrayOfLån.toArray(lånArray);
+            logger.debug("skapar kontobjekt" + rS.getInt("kontoID"));
+
+            if (rS.getDate("avstängd") != null) {
+                Date avstängd = new Date(
+                        rS.getDate("avstängd").getYear(),
+                        rS.getDate("avstängd").getMonth(),
+                        rS.getDate("avstängd").getDay());
+                LocalDate localavstängd = avstängd.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+                arrayOfAccounts.add(new Konto(
+                        rS.getString("fnamn"),
+                        rS.getString("enamn"),
+                        rS.getLong("personNr"),
+                        rS.getInt("roll"),
+                        rS.getInt("kontoID"),
+                        localavstängd,
+                        lånArray,
+                        rS.getInt("antalAvstängningar"),
+                        rS.getInt("antalFörseningar")));
+
+                logger.debug("kontoobjekt lagt till arrayOfAccounts" + rS.getInt("kontoID"));
+                logger.debug("antal böcker lånade: " + lånArray.length);
+
+            } else {
+                Date avstängd = new Date();
+                LocalDate localavstängd = avstängd.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+
+                arrayOfAccounts.add(new Konto(
+                        rS.getString("fnamn"),
+                        rS.getString("enamn"),
+                        rS.getLong("personNr"),
+                        rS.getInt("roll"),
+                        rS.getInt("kontoID"),
+                        localavstängd,
+                        lånArray,
+                        rS.getInt("antalAvstängningar"),
+                        rS.getInt("antalFörseningar")));
+
+                logger.debug("kontoobjekt lagt till arrayOfAccounts" + rS.getInt("kontoID"));
+                logger.debug("antal böcker lånade: " + lånArray.length);
+            }
+        }
+        Konto[] returKontoArray = new Konto[arrayOfAccounts.size()];
+        arrayOfAccounts.toArray(returKontoArray);
+        logger.debug("Kont[] returned");
+        logger.debug("<----- hämtaKonto()" + "antal konton = " + returKontoArray.length);
+        return returKontoArray;
+    }
+    public Konto hämtaKonton(int kontoID) throws SaknasException,SQLException{
+        logger.debug("Databas: hämtaKonton(kontoID)-------->");
+        Konto medlem = null;
+        ArrayList<Konto> arrayOfAccounts = new ArrayList<>();
             Statement stmt = connection.createStatement();
             Statement stmt2 = connection.createStatement();
-            logger.debug("Databas ansluten");
-            String getAccount = "select * from konto";
+            String getAccount = "select * from konto where kontoID ==" +kontoID+";";
             ResultSet rS = stmt.executeQuery(getAccount);
-            logger.debug("konton hämtade till rs");
+            logger.debug("konto hämtat till rs");
             while (rS.next()) {
 
                 //-------Hämtar lån från databsen baserat på kontoID---------
-                String getLån = "SELECT lån.bid,lån.kontoid,lån.låndatum FROM lån,konto where konto.kontoid= lån.kontoid and konto.kontoid ="
-                                + rS.getInt("kontoID") + ";";
+                String getLån = "SELECT lån.bid,lån.kontoid,lån.låndatum,lån.återlämningsdatum FROM lån,konto where konto.kontoid= lån.kontoid and konto.kontoid ="
+                        + rS.getInt("kontoID") + ";";
 
                 ResultSet lRS = stmt2.executeQuery(getLån);
 
@@ -202,7 +257,14 @@ public class Databas implements IDatabas {
                 Lån[] lånArray;
 
                 while (lRS.next()){
-                    arrayOfLån.add(new Lån(lRS.getInt("bid"),lRS.getInt("kontoID"),lRS.getDate("lånDatum")));
+                    LocalDate lånDatum = lRS.getDate("lånDatum").toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate();
+                    LocalDate återlämningsdatum = lRS.getDate("återlämningsdatum").toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate();
+
+                    arrayOfLån.add(new Lån(lRS.getInt("bid"),lRS.getInt("kontoID"),lånDatum,återlämningsdatum));
                 }
 
                 logger.debug("lån lagda i Lånarray-list");
@@ -210,13 +272,16 @@ public class Databas implements IDatabas {
                 logger.debug("Lånarray-list till array");
                 arrayOfLån.toArray(lånArray);
                 logger.debug("skapar kontobjekt"+ rS.getInt("kontoID"));
-                arrayOfAccounts.add(new Konto(
+                LocalDate avstängd= rS.getDate("avstängd").toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+               medlem = (new Konto(
                         rS.getString("fnamn"),
                         rS.getString("enamn"),
                         rS.getLong("personNr"),
                         rS.getInt("roll"),
                         rS.getInt("kontoID"),
-                        rS.getDate("avstängd"),
+                        avstängd,
                         lånArray,
                         rS.getInt("antalAvstängningar"),
                         rS.getInt("antalFörseningar")));
@@ -225,21 +290,19 @@ public class Databas implements IDatabas {
                 logger.debug("antal böcker lånade: "+lånArray.length);
 
             }
-        }
-        catch (SQLException e) {
-            logger.error("det sket sig me sql...");
-            throw new RuntimeException(e);
-        }
+
         Konto[] returKontoArray = new Konto[arrayOfAccounts.size()];
         arrayOfAccounts.toArray(returKontoArray);
         logger.debug("Kont[] returned");
         logger.debug("<----- hämtaKonto()" + "antal konton = "+returKontoArray.length);
-
-        return returKontoArray;
+        if(medlem == null){
+            throw new SaknasException("Medlem "+kontoID+" finns inte.");
+        }
+        logger.debug("<------- Databas: hämtaKonton(kontoID)");
+        return medlem;
     }
 
-    @Override
-    public int registreraTempAvstänging(int kontoID, int numOfDays) {
+    public int registreraTempAvstänging(int kontoID, int numOfDays) throws SQLException {
         logger.debug("registreraTempAvstänging ------->");
         int failOrSuccess = 0;
 
@@ -270,28 +333,23 @@ public class Databas implements IDatabas {
         return failOrSuccess;
     }
 
-    @Override
-    public int taBortLån(int bid){
+
+    public int taBortLån(int bid) throws SQLException{
         logger.debug("taBortLån ------->");
         int failOrSuccess;
-        try {
+
             Statement stmt = connection.createStatement();
             String getAccount = "delete from lån where bid="+bid+";";
             int rS = stmt.executeUpdate(getAccount);
             logger.debug("<------- taBortLån " + "lånet fanns inte");
             if(rS<1){return 1;}
             failOrSuccess = 0;
-        } catch (SQLException e) {
-            logger.error("sql strul!!!");
-            failOrSuccess = 1;
-        }
         logger.debug("<------- taBortLån ");
         return failOrSuccess;
     }
 
 
-    @Override
-    public int updateAntalAvstängningar(int kontoID) {
+    public int updateAntalAvstängningar(int kontoID) throws SQLException {
         logger.debug("updateAntalAvstängningar -----> ");
         int failOrSuccess = 0;
 
@@ -316,33 +374,7 @@ public class Databas implements IDatabas {
         return failOrSuccess;
     }
 
-    @Override
-    public int updateAntalFörseningar(int kontoID) {
-        logger.debug("updateAntalFörseningar -----> ");
-        int failOrSuccess = 0;
-        int amountOfLateReturns = 0;
-        Databas accessKonto = new Databas();
-        for (Konto kon : accessKonto.hämtaKonton()) {
-            if (kon.getKontoID() == kontoID) {
-                amountOfLateReturns = kon.getAntalForseningar();
-                amountOfLateReturns++;
-            }
-        }
 
-        try {
-            Statement stmt = connection.createStatement();
-            String getAccount = "update konto set antalFörseningar="+amountOfLateReturns+" where kontoID="+kontoID;
-            int rS = stmt.executeUpdate(getAccount);
-
-        } catch (SQLException e) {
-            failOrSuccess = 1;
-        }
-        logger.debug("<------- updateAntalFörseningar " + failOrSuccess);
-        return failOrSuccess;
-    }
-
-
-    @Override
     // Klar tack vare Z
     public long[] hämtaSvarlistade() {
         logger.debug("hämtaSvartlistade -----> ");
@@ -381,7 +413,13 @@ public class Databas implements IDatabas {
             String getTitel = "select * from lån";
             ResultSet rS = stmt.executeQuery(getTitel);
             while (rS.next()) {
-                loans.add(new Lån(rS.getInt("bid"), rS.getInt("kontoid"), rS.getDate("lånDatum")));
+                LocalDate låndatum = rS.getDate("lånDatum").toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+                LocalDate återlämningsdatum = rS.getDate("återlämningsdatum").toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+                loans.add(new Lån(rS.getInt("bid"), rS.getInt("kontoid"), låndatum,återlämningsdatum));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -393,4 +431,48 @@ public class Databas implements IDatabas {
         return arrayOfLoans;
     }
 
+
+    public Bok[] hämtaBöcker() throws SQLException{
+        logger.debug("Databas: hämtaBöcker ------->");
+        Statement stmt = connection.createStatement();
+        ArrayList<Bok> arrayOfBooks = new ArrayList();
+        String getBöcker = "select distinct *.bok from bok;";
+        logger.debug("hämtar alla böcker ");
+        ResultSet rS = stmt.executeQuery(getBöcker);
+
+        while (rS.next()) {
+            arrayOfBooks.add(new Bok( rS.getInt("isbn"), rS.getString("titel"), rS.getString("författare"), rS.getInt("utgivningsår")));
+        }
+        Bok[] returBookArray = new Bok[arrayOfBooks.size()];
+        arrayOfBooks.toArray(returBookArray);
+        logger.debug("<------ Databas: hämtaBöcker");
+        return returBookArray;
+    }
+
+
+    //Förvandlar localDate till sql-vänlig Date...
+    public static Date convertToDateUsingDate(LocalDate date) {
+        return java.sql.Date.valueOf(date);
+    }
+
+    //Förvandlar localDate till sql-vänlig Date genom instant...
+    public static Date convertToDateUsingInstant(LocalDate date) {
+        return java.util.Date.from(date.atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
+    }
+    public boolean updateraFörseningar(Konto medlem,int antal) throws SQLException{
+        logger.debug("Databas: updateraFörseningar -----> ");
+        Statement stmt = connection.createStatement();
+        String uppdateraFöreseningar = "update konto set antalFörseningar="+antal+" where kontoID="+ medlem.getKontoID()+";";
+        logger.debug("<------- Databas: updateraFörseningar ");
+        return true;
+    }
+    public boolean uppdateraAvstängningar(Konto medlem,int antal)throws SQLException{
+        logger.debug("Databas: updateraAvstängningar -----> ");
+        Statement stmt = connection.createStatement();
+        String uppdateraAvstängningar = "update konto set antalAvstängningar="+antal+" where kontoID="+ medlem.getKontoID()+";";
+        logger.debug("<------- Databas: updateraAvstängningar ");
+        return true;
+    }
 }

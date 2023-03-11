@@ -1,8 +1,12 @@
 package databasAPI;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import processlagerAPI.Process;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 public class Konto {
     private String fNamn;
@@ -19,12 +23,12 @@ public class Konto {
 
 
     private int kontoID;
-    private Date avstangd;
+    private LocalDate avstangd;
     Lån[]  lånadeBöcker;
     private int antalAvstangningar;
     private int antalForseningar;
-
-    public Konto (String fNamn, String eNamn, long personNr, int roll, int kontoID, Date avstangd,Lån[] lån, int antalAvstangningar, int antalForseningar) {
+    private static Logger logger = LogManager.getLogger(Konto.class.getName());
+    public Konto (String fNamn, String eNamn, long personNr, int roll, int kontoID, LocalDate avstangd, Lån[] lån, int antalAvstangningar, int antalForseningar) {
 
         this.fNamn = fNamn;
         this.eNamn = eNamn;
@@ -36,7 +40,25 @@ public class Konto {
         this.antalAvstangningar = antalAvstangningar;
         this.antalForseningar = antalForseningar;
     }
-public Date getAvstangd(){
+    public boolean ärAvstängd() {
+        logger.debug("P: kollaAvstängning  --->");
+        LocalDate avstängningsdatum = this.getAvstangd();
+        if(avstängningsdatum==null){
+            //Inga avstängningar.
+            logger.debug(" <--- Konto: har ingen avstängning");
+            return false;
+        }
+        if(avstängningsdatum.isBefore(LocalDate.now())){
+            //Endast gamla avstängningar.
+            logger.debug(" <--- Konto: har gammal avstängning");
+            return false;
+        }
+        if(avstängningsdatum.isAfter(LocalDate.now()))
+            //medlem är avstängd
+            logger.debug(" <--- Konto: är Avstängd");
+        return true;
+    }
+public LocalDate getAvstangd(){
         return this.avstangd;
     }
     public Lån[] getLånadeBöcker() {
@@ -82,11 +104,11 @@ public Date getAvstangd(){
         this.kontoID = kontoID;
     }
 
-    public Date isAvstangd() {
+    public LocalDate isAvstangd() {
         return avstangd;
     }
 
-    public void setAvstangd(Date avstangd) {
+    public void setAvstangd(LocalDate avstangd) {
         this.avstangd = avstangd;
     }
 
