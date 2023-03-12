@@ -28,19 +28,22 @@ public class UI {
         while (running) {
             int val;
                 System.out.println(
-                                "------------------------------------------\n" +
-                                "--------Välkommen till biblioteket--------\n" +
-                                "------------------------------------------");
+                                        "------------------------------------------\n" +
+                                        "-------- Välkommen till BibSus -----------\n" +
+                                        "------------------------------------------\n"+
+                                        "-----------------------------version -1.2-\n"+
+                                                "------------------------------------------\n");
                 System.out.println("Välj i menyn vad du vill göra:\n" +
-                        "1: Låna bok\n" +
-                        "2: Återlämna bok\n" +
-                        "3: Avsluta konto\n" +
-                        "4: Registrera konto\n" +
-                        "5: Svartlista medlem\n" +
-                        "6: Temporär avstängning\n" +
-                        "7: Kolla Tillgänglighet\n" +
-                        "8: kotrollera konto\n" +
-                        "9: Avsluta programmet\n" +
+                        "       1: Låna bok\n" +
+                        "       2: Återlämna bok\n" +
+                        "       3: Avsluta konto\n" +
+                        "       4: Registrera konto\n" +
+                        "       5: Svartlista medlem\n" +
+                        "       6: Temporär avstängning\n" +
+                        "       7: Kolla Tillgänglighet\n" +
+                        "       8: kotrollera konto\n" +
+                        "       9: Återanslut till Databas-server\n" +
+                        "       10: Avsluta BibSus\n"+
                         "------------------------------------------\n");
             try {
             System.out.print("Välj vad du vill göra? (1 - 7): ");
@@ -498,73 +501,3 @@ break;
                 }
                     }
                 }
-
-
-
-
-/*
-        int kontoId = scan.nextInt();
-        int bibID = scan.nextInt();
-        try{
-            object.registreraLån(kontoId, bibID);
-        } catch (NumberFormatException n) {
-        }
-        // Handle event 1
-    }
-    public void handleTeporeravstagning() throws Exception {
-        System.out.println("Ange medlems personnummer: ");
-        int kontoId = scan.nextInt();
-        object.tempAvstängning(kontoId, new Date());
-        System.out.println("Sista avstängningsdatum för medlem " + kontoId + "är: ");
-    }
-    private void handleAvslutakonto() {
-        System.out.println("Vänligen ange ditt personnumer: ");
-        int kontoId = scan.nextInt();
-        object.kollaMedlemsStatus(kontoId);
-        System.out.println("Kontot avslutad!");
-        // Handle event 3
-    }
-    private void handleRegistrerakonto() throws Exception {
-        System.out.println("Ange förnamn:");
-        String fnamn = scan.nextLine();
-        System.out.println("Ange efternamn:");
-        String lnamn = scan.nextLine();
-        System.out.println("Ange personnummer:");
-        long personNr = scan.nextLong();
-        System.out.println("Ange roll:");
-        String roll = scan.nextLine();
-        object.regKonto(fnamn, lnamn, personNr, roll);
-        System.out.println("Kontot registrerad!");
-        // Handle event 4
-    }
-    private void handleSvartlistamedlem() {
-        System.out.println("Ange användarens personnummer:");
-        long personNr = scan.nextLong();
-        object.svartlistaMedlem(personNr);
-        System.out.println("Medlem svartlistad!");
-        // Handle event 5
-    }
-    private void handleKollaTillganglighet() {
-        System.out.println("Ange bokens titel: ");
-        String titel = scan.nextLine();
-        object.kollaTillgänglighet(titel);
-        System.out.println("Bokens titel är" + titel);
-    }
-    private void handlekollaMedlemsstatus() {
-        System.out.println("Ange kontoId: ");
-        int kontoId = scan.nextInt();
-        object.kollaMedlemsStatus(kontoId);
-    }
-    private void handleAterlamnabok() {
-    }
-}
-//        System.out.println("Ange bokID: ");
-//        isbn = scan.nextInt();
-//object.aterlamnabok(isbn) ==  ;
-//        System.out.println("Boken med ISBN" + isbn + "återlämnad!");
-//
-//        //potenciella fel
-//
-//
-//        // Handle event 2
-*/
