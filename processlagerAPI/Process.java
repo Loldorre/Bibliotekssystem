@@ -9,12 +9,16 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.chrono.ChronoLocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import processlagerAPI.Process;
+
+import static java.time.temporal.ChronoUnit.DAYS;
+
 public class Process {
     private static Logger logger = LogManager.getLogger(Process.class.getName());
 
@@ -38,23 +42,19 @@ public Konto uppdateraKonto(Konto medlem, String attribut,int antal)throws SQLEx
             }
     return medlem;
 }
-    public Bok kollaTillgänglighet(String titel) throws SQLException,SaknasException {
-        logger.trace("kollaTillgänglighet (titel) --->");
-        Bok[] listaAvBöcker = DatabasAPI.hämtaTillgänglighet();
-        if (listaAvBöcker.length > 0) {
-            logger.debug("Lista av böcker har längd: " + listaAvBöcker.length );
-            for (Bok b : listaAvBöcker) {
-                if (b.getTitel() == titel) {
-                    logger.debug("<--- kollaTillgänglighet bibID " + b.getBibID() + "redo för lån = " +b.getBibID());
-                    return b;
-                }
+   public String[] hämtaSamling() throws Exception{
+       Bok[] tillgängliga = DatabasAPI.hämtaBöcker();
+       String[] böcker = new String[tillgängliga.length];
+       for(int i=0;i<tillgängliga.length;i++){
+           böcker[i]="bokID: "+tillgängliga[i].getBibID()+
+                    ", Titel: "+tillgängliga[i].getTitel()+
+                    ", Författare: "+tillgängliga[i].getForfattare()+
+                    ", Utgivningsår: "+tillgängliga[i].getUtgivningsar()+
+                    ", ISBN: "+tillgängliga[i].getISBN()+",";
+       }
+       return böcker;
     }
-        }
-        logger.debug("<--- kollaTillgänglighet bibID = "+ 0);
-        throw new SaknasException( "Bok "+ titel +" ej tillgänglig" );
-    }
-
-    public Bok kollaTillgänglighet(int isbn) throws SQLException,SaknasException{
+    public Bok kollaTillgänglighet(int isbn) throws SQLException{
         logger.trace("kollaTillgänglighet (isbn)  --->");
         Bok[] listaAvBöcker = DatabasAPI.hämtaTillgänglighet();
         if (listaAvBöcker.length > 0) {
@@ -66,8 +66,8 @@ public Konto uppdateraKonto(Konto medlem, String attribut,int antal)throws SQLEx
                 }
             }
         }
-        logger.debug("<--- kollaTillgänglighet bibID = "+ 0);
-        throw new SaknasException( "Bok "+ isbn +" ej tillgänglig" );
+        logger.debug("<--- kollaTillgänglighet bok inte tillgänglig");
+        return null;
     }
 public Konto hämtaKonto(int kontoID)throws Exception{
     logger.debug("P: hämtaKonto  --->");
@@ -81,108 +81,57 @@ public Konto hämtaKonto(int kontoID)throws Exception{
             }
         }
     if (medlem == null){
-     throw new SaknasException("Medlems konto inte hittat");
+     logger.debug(" <--- hämtaKonto: Medlems konto inte hittat");
+     return medlem;
     }
     else{
-        logger.debug(" <--- P: hämtaKonto");
+        logger.debug(" <--- hämtaKonto: medlem hittad");
         return medlem;
 }
     }
-    public Konto kollaLån(Konto medlem) throws BokFörsenadException,MaxBöckerException {
-        logger.debug("P: kollaLån  --->");
-        Lån[] lånadeBöcker = medlem.getLånadeBöcker();
-        for (Lån l : lånadeBöcker) {
-            if (l.ärFörsenad()) {
-                //----Letar efter försenade böcker----
-                logger.debug("försenad bok hittad");
-                logger.debug(" <--- P: kollaLån");
-                throw new BokFörsenadException("Bok försenad");
-            }
-            //-------Kollar om medlem har uppnått maximalt antal böcker---------------
-            int maxböcker = 0;
 
-            if (medlem.getRoll() == 0) {
-                logger.debug("medlem undergrad max 3");
-                maxböcker = 3;
-            }
-            if (medlem.getRoll() == 1) {
-                logger.debug("medlem är grad max 5");
-                maxböcker = 5;
-            }
-            if (medlem.getRoll() == 2) {
-                logger.debug("doctorate student max 7");
-                maxböcker = 7;
-            }
-            if (medlem.getRoll() == 3) {
-                logger.debug("medlem är postDoc or teacher max 10");
-                maxböcker = 10;
-            }
-            logger.debug("kollar om medlem har uppnåt  max böcker");
-            if (medlem.getLånadeBöcker().length >= maxböcker) {
-                logger.debug("<--- medlem har uppnått max antal böcker (return 0)");
-                throw new MaxBöckerException("Medlems max " + maxböcker + " uppnått.");
-            }
-        }
-        //inga förseningar hittade
-        logger.debug(" <--- P: kollaLån");
-        return medlem;
-    }
-    public Konto kollaAvstängning(Konto medlem) throws KontoAvstängtException,AvstängningKrävsException,SvartlistningKrävsException {
-        logger.debug("P: kollaAvstängning  --->");
-
-        if (medlem.ärAvstängd() == false && medlem.getAntalAvstangningar() < 2) {
-            //Inte avstängnd eller i behov av svartlistning.
-            logger.debug(" <--- P: kollaAvstängning");
-            return medlem;
-        }
-        if (medlem.ärAvstängd() == true && medlem.getAntalAvstangningar() < 2) {
-            //medlem är avstängd
-            logger.debug(" <--- P: kollaAvstängning");
-            throw new KontoAvstängtException("Medlem är avstängd till" + medlem.getAvstangd());
-
-        }
-        if (medlem.getAntalAvstangningar() >= 2) {
-            logger.debug("avstängningar =" + medlem.getAntalAvstangningar() + ", Konto bör svartlistas");
-            throw new SvartlistningKrävsException(medlem.getKontoID() + "Svartlistas");
-        }
-        if(medlem.getAntalForseningar()>=3){
-            logger.debug(" <--- P: kollaAvstängning Avstängning krävs");
-            throw new AvstängningKrävsException("avstängd pga för många förseningar");
-        }
-        logger.debug(" <--- P: kollaAvstängning");
-        return medlem;
-    }
-
-    public Konto tempAvstängning(Konto medlem, int antalDagar) throws Exception,SQLException {
+    public Konto tempAvstängning(Konto medlem, int antalDagar) throws Exception {
         logger.debug(" tempAvstängning ---->");
-            int svar = DatabasAPI.registreraTempAvstänging(medlem.getKontoID(), antalDagar);
-            if(svar == 0){
-                throw new Exception("inget uppdaterat");
+        int extra = 0;
+
+            if(medlem.ärAvstängd()){
+                logger.debug(" Är redan asvtängd");
+                LocalDate slut= medlem.getAvstangd();
+                extra = (int)DAYS.between(LocalDate.now(),slut);
+                logger.debug("lägger till: "+extra+" dagar.");
             }
-            else
+            medlem = DatabasAPI.registreraTempAvstänging(medlem, antalDagar+extra);
+        logger.debug(" uppdaterar antal förseningar i medlems objekt, nu: "+(medlem.getAntalAvstangningar()+1));
+        medlem.setAntalAvstangningar((medlem.getAntalAvstangningar()+1));
+        logger.debug(" <--- tempAvstängning ");
             return medlem;
     }
 
-
-    public Konto svartlistaMedlem(Konto medlem) throws SQLException, FelException {
+    public Konto svartlistaMedlem(Konto medlem) throws SQLException {
         logger.debug(" svartlistaMedlem ---->");
         int databasSvar;
         long[] svartlistade;
         svartlistade = this.DatabasAPI.hämtaSvarlistade();
+
         //kollar om medlemmen redan är svartlistad.
        if (svartlistade != null){
         for (long l : svartlistade) {
             if (l == medlem.getPersonNr()) {
-                logger.debug(" <------ svartListaMedlem. inga svartlistade>");
+                logger.debug(" <----- svartListaMedlem. personnummer redan svartlistat");
+                return null;
             }
                 }
        }
         databasSvar = this.DatabasAPI.läggTillSvartlistade(medlem.getPersonNr());
-                    logger.debug(" <------ svartListaMedlem. medlem svartlistad>");
+       if(databasSvar==1){
+           logger.debug(" <------ svartListaMedlem. Inte svartlistad");
+           return null;
+       }
+       logger.debug(" <------ svartListaMedlem. Svartlistad>");
                     return medlem;
             }
 
-    public int regKonto(String fnamn, String enamn, long personNr, int roll) throws SQLException {
+    public int regKonto(String fnamn, String enamn, long personNr, int roll) throws Exception {
         logger.debug(" regKonto ---->");
         Konto[] kontolista = this.DatabasAPI.hämtaKonton();
         logger.debug("hämtar svartlistade");
@@ -203,8 +152,20 @@ public Konto hämtaKonto(int kontoID)throws Exception{
                 return 2;
             }
         }
+        logger.debug("Slumpar fram unikt id.");
+
+        int random = (int)(Math.random() * 10000);
+        ArrayList kontoidlista = new ArrayList<>();
+        for(Konto k:kontolista){
+            kontoidlista.add(k.getKontoID());
+        }
+        while (kontoidlista.contains(random)||random<1000){
+            random =(int)(Math.random() * 10000);
+        }
+        logger.debug("unikt id hittat");
+        int kontoID = random;
         logger.debug("skapar konto");
-        databasSvar = this.DatabasAPI.skapaKonto(fnamn, enamn, personNr, roll);
+        databasSvar = this.DatabasAPI.skapaKonto(fnamn, enamn, personNr, roll,kontoID);
         if(databasSvar>999){
             logger.debug("<----- skapaKonto()"+ fnamn+", "+enamn+","+personNr+"," + roll);
             return databasSvar;}
@@ -216,7 +177,7 @@ public Konto hämtaKonto(int kontoID)throws Exception{
     }
 
 
-    public Konto avslutaKonto(Konto medlem) throws SaknasException, SQLException {
+    public Konto avslutaKonto(Konto medlem) throws SQLException {
         logger.debug(" avslutaKonto ---->");
         Konto[] kontolista = this.DatabasAPI.hämtaKonton();
         int databasSvar;
@@ -231,7 +192,7 @@ public Konto hämtaKonto(int kontoID)throws Exception{
                 }
                 if (databasSvar == 1) {
                     logger.debug("kontonummer finns inte");
-                    throw new SaknasException("kontonummer finns inte");
+                    return null;
                 }
 
             }
@@ -243,6 +204,7 @@ public Konto hämtaKonto(int kontoID)throws Exception{
         logger.debug(" registreraLån ---->");
 int svar = DatabasAPI.skapaLån(kontoId, bibID);
            if(svar > 0) return 5;
+        logger.debug("<----- registreraLån ");
     return 0;
     }
 
@@ -250,11 +212,11 @@ int svar = DatabasAPI.skapaLån(kontoId, bibID);
         logger.debug(" återlämnaBok ---->");
         boolean bokKoppladTillMedlem = false;
 
-        Lån[] lånadeBöcker = DatabasAPI.hämtaLån();
+        Lån[] lånadeBöcker = medlem.getLånadeBöcker();
 
-        for (int i = 0; i < lånadeBöcker.length; i++) {
-            if (lånadeBöcker[i].getKontoID() == medlem.getKontoID() && lånadeBöcker[i].getBid() == bibID) {
-                logger.debug("Det finns böcker kopplade i lån till kontoId");
+        for (Lån l:lånadeBöcker) {
+            if (l.getKontoID() == medlem.getKontoID() && l.getBid() == bibID) {
+                logger.debug("Bok lånad av användare");
                 bokKoppladTillMedlem = true;
             }
         }
@@ -262,21 +224,12 @@ int svar = DatabasAPI.skapaLån(kontoId, bibID);
             logger.debug("det fanns inga lånade böcker kopplade till kontoid med samma bid");
             return 2;
         }
-
         int databasSvar = this.DatabasAPI.taBortLån(bibID);
 
         if (databasSvar == 1) {
             return 1;
-        } else if (databasSvar == 2) {
-            return 1;
-        } else if (databasSvar == 3) {
-            return 1;
-        } else if (databasSvar == 4) {
-            return 1;
-        } else if (databasSvar == 5) {
-            return 1;
         } else if (databasSvar == 0) {
-            logger.debug("<----- atermämna bok ");
+            logger.debug("<----- Återlämna bok ");
             return 0;
         } else {
             return 1;

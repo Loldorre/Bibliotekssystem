@@ -1,11 +1,11 @@
 package databasAPI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import processlagerAPI.Process;
 
-import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.ZoneId;
+import java.util.Date;
 
 
 public class Konto {
@@ -41,22 +41,95 @@ public class Konto {
         this.antalForseningar = antalForseningar;
     }
     public boolean ärAvstängd() {
-        logger.debug("P: kollaAvstängning  --->");
-        LocalDate avstängningsdatum = this.getAvstangd();
-        if(avstängningsdatum==null){
-            //Inga avstängningar.
-            logger.debug(" <--- Konto: har ingen avstängning");
-            return false;
-        }
-        if(avstängningsdatum.isBefore(LocalDate.now())){
-            //Endast gamla avstängningar.
-            logger.debug(" <--- Konto: har gammal avstängning");
-            return false;
-        }
-        if(avstängningsdatum.isAfter(LocalDate.now()))
+        logger.debug("ärAvstängd  --->");
+        LocalDate avstängd = this.getAvstangd();
+
+        if(avstängd!=null&&(avstängd.isAfter(LocalDate.now()))){
             //medlem är avstängd
-            logger.debug(" <--- Konto: är Avstängd");
-        return true;
+            logger.debug("<--- ärAvstängd true till("+avstangd.toString() +")");
+            return true;
+        }
+        if(avstängd.isBefore(LocalDate.now())){
+            //Endast gamla avstängningar.
+            logger.debug("<--- ärAvstängd (false men har gammal) "+avstängd.toString() +" före " + LocalDate.now().toString());
+            return false;
+        }
+        //Inga avstängningar.
+        logger.debug(" <--- ärAvstängd (false)");
+        return false;
+
+    }
+
+    public boolean börAvstängas(){
+        if(this.antalForseningar>2) return true;
+        return false;
+    }
+
+    public boolean börSvartlistas(){
+        if (this.antalAvstangningar>1){
+            return true;
+        }
+        return false;
+    }
+    public boolean harLån(){
+        if (lånadeBöcker.length > 0) return true;
+        return false;
+    }
+    public int antalFörseningar(){
+        logger.debug("antalFörseningar  --->");
+        int försening=0;
+        for (Lån l : lånadeBöcker) {
+            if (l.ärFörsenad()) {
+                försening++;
+            }
+        }
+                logger.debug(" <--- antalFörseningar)");
+                return försening;
+    }
+    public boolean harMaxLån(){
+        logger.debug("harMaxlån  --->");
+
+            if (lånadeBöcker.length >= this.getMaxLån()) {
+                logger.debug("<--- harMaxlån true "+this.getMaxLån()+"st");
+               return true;
+            }
+        logger.debug(" <--- harMaxlån false");
+        return false;
+    }
+public int getMaxLån(){
+    int maxböcker = 0;
+
+    if (this.roll == 0) {
+        logger.debug("medlem undergrad max 3");
+        maxböcker = 3;
+    }
+    if (this.roll == 1) {
+        logger.debug("medlem är grad max 5");
+        maxböcker = 5;
+    }
+    if (this.roll == 2) {
+        logger.debug("doctorate student max 7");
+        maxböcker = 7;
+    }
+    if (this.roll == 3) {
+        logger.debug("medlem är postDoc or teacher max 10");
+        maxböcker = 10;
+    }
+    return maxböcker;
+}
+    public boolean harFörsening() {
+        logger.debug("harFörsening  --->");
+        for (Lån l : lånadeBöcker) {
+            if (l.ärFörsenad()) {
+                //----Letar efter försenade böcker----
+                logger.debug("försenad bok hittad");
+                logger.debug(" <--- P: kollaLån");
+                logger.debug(" <--- harFörsening true: bid" + l.getBid());
+                return true;
+            }
+        }
+        logger.debug(" <--- harFörsening false");
+        return false;
     }
 public LocalDate getAvstangd(){
         return this.avstangd;
@@ -127,4 +200,25 @@ public LocalDate getAvstangd(){
     public void setAntalForseningar(int antalForseningar) {
         this.antalForseningar = antalForseningar;
     }
+
+    public static void main(String[] args) {
+
+        Date avstängd = new Date(2023,11,12);
+
+
+        LocalDate test = avstängd.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate().minusYears(1900);
+
+        System.out.println(test);
+
+        System.out.println("t1  "+LocalDate.now().toString());
+        System.out.println("t2  "+LocalDate.parse("2025-12-11").toString());
+        LocalDate t1 = LocalDate.now();
+        LocalDate t2 = LocalDate.parse("2025-12-11");
+
+        System.out.println("t1 is before t2= "+t1.isBefore(t2));
+    }
+
+
 }
