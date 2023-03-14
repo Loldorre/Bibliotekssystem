@@ -1,8 +1,9 @@
 package databasAPI;
 
-import java.time.LocalDate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.time.LocalDate;
 
 public class Lån {
 
@@ -32,13 +33,10 @@ public class Lån {
         logger.debug(" <--- P: ärFörsenad = False");
         return false;
     }
-@Override
-    public String toString(){
-        String lån = "BokID: "+this.getBid()+", Låndatum: "+this.lånDatum+", Återlämningsdatum: "+this.återlämningsDatum;
+    @Override
+    public String toString() {
+        String lån = "BokID: " + this.getBid() + ", Låndatum: " + this.lånDatum + ", Återlämningsdatum: " + this.återlämningsDatum;
         return lån;
-    }
-    public LocalDate getÅterlämningsDatum() {
-        return återlämningsDatum;
     }
 
     public int getBid() {
@@ -65,7 +63,4 @@ public class Lån {
         this.lånDatum = lånDatum;
     }
 
-    public static void main(String[] args) {
-LocalDate.now().toString();
-    }
 }

@@ -91,24 +91,37 @@ public class Databas {
         }
     }
 
-    public int skapaKonto(String fnamn, String enamn, long personNr, int roll,int kontoID) throws Exception {
+    public Konto skapaKonto(String fnamn, String enamn, long personNr, int roll) throws Exception {
         logger.debug("Skapa Konto ----->");
         int failOrSuccess = 0;
 
-            Statement stmt = connection.createStatement();
-            Statement getStmt = connection.createStatement();
-            String addAccount = "insert into konto values (\"" + fnamn + "\",\"" + enamn + "\"," + personNr + ",\"" + roll + "\"," + kontoID +", " + null + "," + 0 + "," + 0 + ")";
-            String getAddedKontoId = "select kontoID from konto where personNr=" + personNr;
-            int rS = stmt.executeUpdate(addAccount);
-            if (rS == 0) {
-                return 1;}
-            ResultSet newRs = getStmt.executeQuery(getAddedKontoId);
-            while(newRs.next()) {
-                failOrSuccess = newRs.getInt("kontoid");
-            }
+        Databas x = new Databas();
+        Konto[] kontoLista = x.hämtaKonton();
+        int random = (int)(Math.random() * 10000);
+        ArrayList kontoidlista = new ArrayList<>();
+        for(Konto k:kontoLista){
+            kontoidlista.add(k.getKontoID());
+        }
+        while (kontoidlista.contains(random)||random<1000){
+            random =(int)(Math.random() * 10000);
+        }
+        logger.debug("unikt id hittat");
+        int kontoID = random;
+
+        Statement stmt = connection.createStatement();
+        Statement getStmt = connection.createStatement();
+        String addAccount = "insert into konto values (\"" + fnamn + "\",\"" + enamn + "\"," + personNr + ",\"" + roll + "\"," + kontoID +", " + null + "," + 0 + "," + 0 + ")";
+        String getAddedKontoId = "select kontoID from konto where personNr=" + personNr;
+        int rS = stmt.executeUpdate(addAccount);
+        if (rS == 0) {
+            throw new SQLException();}
+        ResultSet newRs = getStmt.executeQuery(getAddedKontoId);
+        while(newRs.next()) {
+            failOrSuccess = newRs.getInt("kontoid");
+        }
 
         logger.debug("<----- Skapa Konto "+ failOrSuccess);
-        return failOrSuccess;
+        return new Konto(fnamn, enamn,personNr,roll,kontoID,null, new Lån[]{},0,0);
     }
 
     public Konto[] hämtaKonton() throws SQLException {
@@ -249,7 +262,8 @@ public class Databas {
             String getAccount = "update konto set avstängd=\"" + sqlInputDate + "\" where kontoID=" + medlem.getKontoID();
             int rS = stmt.executeUpdate(getAccount);
 
-
+        medlem.setAvstangd(endOfBan);
+        medlem.setAntalAvstangningar((medlem.getAntalAvstangningar()+1));
         logger.debug("<------- registreraTempAvstänging ");
         return medlem;
     }

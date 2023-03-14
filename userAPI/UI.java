@@ -1,13 +1,13 @@
 package userAPI;
 
-import java.lang.String;
-import java.sql.SQLException;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 import databasAPI.Bok;
 import databasAPI.Konto;
 import databasAPI.Lån;
 import processlagerAPI.Process;
+
+import java.sql.SQLException;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 
 public class UI {
@@ -261,29 +261,21 @@ break;
                             System.out.println("Ange efternamn:");
                             String enamn = scan.nextLine();
 
-                            System.out.println("Ange personnummer:");
+                            System.out.println("Ange personnummer ( ÅÅÅÅMMDDXXXX ): ");
                             long personNr = scan.nextLong();
                             scan.nextLine();
 
                             System.out.println("Ange roll: Kandidatstudent = 0, Master student = 1, Doktorand = 2, Lärare eller Doktor = 3");
                             int roll = scan.nextInt();
 
-                            int kontoinfo = processObj.regKonto(fnamn, enamn, personNr, roll);
+                            medlem = processObj.regKonto(fnamn, enamn, personNr, roll);
 
-                            if (kontoinfo == 1) {
-                                System.out.println("Konto för personnummer: "+personNr+", finns redan!");
+                            if (medlem == null) {
+                                System.out.println("Konto för personnummer: "+personNr+", kunde inte skapas (svartlistad eller redan registrerad!");
+                                break;
                             }
 
-                            if (kontoinfo == 2) {
-                                System.out.println("Medlem är svartlistad! Det går inte att skapa konto. ");
-
-                            }
-                            if (kontoinfo == 3) {
-                                System.out.println("OPS! Databasstrul. Försök igen!");
-                            }
-                            if (kontoinfo > 999) {
-                                System.out.println("Konto för " + fnamn + " " + enamn + " " + kontoinfo + "  är skapat!");
-                            }
+                                System.out.println("Konto för " + medlem.getfNamn()+ " " + medlem.geteNamn() + " " + medlem.getKontoID() + "  är skapat!");
                             break;
 
                         case 5: //svartlista medlem
@@ -478,8 +470,18 @@ break;
                             System.out.println("Konto: "+medlem.getKontoID() +
                                     " har "+ medlem.getLånadeBöcker().length +
                                     " lån av "+medlem.getMaxLån());
-                            for (Lån l:medlem.getLånadeBöcker())
+                            int försenade=0;
+                            for (Lån l:medlem.getLånadeBöcker()) {
                                 System.out.println(l.toString());
+                                if (l.ärFörsenad()) {
+                                    System.out.print("  (ÄR FÖRSENAD)");
+                                    försenade++;
+                                }
+                            }
+                            if(försenade>0) {
+                                medlem.setAntalForseningar(medlem.getAntalForseningar()+1);
+                                försenade=0;
+                            }
                             System.out.println("Konto har: "+ medlem.getAntalForseningar()+" förseningar ");
                             if(medlem.börAvstängas()) System.out.println("Medlem bör avstängas 15 dagar.");
                             System.out.println("Konto har: "+ medlem.getAntalAvstangningar()+" avstängningar.");

@@ -29,8 +29,14 @@ public class Konto {
     public boolean ärAvstängd() {
         logger.debug("ärAvstängd  --->");
         LocalDate avstängd = this.getAvstangd();
+        if (avstängd == null ){
+            //medlem är inte avstängd
+            logger.debug("<--- ärAvstängd false (null)");
+            return false;
+        }
 
-        if(avstängd!=null&&(avstängd.isAfter(LocalDate.now()))){
+
+        if(avstängd != null && (avstängd.isAfter(LocalDate.now()))){
             //medlem är avstängd
             logger.debug("<--- ärAvstängd true till("+avstangd.toString() +")");
             return true;
