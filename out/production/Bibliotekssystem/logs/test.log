@@ -277,3 +277,11 @@
 2023-03-14 14:41:29,766 DEBUG p.Process [main] <----- skapaKonto()sdf, sdf,4334,0
 2023-03-14 15:19:47,554 DEBUG p.TestProcess [main] --Resetting mock--
 2023-03-14 15:28:19,722 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 15:29:02,765 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 15:39:52,311 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 15:41:03,542 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 15:41:54,312 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 15:52:27,841 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 15:52:27,875 DEBUG p.Process [main] P: hämtaKonto  --->
+2023-03-14 15:52:27,877 DEBUG p.Process [main] konto finns
+2023-03-14 15:52:27,877 DEBUG p.Process [main]  <--- hämtaKonto: medlem hittad
