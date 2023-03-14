@@ -302,3 +302,158 @@
 2023-03-14 16:11:19,360 DEBUG p.Process [main]  <--- hämtaKonto: Medlems konto inte hittat
 2023-03-14 16:18:55,474 DEBUG p.TestProcess [main] --Resetting mock--
 2023-03-14 16:18:55,502 DEBUG p.Process [main] P: hämtaKonto  --->
+2023-03-14 20:33:43,588 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,655 DEBUG p.Process [main] P: hämtaKonto  --->
+2023-03-14 20:33:43,675 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,678 DEBUG p.Process [main]  regKonto ---->
+2023-03-14 20:33:43,678 DEBUG p.Process [main] hämtar svartlistade
+2023-03-14 20:33:43,678 DEBUG p.Process [main] svartlistade = 1
+2023-03-14 20:33:43,679 DEBUG p.Process [main] kollar om kontot finns
+2023-03-14 20:33:43,697 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,699 DEBUG p.Process [main]  registreraLån ---->
+2023-03-14 20:33:43,703 DEBUG p.Process [main] <----- registreraLån 
+2023-03-14 20:33:43,707 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,707 DEBUG p.Process [main]  registreraLån ---->
+2023-03-14 20:33:43,716 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,716 DEBUG p.Process [main]  svartlistaMedlem ---->
+2023-03-14 20:33:43,716 DEBUG p.Process [main]  <------ svartListaMedlem. Svartlistad>
+2023-03-14 20:33:43,723 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,723 DEBUG p.Process [main]  svartlistaMedlem ---->
+2023-03-14 20:33:43,723 DEBUG p.Process [main]  <----- svartListaMedlem. personnummer redan svartlistat
+2023-03-14 20:33:43,731 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,734 DEBUG p.Process [main]  svartlistaMedlem ---->
+2023-03-14 20:33:43,734 DEBUG p.Process [main]  <------ svartListaMedlem. Svartlistad>
+2023-03-14 20:33:43,746 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,750 DEBUG p.Process [main] Lista av böcker har längd: 3
+2023-03-14 20:33:43,750 DEBUG p.Process [main] <--- kollaTillgänglighet bibID 1redo för lån = 1
+2023-03-14 20:33:43,756 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,756 DEBUG p.Process [main] <--- kollaTillgänglighet bok inte tillgänglig
+2023-03-14 20:33:43,766 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,860 DEBUG p.Process [main]  avslutaKonto ---->
+2023-03-14 20:33:43,861 DEBUG p.Process [main] konto hittat - försöker avsluta1007
+2023-03-14 20:33:43,862 DEBUG p.Process [main] kontonummer finns inte
+2023-03-14 20:33:43,864 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,867 DEBUG p.Process [main]  avslutaKonto ---->
+2023-03-14 20:33:43,869 DEBUG p.Process [main] konto hittat - försöker avsluta1007
+2023-03-14 20:33:43,869 DEBUG p.Process [main] kontot borttaget ur databasen1007
+2023-03-14 20:33:43,869 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,869 DEBUG p.Process [main]  regKonto ---->
+2023-03-14 20:33:43,869 DEBUG p.Process [main] hämtar svartlistade
+2023-03-14 20:33:43,869 DEBUG p.Process [main] svartlistade = 0
+2023-03-14 20:33:43,869 DEBUG p.Process [main] kollar om kontot finns
+2023-03-14 20:33:43,876 DEBUG p.Process [main] letar i svartlistan
+2023-03-14 20:33:43,876 DEBUG p.Process [main] skapar konto
+2023-03-14 20:33:43,876 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,876 DEBUG p.Process [main]  regKonto ---->
+2023-03-14 20:33:43,876 DEBUG p.Process [main] hämtar svartlistade
+2023-03-14 20:33:43,876 DEBUG p.Process [main] svartlistade = 0
+2023-03-14 20:33:43,876 DEBUG p.Process [main] kollar om kontot finns
+2023-03-14 20:33:43,876 DEBUG p.Process [main] letar i svartlistan
+2023-03-14 20:33:43,876 DEBUG p.Process [main] skapar konto
+2023-03-14 20:33:43,893 DEBUG p.Process [main] <----- skapaKonto()Bertram, Snetand,2603180001,2
+2023-03-14 20:33:43,896 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,896 DEBUG p.Process [main]  återlämnaBok ---->
+2023-03-14 20:33:43,901 DEBUG p.Process [main] Bok lånad av användare
+2023-03-14 20:33:43,901 DEBUG p.Process [main] <----- Återlämna bok 
+2023-03-14 20:33:43,901 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,905 DEBUG p.Process [main]  återlämnaBok ---->
+2023-03-14 20:33:43,905 DEBUG p.Process [main] Bok lånad av användare
+2023-03-14 20:33:43,905 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,908 DEBUG p.Process [main]  återlämnaBok ---->
+2023-03-14 20:33:43,909 DEBUG p.Process [main] det fanns inga lånade böcker kopplade till kontoid med samma bid
+2023-03-14 20:33:43,911 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,914 DEBUG p.Process [main] P: hämtaKonto  --->
+2023-03-14 20:33:43,914 DEBUG p.Process [main] konto finns
+2023-03-14 20:33:43,916 DEBUG p.Process [main]  <--- hämtaKonto: medlem hittad
+2023-03-14 20:33:43,918 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,918 DEBUG p.Process [main] P: hämtaKonto  --->
+2023-03-14 20:33:43,921 DEBUG p.Process [main]  <--- hämtaKonto: Medlems konto inte hittat
+2023-03-14 20:33:43,926 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:33:43,937 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:35:48,433 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:35:48,459 DEBUG p.Process [main]  regKonto ---->
+2023-03-14 20:35:48,460 DEBUG p.Process [main] hämtar svartlistade
+2023-03-14 20:35:48,462 DEBUG p.Process [main] svartlistade = 1
+2023-03-14 20:35:48,462 DEBUG p.Process [main] kollar om kontot finns
+2023-03-14 20:36:03,686 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:36:03,712 DEBUG p.Process [main]  regKonto ---->
+2023-03-14 20:36:03,712 DEBUG p.Process [main] hämtar svartlistade
+2023-03-14 20:36:03,716 DEBUG p.Process [main] svartlistade = 1
+2023-03-14 20:36:03,717 DEBUG p.Process [main] kollar om kontot finns
+2023-03-14 20:40:18,655 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:18,680 DEBUG p.Process [main]  regKonto ---->
+2023-03-14 20:40:18,683 DEBUG p.Process [main] hämtar svartlistade
+2023-03-14 20:40:18,686 DEBUG p.Process [main] svartlistade = 1
+2023-03-14 20:40:18,686 DEBUG p.Process [main] kollar om kontot finns
+2023-03-14 20:40:18,688 DEBUG p.Process [main] letar i svartlistan
+2023-03-14 20:40:18,693 DEBUG p.Process [main]  <----- personnummer2603180001svartlistat
+2023-03-14 20:40:35,449 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,492 DEBUG p.Process [main] P: hämtaKonto  --->
+2023-03-14 20:40:35,525 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,530 DEBUG p.Process [main]  regKonto ---->
+2023-03-14 20:40:35,530 DEBUG p.Process [main] hämtar svartlistade
+2023-03-14 20:40:35,531 DEBUG p.Process [main] svartlistade = 1
+2023-03-14 20:40:35,531 DEBUG p.Process [main] kollar om kontot finns
+2023-03-14 20:40:35,532 DEBUG p.Process [main] letar i svartlistan
+2023-03-14 20:40:35,540 DEBUG p.Process [main]  <----- personnummer2603180001svartlistat
+2023-03-14 20:40:35,549 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,552 DEBUG p.Process [main]  registreraLån ---->
+2023-03-14 20:40:35,556 DEBUG p.Process [main] <----- registreraLån 
+2023-03-14 20:40:35,560 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,563 DEBUG p.Process [main]  registreraLån ---->
+2023-03-14 20:40:35,576 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,578 DEBUG p.Process [main]  svartlistaMedlem ---->
+2023-03-14 20:40:35,580 DEBUG p.Process [main]  <------ svartListaMedlem. Svartlistad>
+2023-03-14 20:40:35,588 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,589 DEBUG p.Process [main]  svartlistaMedlem ---->
+2023-03-14 20:40:35,589 DEBUG p.Process [main]  <----- svartListaMedlem. personnummer redan svartlistat
+2023-03-14 20:40:35,592 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,593 DEBUG p.Process [main]  svartlistaMedlem ---->
+2023-03-14 20:40:35,593 DEBUG p.Process [main]  <------ svartListaMedlem. Svartlistad>
+2023-03-14 20:40:35,605 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,608 DEBUG p.Process [main] Lista av böcker har längd: 3
+2023-03-14 20:40:35,612 DEBUG p.Process [main] <--- kollaTillgänglighet bibID 1redo för lån = 1
+2023-03-14 20:40:35,617 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,618 DEBUG p.Process [main] <--- kollaTillgänglighet bok inte tillgänglig
+2023-03-14 20:40:35,628 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,744 DEBUG p.Process [main]  avslutaKonto ---->
+2023-03-14 20:40:35,747 DEBUG p.Process [main] konto hittat - försöker avsluta1007
+2023-03-14 20:40:35,748 DEBUG p.Process [main] kontonummer finns inte
+2023-03-14 20:40:35,753 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,755 DEBUG p.Process [main]  avslutaKonto ---->
+2023-03-14 20:40:35,756 DEBUG p.Process [main] konto hittat - försöker avsluta1007
+2023-03-14 20:40:35,758 DEBUG p.Process [main] kontot borttaget ur databasen1007
+2023-03-14 20:40:35,761 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,768 DEBUG p.Process [main]  regKonto ---->
+2023-03-14 20:40:35,769 DEBUG p.Process [main] hämtar svartlistade
+2023-03-14 20:40:35,770 DEBUG p.Process [main] svartlistade = 0
+2023-03-14 20:40:35,770 DEBUG p.Process [main] kollar om kontot finns
+2023-03-14 20:40:35,770 DEBUG p.Process [main] letar i svartlistan
+2023-03-14 20:40:35,771 DEBUG p.Process [main] skapar konto
+2023-03-14 20:40:35,774 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,779 DEBUG p.Process [main]  regKonto ---->
+2023-03-14 20:40:35,780 DEBUG p.Process [main] hämtar svartlistade
+2023-03-14 20:40:35,780 DEBUG p.Process [main] svartlistade = 0
+2023-03-14 20:40:35,781 DEBUG p.Process [main] kollar om kontot finns
+2023-03-14 20:40:35,781 DEBUG p.Process [main] letar i svartlistan
+2023-03-14 20:40:35,781 DEBUG p.Process [main] skapar konto
+2023-03-14 20:40:35,788 DEBUG p.Process [main] <----- skapaKonto()Bertram, Snetand,2603180001,2
+2023-03-14 20:40:35,791 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,794 DEBUG p.Process [main]  återlämnaBok ---->
+2023-03-14 20:40:35,795 DEBUG p.Process [main] Bok lånad av användare
+2023-03-14 20:40:35,796 DEBUG p.Process [main] <----- Återlämna bok 
+2023-03-14 20:40:35,799 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,801 DEBUG p.Process [main]  återlämnaBok ---->
+2023-03-14 20:40:35,802 DEBUG p.Process [main] Bok lånad av användare
+2023-03-14 20:40:35,804 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,805 DEBUG p.Process [main]  återlämnaBok ---->
+2023-03-14 20:40:35,805 DEBUG p.Process [main] det fanns inga lånade böcker kopplade till kontoid med samma bid
+2023-03-14 20:40:35,810 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,811 DEBUG p.Process [main] P: hämtaKonto  --->
+2023-03-14 20:40:35,812 DEBUG p.Process [main] konto finns
+2023-03-14 20:40:35,813 DEBUG p.Process [main]  <--- hämtaKonto: medlem hittad
+2023-03-14 20:40:35,818 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,820 DEBUG p.Process [main] P: hämtaKonto  --->
+2023-03-14 20:40:35,821 DEBUG p.Process [main]  <--- hämtaKonto: Medlems konto inte hittat
+2023-03-14 20:40:35,830 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 20:40:35,851 DEBUG p.TestProcess [main] --Resetting mock--
