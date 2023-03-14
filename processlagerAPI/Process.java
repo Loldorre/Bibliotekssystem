@@ -1,11 +1,15 @@
 package processlagerAPI;
 
-import databasAPI.*;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import databasAPI.Bok;
+import databasAPI.Databas;
+import databasAPI.Konto;
+import databasAPI.Lån;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Process {
@@ -84,7 +88,6 @@ public Konto hämtaKonto(int kontoID) throws Exception{
             }
             medlem = DatabasAPI.registreraTempAvstänging(medlem, antalDagar+extra);
         logger.debug(" uppdaterar antal förseningar i medlems objekt, nu: "+(medlem.getAntalAvstangningar()+1));
-        medlem.setAntalAvstangningar((medlem.getAntalAvstangningar()+1));
         logger.debug(" <--- tempAvstängning ");
             return medlem;
     }
@@ -114,7 +117,8 @@ public Konto hämtaKonto(int kontoID) throws Exception{
                     return medlem;
             }
 //Dorian
-    public int regKonto(String fnamn, String enamn, long personNr, int roll) throws Exception {
+    public Konto regKonto(String fnamn, String enamn, long personNr, int roll) throws Exception {
+        Konto medlem;
         logger.debug(" regKonto ---->");
         Konto[] kontolista = this.DatabasAPI.hämtaKonton();
         logger.debug("hämtar svartlistade");
@@ -125,39 +129,23 @@ public Konto hämtaKonto(int kontoID) throws Exception{
         for(Konto k :kontolista){
             if(k.getPersonNr()==personNr){
                 logger.debug(" <----- kontot finns");
-                return 1;
+                return null;
             }
         }
         logger.debug("letar i svartlistan");
         for(long l:svartlistade) {
             if(l==personNr){
                 logger.debug(" <----- personnummer" + personNr + "svartlistat");
-                return 2;
+                return null;
             }
         }
-        logger.debug("Slumpar fram unikt id.");
 
-        int random = (int)(Math.random() * 10000);
-        ArrayList kontoidlista = new ArrayList<>();
-        for(Konto k:kontolista){
-            kontoidlista.add(k.getKontoID());
-        }
-        while (kontoidlista.contains(random)||random<1000){
-            random =(int)(Math.random() * 10000);
-        }
-        logger.debug("unikt id hittat");
-        int kontoID = random;
         logger.debug("skapar konto");
-        databasSvar = this.DatabasAPI.skapaKonto(fnamn, enamn, personNr, roll,kontoID);
-        if(databasSvar>999){
+        medlem = this.DatabasAPI.skapaKonto(fnamn, enamn, personNr, roll);
             logger.debug("<----- skapaKonto()"+ fnamn+", "+enamn+","+personNr+"," + roll);
-            return databasSvar;}
-
-        else{
-            logger.debug("<----- skapaKonto() databas strul...");
-            return 3;
-        }
+            return medlem;
     }
+
 
 //Sanja
     public Konto avslutaKonto(Konto medlem) throws SQLException {
