@@ -275,3 +275,6 @@
 2023-03-14 14:41:29,738 DEBUG d.Databas [main] unikt id hittat
 2023-03-14 14:41:29,761 DEBUG d.Databas [main] <----- Skapa Konto 7902
 2023-03-14 14:41:29,766 DEBUG p.Process [main] <----- skapaKonto()sdf, sdf,4334,0
+2023-03-14 15:19:47,554 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 15:28:19,722 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 15:29:02,765 DEBUG p.TestProcess [main] --Resetting mock--

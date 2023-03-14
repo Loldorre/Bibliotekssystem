@@ -202,3 +202,78 @@
 2023-03-14 14:12:14,579 DEBUG d.Lån [main] försenad bok hittad
 2023-03-14 14:12:14,579 DEBUG d.Lån [main]  <--- P: kollaLån = True
 2023-03-14 14:38:42,772 DEBUG d.Databas [main] Databas ansluten ----->
+2023-03-14 14:41:07,787 DEBUG d.Databas [main] Databas ansluten ----->
+2023-03-14 14:41:29,553 DEBUG p.Process [main]  regKonto ---->
+2023-03-14 14:41:29,554 DEBUG d.Databas [main] hämtaKonton ------->
+2023-03-14 14:41:29,567 DEBUG d.Databas [main] Databas ansluten
+2023-03-14 14:41:29,603 DEBUG d.Databas [main] konton hämtade till rs
+2023-03-14 14:41:29,606 DEBUG d.Databas [main] kontos lån hämtade till lRS
+2023-03-14 14:41:29,607 DEBUG d.Databas [main] lån lagda i Lånarray-list
+2023-03-14 14:41:29,607 DEBUG d.Databas [main] Lånarray-list till array
+2023-03-14 14:41:29,608 DEBUG d.Databas [main] skapar kontobjekt: 0
+2023-03-14 14:41:29,616 DEBUG d.Databas [main] kontoobjekt lagt till arrayOfAccounts0
+2023-03-14 14:41:29,616 DEBUG d.Databas [main] antal böcker lånade: 0
+2023-03-14 14:41:29,619 DEBUG d.Databas [main] kontos lån hämtade till lRS
+2023-03-14 14:41:29,624 DEBUG d.Databas [main] lån lagda i Lånarray-list
+2023-03-14 14:41:29,625 DEBUG d.Databas [main] Lånarray-list till array
+2023-03-14 14:41:29,627 DEBUG d.Databas [main] skapar kontobjekt: 5206
+2023-03-14 14:41:29,628 DEBUG d.Databas [main] kontoobjekt lagt till arrayOfAccounts5206
+2023-03-14 14:41:29,629 DEBUG d.Databas [main] antal böcker lånade: 3
+2023-03-14 14:41:29,635 DEBUG d.Databas [main] kontos lån hämtade till lRS
+2023-03-14 14:41:29,635 DEBUG d.Databas [main] lån lagda i Lånarray-list
+2023-03-14 14:41:29,635 DEBUG d.Databas [main] Lånarray-list till array
+2023-03-14 14:41:29,636 DEBUG d.Databas [main] skapar kontobjekt: 7901
+2023-03-14 14:41:29,636 DEBUG d.Databas [main] kontoobjekt lagt till arrayOfAccounts7901
+2023-03-14 14:41:29,636 DEBUG d.Databas [main] antal böcker lånade: 0
+2023-03-14 14:41:29,640 DEBUG d.Databas [main] kontos lån hämtade till lRS
+2023-03-14 14:41:29,645 DEBUG d.Databas [main] lån lagda i Lånarray-list
+2023-03-14 14:41:29,647 DEBUG d.Databas [main] Lånarray-list till array
+2023-03-14 14:41:29,647 DEBUG d.Databas [main] skapar kontobjekt: 9999
+2023-03-14 14:41:29,648 DEBUG d.Databas [main] kontoobjekt lagt till arrayOfAccounts9999
+2023-03-14 14:41:29,648 DEBUG d.Databas [main] antal böcker lånade: 1
+2023-03-14 14:41:29,649 DEBUG d.Databas [main] Kont[] returned
+2023-03-14 14:41:29,649 DEBUG d.Databas [main] <----- hämtaKonto()antal konton = 4
+2023-03-14 14:41:29,649 DEBUG p.Process [main] hämtar svartlistade
+2023-03-14 14:41:29,649 DEBUG d.Databas [main] hämtaSvartlistade -----> 
+2023-03-14 14:41:29,653 DEBUG d.Databas [main] <------- hämtaSvartlistade (listas längd = 2
+2023-03-14 14:41:29,654 DEBUG p.Process [main] svartlistade = 2
+2023-03-14 14:41:29,654 DEBUG p.Process [main] kollar om kontot finns
+2023-03-14 14:41:29,654 DEBUG p.Process [main] letar i svartlistan
+2023-03-14 14:41:29,654 DEBUG p.Process [main] skapar konto
+2023-03-14 14:41:29,655 DEBUG d.Databas [main] Skapa Konto ----->
+2023-03-14 14:41:29,712 DEBUG d.Databas [main] Databas ansluten ----->
+2023-03-14 14:41:29,713 DEBUG d.Databas [main] hämtaKonton ------->
+2023-03-14 14:41:29,713 DEBUG d.Databas [main] Databas ansluten
+2023-03-14 14:41:29,718 DEBUG d.Databas [main] konton hämtade till rs
+2023-03-14 14:41:29,721 DEBUG d.Databas [main] kontos lån hämtade till lRS
+2023-03-14 14:41:29,721 DEBUG d.Databas [main] lån lagda i Lånarray-list
+2023-03-14 14:41:29,721 DEBUG d.Databas [main] Lånarray-list till array
+2023-03-14 14:41:29,722 DEBUG d.Databas [main] skapar kontobjekt: 0
+2023-03-14 14:41:29,722 DEBUG d.Databas [main] kontoobjekt lagt till arrayOfAccounts0
+2023-03-14 14:41:29,722 DEBUG d.Databas [main] antal böcker lånade: 0
+2023-03-14 14:41:29,725 DEBUG d.Databas [main] kontos lån hämtade till lRS
+2023-03-14 14:41:29,729 DEBUG d.Databas [main] lån lagda i Lånarray-list
+2023-03-14 14:41:29,729 DEBUG d.Databas [main] Lånarray-list till array
+2023-03-14 14:41:29,730 DEBUG d.Databas [main] skapar kontobjekt: 5206
+2023-03-14 14:41:29,730 DEBUG d.Databas [main] kontoobjekt lagt till arrayOfAccounts5206
+2023-03-14 14:41:29,730 DEBUG d.Databas [main] antal böcker lånade: 3
+2023-03-14 14:41:29,733 DEBUG d.Databas [main] kontos lån hämtade till lRS
+2023-03-14 14:41:29,733 DEBUG d.Databas [main] lån lagda i Lånarray-list
+2023-03-14 14:41:29,733 DEBUG d.Databas [main] Lånarray-list till array
+2023-03-14 14:41:29,733 DEBUG d.Databas [main] skapar kontobjekt: 7901
+2023-03-14 14:41:29,733 DEBUG d.Databas [main] kontoobjekt lagt till arrayOfAccounts7901
+2023-03-14 14:41:29,734 DEBUG d.Databas [main] antal böcker lånade: 0
+2023-03-14 14:41:29,736 DEBUG d.Databas [main] kontos lån hämtade till lRS
+2023-03-14 14:41:29,737 DEBUG d.Databas [main] lån lagda i Lånarray-list
+2023-03-14 14:41:29,737 DEBUG d.Databas [main] Lånarray-list till array
+2023-03-14 14:41:29,737 DEBUG d.Databas [main] skapar kontobjekt: 9999
+2023-03-14 14:41:29,737 DEBUG d.Databas [main] kontoobjekt lagt till arrayOfAccounts9999
+2023-03-14 14:41:29,737 DEBUG d.Databas [main] antal böcker lånade: 1
+2023-03-14 14:41:29,737 DEBUG d.Databas [main] Kont[] returned
+2023-03-14 14:41:29,737 DEBUG d.Databas [main] <----- hämtaKonto()antal konton = 4
+2023-03-14 14:41:29,738 DEBUG d.Databas [main] Slumpar fram unikt id.
+2023-03-14 14:41:29,738 DEBUG d.Databas [main] unikt id hittat
+2023-03-14 14:41:29,761 DEBUG d.Databas [main] <----- Skapa Konto 7902
+2023-03-14 14:41:29,766 DEBUG p.Process [main] <----- skapaKonto()sdf, sdf,4334,0
+2023-03-14 15:19:47,554 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 15:28:19,722 DEBUG p.TestProcess [main] --Resetting mock--

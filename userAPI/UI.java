@@ -247,7 +247,6 @@ break;
                                                     "Konto kan inte avslutas");
                                     break;
                                 }
-
 break;
                         case 4: //registrera konto
                             System.out.println(
