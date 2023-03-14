@@ -31,7 +31,7 @@ public class TestKonto {
             assertTrue(medlem.ärAvstängd());
         }
         @Test
-        @DisplayName("Viktor har avstängning 2099-01-01. returns true")
+        @DisplayName("Viktor har avstängning 2010-01-01. returns false")
         void testärAvstängd2() {
             Konto medlem = new Konto(
                     "Viktor",
@@ -39,7 +39,7 @@ public class TestKonto {
                     3412121212L,
                     0,
                     1111,
-                    LocalDate.of(2090,1,1),
+                    LocalDate.of(2010,1,1),
                     new Lån[]{},
                     0,
                     0);
