@@ -289,3 +289,16 @@
 2023-03-14 15:57:42,757 DEBUG p.Process [main] P: hämtaKonto  --->
 2023-03-14 15:57:42,760 DEBUG p.Process [main] konto finns
 2023-03-14 15:57:42,760 DEBUG p.Process [main]  <--- hämtaKonto: medlem hittad
+2023-03-14 16:08:45,374 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 16:08:45,396 DEBUG p.Process [main] P: hämtaKonto  --->
+2023-03-14 16:08:45,398 DEBUG p.Process [main] konto finns
+2023-03-14 16:08:45,398 DEBUG p.Process [main]  <--- hämtaKonto: medlem hittad
+2023-03-14 16:09:01,220 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 16:09:01,241 DEBUG p.Process [main] P: hämtaKonto  --->
+2023-03-14 16:09:01,243 DEBUG p.Process [main] konto finns
+2023-03-14 16:09:01,244 DEBUG p.Process [main]  <--- hämtaKonto: medlem hittad
+2023-03-14 16:11:19,339 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 16:11:19,357 DEBUG p.Process [main] P: hämtaKonto  --->
+2023-03-14 16:11:19,360 DEBUG p.Process [main]  <--- hämtaKonto: Medlems konto inte hittat
+2023-03-14 16:18:55,474 DEBUG p.TestProcess [main] --Resetting mock--
+2023-03-14 16:18:55,502 DEBUG p.Process [main] P: hämtaKonto  --->
