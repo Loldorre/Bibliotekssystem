@@ -2,21 +2,10 @@ package processlagerAPI;
 
 import databasAPI.*;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.chrono.ChronoLocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import processlagerAPI.Process;
-
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Process {
@@ -31,6 +20,7 @@ public class Process {
         this.DatabasAPI = db;
     }
 
+    //Sanja
    public String[] hämtaSamling() throws Exception{
        Bok[] tillgängliga = DatabasAPI.hämtaBöcker();
        String[] böcker = new String[tillgängliga.length];
@@ -43,6 +33,7 @@ public class Process {
        }
        return böcker;
     }
+    //Linnea
     public Bok kollaTillgänglighet(int isbn) throws SQLException{
         logger.trace("kollaTillgänglighet (isbn)  --->");
         Bok[] listaAvBöcker = DatabasAPI.hämtaTillgänglighet();
@@ -58,6 +49,7 @@ public class Process {
         logger.debug("<--- kollaTillgänglighet bok inte tillgänglig");
         return null;
     }
+    //Viktor
 public Konto hämtaKonto(int kontoID) throws Exception{
     logger.debug("P: hämtaKonto  --->");
     Konto medlem = null;
@@ -79,6 +71,7 @@ public Konto hämtaKonto(int kontoID) throws Exception{
 }
     }
 
+    //Dorian
     public Konto tempAvstängning(Konto medlem, int antalDagar) throws Exception {
         logger.debug(" tempAvstängning ---->");
         int extra = 0;
@@ -96,6 +89,7 @@ public Konto hämtaKonto(int kontoID) throws Exception{
             return medlem;
     }
 
+    //Linnea
     public Konto svartlistaMedlem(Konto medlem) throws SQLException {
         logger.debug(" svartlistaMedlem ---->");
         int databasSvar;
@@ -119,7 +113,7 @@ public Konto hämtaKonto(int kontoID) throws Exception{
        logger.debug(" <------ svartListaMedlem. Svartlistad>");
                     return medlem;
             }
-
+//Dorian
     public int regKonto(String fnamn, String enamn, long personNr, int roll) throws Exception {
         logger.debug(" regKonto ---->");
         Konto[] kontolista = this.DatabasAPI.hämtaKonton();
@@ -165,7 +159,7 @@ public Konto hämtaKonto(int kontoID) throws Exception{
         }
     }
 
-
+//Sanja
     public Konto avslutaKonto(Konto medlem) throws SQLException {
         logger.debug(" avslutaKonto ---->");
         Konto[] kontolista = this.DatabasAPI.hämtaKonton();
@@ -183,12 +177,12 @@ public Konto hämtaKonto(int kontoID) throws Exception{
                     logger.debug("kontonummer finns inte");
                     return null;
                 }
-
             }
         }
         return medlem;
     }
 
+    //Dorian
     public int registreraLån(int kontoId, int bibID) throws SQLException {
         logger.debug(" registreraLån ---->");
 int svar = DatabasAPI.skapaLån(kontoId, bibID);
@@ -197,6 +191,7 @@ int svar = DatabasAPI.skapaLån(kontoId, bibID);
     return 0;
     }
 
+    //Sanja
     public int återlämnaBok(Konto medlem, int bibID) throws SQLException{
         logger.debug(" återlämnaBok ---->");
         boolean bokKoppladTillMedlem = false;

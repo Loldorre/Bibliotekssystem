@@ -6,13 +6,6 @@ import java.time.LocalDate;
 public class Konto {
     private String fNamn;
     private String eNamn;
-    /* -- undergraduate,postgraduate,candidate,teacher (måste vara definierat så man vet vad man ska sätta in vid registrering... borde egentligen vara en int tycker jag)
-    Max lån:
-    undergraduate = 3
-    postgraduate = 5
-    candidate = 7
-    teacher = 10
-    * */
     private int roll;
     private long personNr;
     private int kontoID;
@@ -161,6 +154,7 @@ public LocalDate getAvstangd(){
     }
 
     public void setAntalAvstangningar(int antalAvstangningar) {
+
         this.antalAvstangningar = antalAvstangningar;
     }
 
