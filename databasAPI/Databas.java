@@ -2,7 +2,6 @@ package databasAPI;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import processlagerAPI.TestProcess;
 
 import java.sql.*;
 import java.sql.Connection;
@@ -26,8 +25,6 @@ public class Databas {
             throw new RuntimeException(e);
         }
     }
-
-    //Hämtar en array av böcker som finns i Bok-tabellen och inte inte lån-tabellen
 
     //Hämtar en array av böcker som finns i Bok-tabellen och inte inte lån-tabellen
     public Bok[] hämtaTillgänglighet()throws SQLException {
@@ -146,7 +143,6 @@ public class Databas {
                         lRS.getDate("återlämningsdatum").getDay()
                 );
 
-
                 LocalDate lånDatum = låndate.toInstant()
                         .atZone(ZoneId.systemDefault())
                         .toLocalDate().minusDays(16);
@@ -258,7 +254,6 @@ public class Databas {
         return medlem;
     }
 
-
     public int taBortLån(int bid) throws SQLException{
         logger.debug("taBortLån ------->");
 
@@ -273,13 +268,11 @@ public class Databas {
         return 0;
     }
 
-
     public Konto updateAntalAvstängningar(Konto medlem) throws SQLException {
         logger.debug("updateAntalAvstängningar -----> ");
 
         int amountOfBan = medlem.getAntalAvstangningar();
                 amountOfBan++;
-
 
             Statement stmt = connection.createStatement();
             String getAccount = "update konto set antalAvstängningar="+amountOfBan + " where kontoID="+medlem.getKontoID();
@@ -288,7 +281,6 @@ public class Databas {
         logger.debug("<------- updateAntalAvstängningar ");
         return medlem;
     }
-
 
     // Klar tack vare Z
     public long[] hämtaSvarlistade() {
@@ -337,29 +329,4 @@ public class Databas {
     }
 
 
-    //Förvandlar localDate till sql-vänlig Date...
-    public static Date convertToDateUsingDate(LocalDate date) {
-        return java.sql.Date.valueOf(date);
-    }
-
-    //Förvandlar localDate till sql-vänlig Date genom instant...
-    public static Date convertToDateUsingInstant(LocalDate date) {
-        return java.util.Date.from(date.atStartOfDay()
-                .atZone(ZoneId.systemDefault())
-                .toInstant());
-    }
-    public boolean updateraFörseningar(Konto medlem,int antal) throws SQLException{
-        logger.debug("Databas: updateraFörseningar -----> ");
-        Statement stmt = connection.createStatement();
-        String uppdateraFöreseningar = "update konto set antalFörseningar="+antal+" where kontoID="+ medlem.getKontoID()+";";
-        logger.debug("<------- Databas: updateraFörseningar ");
-        return true;
-    }
-    public boolean uppdateraAvstängningar(Konto medlem,int antal)throws SQLException{
-        logger.debug("Databas: updateraAvstängningar -----> ");
-        Statement stmt = connection.createStatement();
-        String uppdateraAvstängningar = "update konto set antalAvstängningar="+antal+" where kontoID="+ medlem.getKontoID()+";";
-        logger.debug("<------- Databas: updateraAvstängningar ");
-        return true;
-    }
 }

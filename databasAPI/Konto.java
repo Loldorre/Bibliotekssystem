@@ -1,12 +1,7 @@
 package databasAPI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-
 
 public class Konto {
     private String fNamn;
@@ -20,8 +15,6 @@ public class Konto {
     * */
     private int roll;
     private long personNr;
-
-
     private int kontoID;
     private LocalDate avstangd;
     Lån[]  lånadeBöcker;
@@ -29,7 +22,6 @@ public class Konto {
     private int antalForseningar;
     private static Logger logger = LogManager.getLogger(Konto.class.getName());
     public Konto (String fNamn, String eNamn, long personNr, int roll, int kontoID, LocalDate avstangd, Lån[] lån, int antalAvstangningar, int antalForseningar) {
-
         this.fNamn = fNamn;
         this.eNamn = eNamn;
         this.roll = roll;
@@ -40,6 +32,7 @@ public class Konto {
         this.antalAvstangningar = antalAvstangningar;
         this.antalForseningar = antalForseningar;
     }
+
     public boolean ärAvstängd() {
         logger.debug("ärAvstängd  --->");
         LocalDate avstängd = this.getAvstangd();
@@ -57,7 +50,6 @@ public class Konto {
         //Inga avstängningar.
         logger.debug(" <--- ärAvstängd (false)");
         return false;
-
     }
 
     public boolean börAvstängas(){
@@ -75,17 +67,7 @@ public class Konto {
         if (lånadeBöcker.length > 0) return true;
         return false;
     }
-    public int antalFörseningar(){
-        logger.debug("antalFörseningar  --->");
-        int försening=0;
-        for (Lån l : lånadeBöcker) {
-            if (l.ärFörsenad()) {
-                försening++;
-            }
-        }
-                logger.debug(" <--- antalFörseningar)");
-                return försening;
-    }
+
     public boolean harMaxLån(){
         logger.debug("harMaxlån  --->");
 
@@ -96,6 +78,7 @@ public class Konto {
         logger.debug(" <--- harMaxlån false");
         return false;
     }
+
 public int getMaxLån(){
     int maxböcker = 0;
 
@@ -117,23 +100,11 @@ public int getMaxLån(){
     }
     return maxböcker;
 }
-    public boolean harFörsening() {
-        logger.debug("harFörsening  --->");
-        for (Lån l : lånadeBöcker) {
-            if (l.ärFörsenad()) {
-                //----Letar efter försenade böcker----
-                logger.debug("försenad bok hittad");
-                logger.debug(" <--- P: kollaLån");
-                logger.debug(" <--- harFörsening true: bid" + l.getBid());
-                return true;
-            }
-        }
-        logger.debug(" <--- harFörsening false");
-        return false;
-    }
+
 public LocalDate getAvstangd(){
         return this.avstangd;
     }
+
     public Lån[] getLånadeBöcker() {
         return lånadeBöcker;
     }
@@ -200,25 +171,4 @@ public LocalDate getAvstangd(){
     public void setAntalForseningar(int antalForseningar) {
         this.antalForseningar = antalForseningar;
     }
-
-    public static void main(String[] args) {
-
-        Date avstängd = new Date(2023,11,12);
-
-
-        LocalDate test = avstängd.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate().minusYears(1900);
-
-        System.out.println(test);
-
-        System.out.println("t1  "+LocalDate.now().toString());
-        System.out.println("t2  "+LocalDate.parse("2025-12-11").toString());
-        LocalDate t1 = LocalDate.now();
-        LocalDate t2 = LocalDate.parse("2025-12-11");
-
-        System.out.println("t1 is before t2= "+t1.isBefore(t2));
-    }
-
-
 }

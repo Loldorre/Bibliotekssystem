@@ -31,17 +31,6 @@ public class Process {
         this.DatabasAPI = db;
     }
 
-public Konto uppdateraKonto(Konto medlem, String attribut,int antal)throws SQLException{
-            if (attribut.toLowerCase() == "avstängningar") {
-                DatabasAPI.uppdateraAvstängningar(medlem, antal);
-                medlem.setAntalAvstangningar(antal);
-            }
-            if (attribut.toLowerCase() == "förseningar") {
-                DatabasAPI.uppdateraAvstängningar(medlem, antal);
-                medlem.setAntalForseningar(antal);
-            }
-    return medlem;
-}
    public String[] hämtaSamling() throws Exception{
        Bok[] tillgängliga = DatabasAPI.hämtaBöcker();
        String[] böcker = new String[tillgängliga.length];
@@ -69,7 +58,7 @@ public Konto uppdateraKonto(Konto medlem, String attribut,int antal)throws SQLEx
         logger.debug("<--- kollaTillgänglighet bok inte tillgänglig");
         return null;
     }
-public Konto hämtaKonto(int kontoID)throws Exception{
+public Konto hämtaKonto(int kontoID) throws Exception{
     logger.debug("P: hämtaKonto  --->");
     Konto medlem = null;
         Konto[] listAvKonton = DatabasAPI.hämtaKonton();

@@ -2,17 +2,13 @@ package userAPI;
 
 import java.lang.String;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import databasAPI.Bok;
 import databasAPI.Konto;
 import databasAPI.Lån;
-import processlagerAPI.*;
 import processlagerAPI.Process;
 
-import static java.time.temporal.ChronoUnit.DAYS;
 
 public class UI {
     public static void main(String[] args) throws Exception {
@@ -87,8 +83,6 @@ public class UI {
                                 continue;
                             }
                             System.out.println("Konto hittat");
-
-
 
                             //kollar om medlem bör få låna
                             if (medlem.ärAvstängd()) {
